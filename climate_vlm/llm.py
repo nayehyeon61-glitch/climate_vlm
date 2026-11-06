@@ -65,11 +65,27 @@ def lora_state_dict(module: nn.Module) -> Dict[str, torch.Tensor]:
 
 
 class PromptBuilder:
-    """Metadata as text (variables, units, levels, grid, issue time, history, leads) and template explanations."""
+    """Metadata as text (variables, units, levels, grid, issue time, history, leads) and template explanations.
+
+    compact: one short line (variables grouped by level, lead range) instead of every name and unit (about 70
+    instead of 215 tokens; the prompt dominates the LLM cost on a CPU)."""
 
     def __init__(self, tokenizer, channels: Sequence[str], units: Sequence[str], grid: str,
-                 history_h: Sequence[int], leads_h: Sequence[int]):
+                 history_h: Sequence[int], leads_h: Sequence[int], compact: bool = False):
         self.tok = tokenizer
+        if compact:  # e.g. "ERA5 5.625 deg: z, t, q, u, v at 500/700/850 hPa; t2m, msl, tcwv; history -24..0 h; ..."
+            from .contract import split_name
+            levels: Dict[str, List[str]] = {}
+            for c in channels:
+                v, p = split_name(c)
+                levels.setdefault(v, []).append("" if p is None else str(p))
+            groups: Dict[str, List[str]] = {}
+            for v, ps in levels.items():
+                groups.setdefault("/".join(ps), []).append(v)
+            var = "; ".join(", ".join(vs) + (f" at {k} hPa" if k else "") for k, vs in groups.items())
+            self.head = (f"ERA5 {grid}: {var}; history {min(history_h)}..{max(history_h)} h; "
+                         f"forecast +{min(leads_h)}..+{max(leads_h)} h. Issue time: ")
+            return
         var = ", ".join(f"{c} [{u}]" for c, u in zip(channels, units))
         self.head = (f"You are a numerical weather forecaster. Inputs: ERA5 analyses on a {grid} grid, "
                      f"variables {var}, history {', '.join(f'{h:+d} h' for h in history_h)}. "

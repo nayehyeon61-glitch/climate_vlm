@@ -28,13 +28,24 @@ def bpad(x: torch.Tensor, p: int) -> torch.Tensor:
     return F.pad(F.pad(x, (0, 0, p, p), mode="reflect"), (p, p, 0, 0), mode="circular")
 
 
-def interp(x: torch.Tensor, factor: int) -> torch.Tensor:
-    """Bilinear (..., C, h, w) -> (..., C, h*f, w*f) for fine cells that split coarse cells; periodic in lon."""
+def interp(x: torch.Tensor, factor: int, lon0: bool = False) -> torch.Tensor:
+    """Bilinear (..., C, h, w) -> (..., C, h*f, w*f) for fine cells that split coarse cells; periodic in lon.
+
+    lon0: both grids centre a cell on 0 deg longitude (WB2 layout, factor 2): fine column 2j sits on coarse column
+    j and 2j + 1 halfway to j + 1, so longitude is interpolated at those points (latitude rows still split)."""
     if factor == 1:
         return x
     shp = x.shape
-    y = F.interpolate(bpad(x.reshape(-1, *shp[-3:]), 1), scale_factor=factor, mode="bilinear", align_corners=False)
-    y = y[..., factor:-factor, factor:-factor]
+    x4 = x.reshape(-1, *shp[-3:])
+    if lon0:
+        if factor != 2:
+            raise ValueError("a grid centred on 0 deg longitude can only be refined by 2")
+        y = F.interpolate(bpad(x4, 1), scale_factor=(factor, 1), mode="bilinear", align_corners=False)
+        y = y[..., factor:-factor, 1:-1]
+        y = torch.stack([y, 0.5 * (y + torch.roll(y, -1, -1))], -1).flatten(-2)
+    else:
+        y = F.interpolate(bpad(x4, 1), scale_factor=factor, mode="bilinear", align_corners=False)
+        y = y[..., factor:-factor, factor:-factor]
     return y.reshape(*shp[:-2], *y.shape[-2:])
 
 
@@ -81,10 +92,10 @@ class Downscaler(nn.Module):
 
     def __init__(self, channels: int, factor: int, hr_shape: Sequence[int], c_static: int = 3, lon_pad: int = 16,
                  unet: Optional[Dict] = None, residual: bool = False, res_unet: Optional[Dict] = None,
-                 sampler_steps: int = 18):
+                 sampler_steps: int = 18, lon0: bool = False):
         super().__init__()
         H, W = hr_shape
-        self.factor, self.channels, self.steps = factor, channels, sampler_steps
+        self.factor, self.channels, self.steps, self.lon0 = factor, channels, sampler_steps, lon0
         res_px = [H, W + 2 * lon_pad]
         unet = dict(unet or {})
         n_grid = unet.setdefault("N_grid_channels", 4)
@@ -105,7 +116,7 @@ class Downscaler(nn.Module):
 
     def condition(self, x_lr: torch.Tensor, s_hr: torch.Tensor) -> torch.Tensor:
         """CorrDiff conditioning image: LR state interpolated to the HR grid + HR static fields."""
-        return torch.cat([interp(x_lr, self.factor), s_hr.expand(x_lr.shape[0], -1, -1, -1)], 1)
+        return torch.cat([interp(x_lr, self.factor, self.lon0), s_hr.expand(x_lr.shape[0], -1, -1, -1)], 1)
 
     def forward(self, x_lr: torch.Tensor, s_hr: torch.Tensor) -> torch.Tensor:
         """(B, C, h, w) normalised LR -> (B, C, H, W) conditional mean."""
@@ -150,7 +161,7 @@ class Downscaler(nn.Module):
         mean = mean.view(B, S, *mean.shape[1:])
         dt = torch.tensor([b - a for a, b in zip(history_h[:-1], history_h[1:])], dtype=mean.dtype,
                           device=mean.device).view(1, -1, 1, 1, 1) / 24.0
-        out = {"lr": interp(x_lr, self.factor), "mean": mean,
+        out = {"lr": interp(x_lr, self.factor, self.lon0), "mean": mean,
                "tendency": torch.cat([torch.zeros_like(mean[:, :1]), (mean[:, 1:] - mean[:, :-1]) / dt], 1)}
         if self.res is not None and members > 1:
             ens = self.sample(x_lr.flatten(0, 1), s_hr, members, mean=mean.flatten(0, 1))

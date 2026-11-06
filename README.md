@@ -45,6 +45,28 @@ python scripts/evaluate.py --config $C --ckpt runs/v1/stage3.pt --out runs/v1/ev
 CPU 확인용: `python scripts/make_synthetic.py --out data/synthetic` 뒤 `configs/tiny_synthetic.yaml`로 같은 명령을
 실행합니다(임의 가중치의 작은 Qwen3.5, 숫자는 의미 없음). 테스트는 `python -m pytest tests`입니다.
 
+## 작은 규모 실행과 ClimODE 비교 (WeatherBench2, CPU)
+
+pg-flow의 2020 hold-out 비교(`physical_guide_flowmatching/docs/results_2026_11`)와 같은 IC 179개(12 UTC, 2일 간격),
+같은 정답(WB2 ERA5 64×32 conservative), 같은 점수식(ClimODE의 RMSE, ACC, min–max 단위 Gaussian CRPS), lead 24~144 h로
+채점합니다. pg-flow의 KAI 파일 없이 공개 WB2 zarr만으로 돌아가서 클라우드 CPU에서도 됩니다.
+
+```bash
+C=configs/cpu_small_2020.yaml       # 학습 2012–2015, 검증 2016, 시험 2020 (2019는 첫 IC의 과거 입력으로만)
+python scripts/wb2_to_cache.py --config $C      # WB2 128x64 → 캐시, 64x32 채점 정답 2006–2018·2020, ClimODE min–max
+python scripts/prepare_data.py --config $C      # train 기간 통계
+bash scripts/run_cpu_small.sh                   # 1 → 2 → 3단계, 2020 예측, ClimODE 비교 표
+```
+
+- `scripts/compare_climode.py`가 2.8125° 예측을 64×32로 평균해(가우시안 scale도 평균: 한 5.625° 칸 안의 오차가 완전 상관이라는
+  가정) 채점하고, pg-flow의 결과 JSON에서 ClimODE와 pg-flow 모델의 평균을 가져와 표(`table.md`)를 만듭니다.
+  지속성 예보를 다시 계산해 그 JSON과 비교하므로(상대 차이 1e-6 이하) 정답·IC·점수식이 같다는 것이 확인됩니다.
+- ClimODE의 IC별 예측(`--climode-pred`, 서버의 `climode_pred_2020_valid.npz`)을 주면 짝 차이의 95 % 부트스트랩 구간도 냅니다.
+  주지 않으면 같은 IC에서의 평균끼리 비교입니다.
+- WB2 128×64 격자는 0°에 칸 중심이 있어 2.8125° 칸이 5.625° 칸을 정확히 나누지 않습니다. 이 경우 경도 방향 1/4, 1/2, 1/4
+  가중 평균(`data.coarsen(..., lon0=True)`)과 그에 맞춘 보간(`downscaler.interp`)을 씁니다. 서버의 pg-flow `--grid 2.8125`
+  자료는 칸이 정확히 나뉘므로 이 근사가 필요 없습니다.
+
 ## 모듈
 
 | 파일 | 계획서 | 내용 |
@@ -58,7 +80,7 @@ CPU 확인용: `python scripts/make_synthetic.py --out data/synthetic` 뒤 `conf
 | `climate_vlm/physics.py` | p.6 | 구면 격자 미분, 진단(850 hPa 온도·수증기 이류, 수분 flux 수렴, 500–850 hPa 층후), 정역학 residual, q ≥ 0 |
 | `climate_vlm/losses.py` | p.7 | L_forecast(면적 가중 MSE 또는 CRPS) + λ_d L_diag + λ_p L_phys + λ_c L_cons + λ_t L_text |
 | `climate_vlm/metrics.py`, `io.py` | p.9 | RMSE / ACC / CRPS (pg-flow 정의), pg-flow 형식 출력 |
-| `scripts/` | | `make_synthetic`, `prepare_data`, `train`(단계 1, 1res, 2, 3), `evaluate` |
+| `scripts/` | | `make_synthetic`, `prepare_data`, `train`(단계 1, 1res, 2, 3), `evaluate`, `wb2_to_cache`(공개 WB2 자료), `compare_climode`(ClimODE 규약 채점) |
 
 ## 계획서에서 정한 것을 이렇게 구현했습니다
 

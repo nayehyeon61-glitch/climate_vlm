@@ -26,7 +26,8 @@ def main(argv=None):
     a = a.parse_args(argv)
     cfg = build.load_config(a.config)
     d, p = cfg["data"], build.paths(cfg)
-    all_years = sorted(set(build.years(d["train_years"]) + build.years(d["val_years"]) + build.years(d["test_years"])))
+    all_years = sorted(set(build.years(d["train_years"]) + build.years(d["val_years"]) + build.years(d["test_years"])
+                           + build.years(d.get("context_years", []))))
     todo = [y for y in all_years if not os.path.exists(os.path.join(p["cache"], f"{y}.npy"))]
     if todo:
         data.prepare_cache(d["kai_dir"], p["cache"], todo, d["state_channels"], d.get("extra_channels", []),

@@ -17,6 +17,7 @@ import torch.nn as nn
 
 from . import contract
 from .decoder import ForecastDecoder, GeoEmbedding, LeadEmbedding, PhysicsHead
+from .data import lon0_grid
 from .downscaler import Downscaler
 from .llm import DEFAULT_LORA_TARGETS, QwenParts, add_lora
 from .vision import QwenVisionEncoder, WeatherImages, WeatherTokenizer
@@ -28,7 +29,8 @@ def make_downscaler(cfg: Dict, meta: Dict) -> Downscaler:
     ds = cfg["model"]["downscaler"]
     return Downscaler(len(meta["state_channels"]), cfg["data"]["factor"], (len(meta["lat"]), len(meta["lon"])),
                       lon_pad=ds.get("lon_pad", 16), unet=ds.get("unet"), residual=ds.get("residual", False),
-                      res_unet=ds.get("res_unet"), sampler_steps=ds.get("sampler_steps", 18))
+                      res_unet=ds.get("res_unet"), sampler_steps=ds.get("sampler_steps", 18),
+                      lon0=cfg["data"]["factor"] > 1 and lon0_grid(meta["lon"]))
 
 
 class ClimateVLM(nn.Module):

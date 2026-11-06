@@ -1,0 +1,72 @@
+# Small-scale run on a CPU machine (4 cores, no GPU) with the real Qwen3.5-0.8B, scored like pg-flow's 2020
+# ClimODE comparison (docs/results_2026_11 of physical_guide_flowmatching): 179 ClimODE-convention ICs of 2020,
+# WB2 64x32 truth, leads 24..144 h, ClimODE's RMSE / ACC / Gaussian CRPS.
+# Data: scripts/wb2_to_cache.py (public WB2 128x64 zarr; no pg-flow KAI files needed).
+#   python scripts/wb2_to_cache.py --config configs/cpu_small_2020.yaml
+#   python scripts/prepare_data.py --config configs/cpu_small_2020.yaml
+#   bash scripts/run_cpu_small.sh   (stages 1 -> 2 -> 3, evaluate.py, compare_climode.py), i.e.
+#   python scripts/train.py --config configs/cpu_small_2020.yaml --stage 1 --out runs/cpu_small
+#   python scripts/train.py --config configs/cpu_small_2020.yaml --stage 2 --init runs/cpu_small/stage1.pt --out runs/cpu_small
+#   python scripts/train.py --config configs/cpu_small_2020.yaml --stage 3 --init runs/cpu_small/stage2.pt --out runs/cpu_small
+#   python scripts/evaluate.py --config configs/cpu_small_2020.yaml --ckpt runs/cpu_small/stage3.pt --out runs/cpu_small/eval
+#   python scripts/compare_climode.py --config configs/cpu_small_2020.yaml --eval runs/cpu_small/eval \
+#       --reference ../physical_guide_flowmatching/docs/results_2026_11/scores/raw/blend_ngcm_2020_climode_paired.json
+data:
+  cache: data/wb2_2p8125
+  state_channels: [z500, z700, z850, t500, t700, t850, q500, q700, q850, u500, u700, u850, v500, v700, v850, t2m, msl, tcwv]
+  extra_channels: [u10, v10]
+  factor: 2                                  # HR 2.8125 deg (WB2 128x64) -> LR 5.625 deg input
+  history_h: [-24, 0]                        # two history slots (CPU budget)
+  leads_h: [24, 48, 72, 96, 120, 144]        # ClimODE / pg-flow scoring leads
+  train_years: ["2012-2015"]                 # pg-flow's "small" (blend_4y) training years
+  val_years: [2016]
+  test_years: [2020]                         # pg-flow / ClimODE hold-out year
+  context_years: [2019]                      # history of the first 2020 ICs only (never a target)
+  ic_hours: [0, 6, 12, 18]
+  ic_stride: 1
+
+model:
+  qwen: {name_or_path: Qwen/Qwen3.5-0.8B, dtype: bfloat16}
+  prompt: compact                            # short metadata line (~90 tokens): the LLM cost on a CPU
+  downscaler:
+    lon_pad: 8
+    unet: {model_channels: 32, channel_mult: [1, 2, 2], attn_resolutions: [], N_grid_channels: 4}
+    residual: false
+    sampler_steps: 18
+    spread_members: 0
+  vision:
+    groups: [[z500, t850, q850], [u850, v850, msl], [t2m, tcwv, z850]]
+    ranges: {lr: 3.0, mean: 3.0, tendency: 1.0, spread: 1.0}
+    image_scale: 1                           # 64x128 px -> 8 merged tokens per image
+    n_tokens: 64
+    dim: 256
+    heads: 8
+    layers: 2
+    numeric_patch: 8
+  n_query_tokens: 16
+  lora: {r: 8, alpha: 16, dropout: 0.05}
+  gradient_checkpointing: false
+  decoder:
+    dim: 256
+    heads: 8
+    patch: 8
+    f_layers: 2
+    g_layers: 1
+    self_attn: true
+    gaussian: true                           # mean + scale: Gaussian CRPS like ClimODE
+    residual_base: persistence
+    cnn_hidden: 32
+
+loss: {diag: 0.1, phys: 0.0, cons: 0.0, text: 0.0, phys_floor_m: 1.0}
+
+train:
+  seed: 0
+  workers: 2
+  amp: false
+  val_every: 300
+  val_batches: 8
+  log_every: 25
+  grad_clip: 1.0
+  stage1: {steps: 800, batch: 8, lr: 1.0e-3}
+  stage2: {steps: 900, batch: 4, lr: 3.0e-4, loss: {diag: 0.1}}
+  stage3: {steps: 300, batch: 4, lr: 1.0e-4, loss: {diag: 0.1, cons: 0.1, phys: 0.001}}

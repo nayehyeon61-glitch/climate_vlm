@@ -49,7 +49,7 @@ def main(argv=None):
     use_prompt = cfg["model"].get("prompt", True) and model.qwen_tokenizer is not None
     pb = PromptBuilder(model.qwen_tokenizer, meta["state_channels"], output_units(meta["state_channels"]),
                        f"{180 / len(meta['lat']) * cfg['data']['factor']:g} deg", cfg["data"]["history_h"],
-                       cfg["data"]["leads_h"])
+                       cfg["data"]["leads_h"], compact=cfg["model"].get("prompt") == "compact")
     ch, leads, lat = meta["channels"], cfg["data"]["leads_h"], meta["lat"]
     all_idx = list(range(len(ch)))
     years = a.years or build.years(cfg["data"]["test_years"])

@@ -46,10 +46,12 @@ def physics_pair(cfg: Dict, meta: Dict, norm: data.Normalizer):
 
 
 def dataset(cfg: Dict, split: str, ics: Optional[str] = None) -> data.ForecastDataset:
+    """data.context_years (history only, e.g. 2019 before a 2020 test year) apply to validation and test."""
     d = cfg["data"]
+    context = years(d.get("context_years", [])) if split != "train" else []
     return data.ForecastDataset(paths(cfg)["cache"], years(d[f"{split}_years"]), paths(cfg)["stats"], d["history_h"],
                                 d["leads_h"], d["factor"], ics=ics or ("all" if split == "train" else "climode"),
-                                hours=d.get("ic_hours", [0, 6, 12, 18]), stride=d.get("ic_stride", 1))
+                                hours=d.get("ic_hours", [0, 6, 12, 18]), stride=d.get("ic_stride", 1), context=context)
 
 
 def diag_stats(cfg: Dict) -> Dict[str, np.ndarray]:

@@ -7,7 +7,8 @@ Input (same files as pg-flow):
 ``prepare_cache`` copies the selected channels of the high-resolution (HR) grid into one
 float32 ``.npy`` per year (memory-mapped during training). The low-resolution (LR) input is the
 exact area-weighted average of the HR grid by ``factor`` (pg-flow's finer grids split the 5.625 deg
-cells exactly, so factor 2 on 2.8125 deg data gives pg-flow's 5.625 deg input).
+cells exactly, so factor 2 on 2.8125 deg data gives pg-flow's 5.625 deg input). On a WeatherBench2 grid
+(a cell centred on 0 deg, scripts/wb2_to_cache.py) factor 2 averages 1/4, 1/2, 1/4 along longitude instead.
 
 A sample at issue time t (index into a time line that may cross year files inside one split):
     x_lr  (S, C_state, h, w)  normalised LR history at t + history_h      model input
@@ -110,12 +111,28 @@ def load_meta(cache: str) -> Dict:
 # ----------------------------------------------------------------------------------------------
 
 
-def coarsen(x: np.ndarray, factor: int) -> np.ndarray:
-    """(..., H, W) -> (..., H/f, W/f) exact area-weighted average (fine cells split coarse cells)."""
+def lon0_grid(lon) -> bool:
+    """True for a WeatherBench2-style grid with a cell centred on 0 deg longitude."""
+    return abs(float(np.asarray(lon)[0])) < 1e-6
+
+
+def coarsen(x: np.ndarray, factor: int, lon0: bool = False) -> np.ndarray:
+    """(..., H, W) -> (..., H/f, W/f) area-weighted average.
+
+    lon0=False: the fine cells split the coarse cells (pg-flow --grid files), exact.
+    lon0=True: both grids centre a cell on 0 deg (WB2 128x64 -> 64x32), factor 2 only: a coarse cell holds one
+    whole fine cell and half of each neighbour, weights 1/4, 1/2, 1/4 along longitude (pg-flow coarsen_ens.py).
+    """
     if factor == 1:
         return x
     H, W = x.shape[-2:]
     w = contract.coarse_row_shares(H, factor).astype(np.float32).reshape(H // factor, factor, 1)
+    if lon0:
+        if factor != 2:
+            raise ValueError("a grid centred on 0 deg longitude can only be coarsened by 2")
+        xl = 0.25 * np.roll(x, 1, -1) + 0.5 * x + 0.25 * np.roll(x, -1, -1)
+        y = xl[..., ::2].reshape(*x.shape[:-2], H // factor, factor, W // factor)
+        return (y * w).sum(-2).astype(x.dtype, copy=False)
     y = x.reshape(*x.shape[:-2], H // factor, factor, W // factor, factor).mean(-1)
     return (y * w).sum(-2)
 
@@ -161,11 +178,13 @@ class ForecastDataset(Dataset):
     ics: "all" (every ``stride``-th step whose hour is in ``hours``) or "climode" (pg-flow / ClimODE test
     ICs: 6 h index 2 + 8 e of every year, 12 UTC every second day; history may reach into the previous
     year when that year is in the same split).
+    context: cached years that may hold the HISTORY of a window (e.g. 2019 for the first 2020 ICs). They never
+    give an issue time or a target.
     """
 
     def __init__(self, cache: str, years: Sequence[int], stats: str, history_h: Sequence[int],
                  leads_h: Sequence[int], factor: int, ics: str = "all", hours: Sequence[int] = (0, 12),
-                 stride: int = 1):
+                 stride: int = 1, context: Sequence[int] = ()):
         self.meta = load_meta(cache)
         self.cache, self.factor = cache, factor
         step = self.meta["step_hours"]
@@ -181,21 +200,26 @@ class ForecastDataset(Dataset):
         H, W = len(self.lat), len(self.lon)
         if H % factor or W % factor:
             raise ValueError(f"grid {H}x{W} is not divisible by factor {factor}")
-        if factor > 1 and abs(self.lon[0]) < 1e-6:
-            warnings.warn("HR grid has a cell centred on 0 deg (WeatherBench2 layout): its cells do not split pg-flow's "
-                          "coarse cells, so the LR input is shifted by half an HR cell from pg-flow's coarse grid. "
-                          "pg-flow's local_era5_to_kai.py --grid writes split-cell grids.")
+        self.lon0 = factor > 1 and lon0_grid(self.lon)
+        if self.lon0:
+            warnings.warn("HR grid has a cell centred on 0 deg (WeatherBench2 layout): the LR input averages 1/4, 1/2, "
+                          "1/4 along longitude, close to but not exactly the 5.625 deg analysis. pg-flow's "
+                          "local_era5_to_kai.py --grid writes split-cell grids, for which the average is exact.")
         self.normalizer = Normalizer.load(stats)
-        missing = [y for y in years if y not in self.meta["years"]]
+        missing = [y for y in list(years) + list(context) if y not in self.meta["years"]]
         if missing:
             raise FileNotFoundError(f"years {missing} are not in the cache {cache}")
+        own = {int(y) for y in years}
         self._arr, self._hours = {}, {}
         self.index = []  # (segment years, global t)
         lo, hi = min(self.hist), max(self.leads)
-        for seg in segments(years):
+        for seg in segments(sorted(own | {int(y) for y in context})):
             lens = [len(np.load(os.path.join(cache, f"{y}_hours.npy"), mmap_mode="r")) for y in seg]
             offs = np.cumsum([0] + lens)
+            year_of = np.repeat(seg, lens)
             for k, y in enumerate(seg):
+                if y not in own:
+                    continue
                 hrs = np.load(os.path.join(cache, f"{y}_hours.npy"))
                 if ics == "climode":
                     local = list(range(2, lens[k], 8))
@@ -203,7 +227,7 @@ class ForecastDataset(Dataset):
                     local = [t for t in range(0, lens[k], stride) if int(hrs[t] % 24) in hours]
                 for t in local:
                     g = offs[k] + t
-                    if g + lo >= 0 and g + hi < offs[-1]:
+                    if g + lo >= 0 and g + hi < offs[-1] and int(year_of[g + hi]) in own:
                         self.index.append((tuple(seg), int(g), int(y), int(t)))
         if not self.index:
             raise RuntimeError("no valid windows: check years, history and leads")
@@ -232,7 +256,7 @@ class ForecastDataset(Dataset):
         all_idx = list(range(len(self.channels)))
         x_hr = np.stack([self.normalizer.norm(np.asarray(a[self.state_idx]), self.state_idx) for a, _ in hist])
         y = np.stack([self.normalizer.norm(np.asarray(a), all_idx) for a, _ in fut])
-        x_lr = coarsen(x_hr, self.factor)
+        x_lr = coarsen(x_hr, self.factor, self.lon0)
         i0 = self.hist.index(0) if 0 in self.hist else len(self.hist) - 1
         hour0 = int(hist[i0][1])
         x0 = self.normalizer.norm(np.asarray(hist[i0][0]), all_idx)

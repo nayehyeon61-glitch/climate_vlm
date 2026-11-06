@@ -12,6 +12,7 @@ Stage 2 keeps the LLM weights frozen but NOT the graph: the loss reaches P throu
 import argparse
 import itertools
 import json
+import math
 import os
 import sys
 import time
@@ -130,7 +131,7 @@ def main(argv=None):
         use_prompt = cfg["model"].get("prompt", True) and model.qwen_tokenizer is not None
         pb = PromptBuilder(model.qwen_tokenizer, meta["state_channels"], output_units(meta["state_channels"]),
                            f"{180 / len(meta['lat']) * cfg['data']['factor']:g} deg", cfg["data"]["history_h"],
-                           cfg["data"]["leads_h"])
+                           cfg["data"]["leads_h"], compact=cfg["model"].get("prompt") == "compact")
         lam_t = obj.lam["text"]
         log(a.out, f"loss weights {obj.lam}")
 
@@ -169,8 +170,9 @@ def main(argv=None):
         log(a.out, f"trainable {n_train / 1e6:.2f} M of {n_all / 1e6:.1f} M parameters")
 
     opt = torch.optim.AdamW(params, lr=float(tc["lr"]), weight_decay=float(tc.get("weight_decay", 0.0)))
-    sched = torch.optim.lr_scheduler.OneCycleLR(opt, max_lr=float(tc["lr"]), total_steps=steps,
-                                                pct_start=tc.get("warmup", 0.05))
+    warm = max(1, int(tc.get("warmup", 0.05) * steps))  # linear warm-up, then cosine decay (any number of steps)
+    sched = torch.optim.lr_scheduler.LambdaLR(
+        opt, lambda s: min(1.0, (s + 1) / warm) * 0.5 * (1 + math.cos(math.pi * min(s, steps) / steps)))
     best, t0, it = float("inf"), time.time(), iter(())
     every = cfg["train"].get("val_every", 500)
     hist = []
