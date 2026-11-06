@@ -19,5 +19,6 @@ for arm in ${ARMS:-control ask ask_textlead}; do
         step "$O/answers/answers.json" python scripts/stage03_answers.py --config "$C" --ckpt "$O/stage3.pt" \
             --out "$O/answers" --n-ics 24
     fi
+    rm -f "$O/eval/"*_all_*.npz  # 2.2 GB of fields: the scores are kept (disk allowance)
 done
 echo STAGE03_DONE

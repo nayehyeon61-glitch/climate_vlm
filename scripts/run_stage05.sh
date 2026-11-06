@@ -24,5 +24,6 @@ for arm in control "$ARM"; do
     step "$O/$arm/eval/scores.json" python scripts/evaluate.py --config "$C" --ckpt "$O/$arm/stage2.pt" --out "$O/$arm/eval"
     step "$O/$arm/eval/climode_compare/scores.json" python scripts/compare_climode.py --config "$C" --eval "$O/$arm/eval" \
         --reference "$REF" --bands 6,15 --out "$O/$arm/eval/climode_compare"
+    rm -f "$O/$arm/eval/"*_all_*.npz  # 2.2 GB of fields: the scores are kept (disk allowance)
 done
 echo STAGE05_DONE
