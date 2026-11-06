@@ -10,13 +10,17 @@ export OMP_NUM_THREADS=${OMP_NUM_THREADS:-4}
 REF=${REF:-../physical_guide_flowmatching/docs/results_2026_11/scores/raw/blend_ngcm_2020_climode_paired.json}
 O=${OUT:-runs/stage04}
 B=${BANDS:-6,15}
-python scripts/compare_climode.py --config configs/stage01_cpu_small.yaml --eval runs/stage01/eval_stage2 \
-    --reference "$REF" --bands "$B" --out "$O/control_stage01/climode_compare"
+# skip a step whose output exists, so the script can simply be run again after an interruption
+step() { local out=$1; shift; if [ -e "$out" ]; then echo "done already: $out"; else "$@"; fi; }
+step "$O/control_stage01/climode_compare/scores.json" python scripts/compare_climode.py \
+    --config configs/stage01_cpu_small.yaml --eval runs/stage01/eval_stage2 --reference "$REF" --bands "$B" \
+    --out "$O/control_stage01/climode_compare"
 for arm in ${ARMS:-bands sfno sfno_advect}; do
     C=configs/stage04_$arm.yaml
-    python scripts/train.py --config "$C" --stage 2 --init runs/stage01/stage1.pt --out "$O/$arm"
-    python scripts/evaluate.py --config "$C" --ckpt "$O/$arm/stage2.pt" --out "$O/$arm/eval"
-    python scripts/compare_climode.py --config "$C" --eval "$O/$arm/eval" --reference "$REF" --bands "$B" \
-        --out "$O/$arm/eval/climode_compare"
+    step "$O/$arm/stage2_val.json" python scripts/train.py --config "$C" --stage 2 --init runs/stage01/stage1.pt \
+        --out "$O/$arm" --resume
+    step "$O/$arm/eval/scores.json" python scripts/evaluate.py --config "$C" --ckpt "$O/$arm/stage2.pt" --out "$O/$arm/eval"
+    step "$O/$arm/eval/climode_compare/scores.json" python scripts/compare_climode.py --config "$C" --eval "$O/$arm/eval" \
+        --reference "$REF" --bands "$B" --out "$O/$arm/eval/climode_compare"
 done
 echo STAGE04_DONE
