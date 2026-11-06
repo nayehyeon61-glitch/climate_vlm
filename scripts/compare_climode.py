@@ -14,7 +14,7 @@ persistence on the 179 ClimODE-convention ICs of 2020:
 
 Persistence is recomputed here and checked against the reference file, which validates truth, ICs and scores.
 
-    python scripts/compare_climode.py --config configs/cpu_small_2020.yaml --eval runs/cpu_small/eval \
+    python scripts/compare_climode.py --config configs/stage01_cpu_small.yaml --eval runs/stage01/eval_stage3 \
         --reference ../physical_guide_flowmatching/docs/results_2026_11/scores/raw/blend_ngcm_2020_climode_paired.json
     # paired intervals against ClimODE need its per-IC forecasts (pg-flow scripts/run_climode_2020.py output):
     #   --climode-pred runs/blend_ngcm/ngcm2020/climode2020/climode_pred_2020_valid.npz

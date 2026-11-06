@@ -2,14 +2,14 @@
 # ClimODE comparison (docs/results_2026_11 of physical_guide_flowmatching): 179 ClimODE-convention ICs of 2020,
 # WB2 64x32 truth, leads 24..144 h, ClimODE's RMSE / ACC / Gaussian CRPS.
 # Data: scripts/wb2_to_cache.py (public WB2 128x64 zarr; no pg-flow KAI files needed).
-#   python scripts/wb2_to_cache.py --config configs/cpu_small_2020.yaml
-#   python scripts/prepare_data.py --config configs/cpu_small_2020.yaml
-#   bash scripts/run_cpu_small.sh   (stages 1 -> 2 -> 3, evaluate.py, compare_climode.py), i.e.
-#   python scripts/train.py --config configs/cpu_small_2020.yaml --stage 1 --out runs/cpu_small
-#   python scripts/train.py --config configs/cpu_small_2020.yaml --stage 2 --init runs/cpu_small/stage1.pt --out runs/cpu_small
-#   python scripts/train.py --config configs/cpu_small_2020.yaml --stage 3 --init runs/cpu_small/stage2.pt --out runs/cpu_small
-#   python scripts/evaluate.py --config configs/cpu_small_2020.yaml --ckpt runs/cpu_small/stage3.pt --out runs/cpu_small/eval
-#   python scripts/compare_climode.py --config configs/cpu_small_2020.yaml --eval runs/cpu_small/eval \
+#   python scripts/wb2_to_cache.py --config configs/stage01_cpu_small.yaml
+#   python scripts/prepare_data.py --config configs/stage01_cpu_small.yaml
+#   bash scripts/run_stage01.sh   (stages 1 -> 2 -> 3, evaluate.py, compare_climode.py), i.e.
+#   python scripts/train.py --config configs/stage01_cpu_small.yaml --stage 1 --out runs/stage01
+#   python scripts/train.py --config configs/stage01_cpu_small.yaml --stage 2 --init runs/stage01/stage1.pt --out runs/stage01
+#   python scripts/train.py --config configs/stage01_cpu_small.yaml --stage 3 --init runs/stage01/stage2.pt --out runs/stage01
+#   python scripts/evaluate.py --config configs/stage01_cpu_small.yaml --ckpt runs/stage01/stage3.pt --out runs/stage01/eval_stage3
+#   python scripts/compare_climode.py --config configs/stage01_cpu_small.yaml --eval runs/stage01/eval_stage3 \
 #       --reference ../physical_guide_flowmatching/docs/results_2026_11/scores/raw/blend_ngcm_2020_climode_paired.json
 data:
   cache: data/wb2_2p8125

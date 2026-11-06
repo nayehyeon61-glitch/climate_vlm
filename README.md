@@ -45,6 +45,17 @@ python scripts/evaluate.py --config $C --ckpt runs/v1/stage3.pt --out runs/v1/ev
 CPU 확인용: `python scripts/make_synthetic.py --out data/synthetic` 뒤 `configs/tiny_synthetic.yaml`로 같은 명령을
 실행합니다(임의 가중치의 작은 Qwen3.5, 숫자는 의미 없음). 테스트는 `python -m pytest tests`입니다.
 
+## Stage 기록
+
+가설이나 모델이 크게 바뀌면 stage를 나눕니다. 각 stage는 `docs/stageNN_<이름>.md`(목적, 설정, 결과, 해석),
+`docs/stageNN/`(점수와 표), `configs/stageNN_<이름>.yaml`, `runs/stageNN/`(저장소 밖)을 가지며, 이전 stage는 덮어쓰지 않습니다.
+
+| stage | 문서 | 내용 |
+|---|---|---|
+| 00 | [docs/stage00_initial_implementation.md](docs/stage00_initial_implementation.md) | 첫 구현, 합성 자료로 구조 검사 |
+| 01 | [docs/stage01_cpu_small_climode.md](docs/stage01_cpu_small_climode.md) | CPU 작은 규모 학습, 2020년 ClimODE 규약 비교 |
+| 02 | [docs/stage02_laya_router.md](docs/stage02_laya_router.md) | Laya를 기후 전문가 선택 과제에 학습시켜 라우터로 시험 |
+
 ## 작은 규모 실행과 ClimODE 비교 (WeatherBench2, CPU)
 
 pg-flow의 2020 hold-out 비교(`physical_guide_flowmatching/docs/results_2026_11`)와 같은 IC 179개(12 UTC, 2일 간격),
@@ -52,10 +63,10 @@ pg-flow의 2020 hold-out 비교(`physical_guide_flowmatching/docs/results_2026_1
 채점합니다. pg-flow의 KAI 파일 없이 공개 WB2 zarr만으로 돌아가서 클라우드 CPU에서도 됩니다.
 
 ```bash
-C=configs/cpu_small_2020.yaml       # 학습 2012–2015, 검증 2016, 시험 2020 (2019는 첫 IC의 과거 입력으로만)
+C=configs/stage01_cpu_small.yaml       # 학습 2012–2015, 검증 2016, 시험 2020 (2019는 첫 IC의 과거 입력으로만)
 python scripts/wb2_to_cache.py --config $C      # WB2 128x64 → 캐시, 64x32 채점 정답 2006–2018·2020, ClimODE min–max
 python scripts/prepare_data.py --config $C      # train 기간 통계
-bash scripts/run_cpu_small.sh                   # 1 → 2 → 3단계, 2020 예측, ClimODE 비교 표
+bash scripts/run_stage01.sh                   # 1 → 2 → 3단계, 2020 예측, ClimODE 비교 표
 ```
 
 - `scripts/compare_climode.py`가 2.8125° 예측을 64×32로 평균해(가우시안 scale도 평균: 한 5.625° 칸 안의 오차가 완전 상관이라는

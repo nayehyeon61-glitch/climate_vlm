@@ -12,7 +12,7 @@ regrid, the same zarr pg-flow's ``data/era5_5p625`` and its ClimODE comparison c
 ``<cache>/truth_5p625/<year>.npy`` (T, 5, 32, 64), ``lat.npy``, and ``minmax_2006_2018.json`` (ClimODE's
 min-max CRPS units) when every year 2006-2018 is present.
 
-    python scripts/wb2_to_cache.py --config configs/cpu_small_2020.yaml
+    python scripts/wb2_to_cache.py --config configs/stage01_cpu_small.yaml
 """
 
 import argparse
