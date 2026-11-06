@@ -1,0 +1,142 @@
+"""Numeric heads on the shared LLM hidden states (plan sections 05 and 06).
+
+PhysicsHead G      slot (issue time / lead) x patch queries read the LLM memory and predict the patch-pooled
+                   diagnostics z_t, z_{t+h}; its tokens Z_phys join the decoder memory.
+ForecastDecoder F  q_hij = E_lead(h) + E_geo(lat_i, lon_j)
+                   U = CrossAttention(Q, [H_LLM, Z_phys])
+                   Y^ = CNN(Unpatchify(MLP(U)))      (+ base field, optional Gaussian scale)
+
+Both read only the hidden states of the input and query positions (never teacher-forced explanation text).
+"""
+
+import math
+from typing import Optional, Sequence
+
+import numpy as np
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+
+from .downscaler import Conv
+
+
+def fourier(x: torch.Tensor, n: int) -> torch.Tensor:
+    """(..., d) -> (..., d * 2n) sin/cos features at octave frequencies."""
+    f = (2.0 ** torch.arange(n, device=x.device, dtype=x.dtype)) * math.pi
+    a = x[..., None] * f
+    return torch.cat([torch.sin(a), torch.cos(a)], -1).flatten(-2)
+
+
+class GeoEmbedding(nn.Module):
+    """E_geo(lat, lon) of patch centres from unit-sphere coordinates (continuous across the date line)."""
+
+    def __init__(self, lat_deg: Sequence[float], lon_deg: Sequence[float], patch: int, dim: int, n_freq: int = 6):
+        super().__init__()
+        la = np.deg2rad(np.asarray(lat_deg, dtype=np.float64)).reshape(-1, patch).mean(1)
+        lo = np.asarray(lon_deg, dtype=np.float64).reshape(-1, patch)
+        lo = np.deg2rad(lo[:, 0] + (lo[:, -1] - lo[:, 0]) / 2)
+        L, G = np.meshgrid(la, lo, indexing="ij")
+        xyz = np.stack([np.cos(L) * np.cos(G), np.cos(L) * np.sin(G), np.sin(L)], -1).reshape(-1, 3)
+        self.register_buffer("xyz", torch.tensor(xyz, dtype=torch.float32), persistent=False)
+        self.mlp = nn.Sequential(nn.Linear(3 * 2 * n_freq + 3, dim), nn.GELU(), nn.Linear(dim, dim))
+        self.n_freq, self.grid = n_freq, L.shape
+
+    def forward(self) -> torch.Tensor:
+        return self.mlp(torch.cat([self.xyz, fourier(self.xyz, self.n_freq)], -1))  # (P, dim)
+
+
+class LeadEmbedding(nn.Module):
+    """E_lead(h): continuous in hours (issue time h = 0 included), so unseen leads stay meaningful."""
+
+    def __init__(self, dim: int, n_freq: int = 8):
+        super().__init__()
+        self.mlp = nn.Sequential(nn.Linear(2 * n_freq + 1, dim), nn.GELU(), nn.Linear(dim, dim))
+        self.n_freq = n_freq
+
+    def forward(self, hours: torch.Tensor) -> torch.Tensor:
+        x = (hours.float() / 240.0)[:, None]
+        return self.mlp(torch.cat([x, fourier(x, self.n_freq)], -1))
+
+
+class CrossBlock(nn.Module):
+    """Pre-norm cross-attention (+ optional self-attention) + MLP."""
+
+    def __init__(self, dim: int, heads: int, self_attn: bool):
+        super().__init__()
+        self.nq, self.nm = nn.LayerNorm(dim), nn.LayerNorm(dim)
+        self.cross = nn.MultiheadAttention(dim, heads, batch_first=True)
+        self.ns = nn.LayerNorm(dim) if self_attn else None
+        self.self_attn = nn.MultiheadAttention(dim, heads, batch_first=True) if self_attn else None
+        self.nf = nn.LayerNorm(dim)
+        self.ff = nn.Sequential(nn.Linear(dim, 4 * dim), nn.GELU(), nn.Linear(4 * dim, dim))
+
+    def forward(self, q, mem, mem_mask: Optional[torch.Tensor] = None):
+        m = self.nm(mem)
+        q = q + self.cross(self.nq(q), m, m, key_padding_mask=mem_mask, need_weights=False)[0]
+        if self.self_attn is not None:
+            s = self.ns(q)
+            q = q + self.self_attn(s, s, s, need_weights=False)[0]
+        return q + self.ff(self.nf(q))
+
+
+class PhysicsHead(nn.Module):
+    """G: (B, N, dim) memory -> z^ (B, 1 + L, n_diag, Hp, Wp) normalised diagnostics and Z_phys tokens."""
+
+    def __init__(self, geo: GeoEmbedding, lead: LeadEmbedding, slots_h: Sequence[int], n_diag: int, dim: int,
+                 heads: int, layers: int):
+        super().__init__()
+        self.geo, self.lead = geo, lead
+        self.register_buffer("slots_h", torch.tensor(list(slots_h)), persistent=False)
+        self.blocks = nn.ModuleList([CrossBlock(dim, heads, self_attn=False) for _ in range(layers)])
+        self.out = nn.Linear(dim, n_diag)
+        self.back = nn.Linear(n_diag, dim)  # quantitative values -> token, so F sees the numbers G committed to
+        self.n_diag = n_diag
+
+    def forward(self, mem, mem_mask=None):
+        B = mem.shape[0]
+        g = self.geo()  # (P, d)
+        q = (self.lead(self.slots_h)[:, None] + g[None]).flatten(0, 1)  # (T*P, d)
+        q = q[None].expand(B, -1, -1)
+        for blk in self.blocks:
+            q = blk(q, mem, mem_mask)
+        z = self.out(q)  # (B, T*P, n_diag)
+        tokens = q + self.back(z)
+        Hp, Wp = self.geo.grid
+        z = z.view(B, len(self.slots_h), Hp, Wp, self.n_diag).permute(0, 1, 4, 2, 3)
+        return z, tokens
+
+
+class ForecastDecoder(nn.Module):
+    """F: (B, N, dim) memory -> Y^ (B, L, C, H, W) normalised fields (+ scale when gaussian)."""
+
+    def __init__(self, geo: GeoEmbedding, lead: LeadEmbedding, leads_h: Sequence[int], channels: int, patch: int,
+                 dim: int, heads: int, layers: int, self_attn: bool = True, gaussian: bool = False,
+                 cnn_hidden: int = 64):
+        super().__init__()
+        self.geo, self.lead, self.patch, self.C, self.gaussian = geo, lead, patch, channels, gaussian
+        self.register_buffer("leads_h", torch.tensor(list(leads_h)), persistent=False)
+        self.blocks = nn.ModuleList([CrossBlock(dim, heads, self_attn) for _ in range(layers)])
+        n_out = channels * (2 if gaussian else 1)
+        self.head = nn.Sequential(nn.LayerNorm(dim), nn.Linear(dim, dim), nn.GELU(),
+                                  nn.Linear(dim, patch * patch * n_out))
+        self.cnn = nn.Sequential(Conv(n_out, cnn_hidden), nn.GELU(), Conv(cnn_hidden, cnn_hidden), nn.GELU(),
+                                 Conv(cnn_hidden, n_out))
+        nn.init.zeros_(self.cnn[-1].conv.weight)
+        nn.init.zeros_(self.cnn[-1].conv.bias)
+
+    def forward(self, mem, base: Optional[torch.Tensor] = None, mem_mask=None):
+        """base (B, C, H, W): added to every lead (e.g. the downscaled issue-time state). Returns (mean, scale)."""
+        B, L = mem.shape[0], len(self.leads_h)
+        Hp, Wp = self.geo.grid
+        q = (self.lead(self.leads_h)[:, None] + self.geo()[None]).flatten(0, 1)[None].expand(B, -1, -1)
+        for blk in self.blocks:
+            q = blk(q, mem, mem_mask)
+        p, n_out = self.patch, self.C * (2 if self.gaussian else 1)
+        x = self.head(q).view(B * L, Hp, Wp, p, p, n_out)
+        x = x.permute(0, 5, 1, 3, 2, 4).reshape(B * L, n_out, Hp * p, Wp * p)  # unpatchify
+        x = (x + self.cnn(x)).view(B, L, n_out, Hp * p, Wp * p)
+        mean = x[:, :, :self.C]
+        if base is not None:
+            mean = mean + base[:, None]
+        scale = F.softplus(x[:, :, self.C:]) + 1e-3 if self.gaussian else None
+        return mean, scale

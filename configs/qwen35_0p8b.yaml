@@ -1,0 +1,69 @@
+# Climate VLM with Qwen3.5-0.8B on pg-flow's data (GPU).
+# Data: pg-flow scripts/local_era5_to_kai.py --grid 2.8125 --out data/era5_2p8125 (KAI 67 channels, 6-hourly,
+# 64x128, cells that split the 5.625 deg cells) -> the LR input is exactly pg-flow's 5.625 deg (32x64) state.
+data:
+  kai_dir: data/era5_2p8125/kai6h
+  era5_data: data/era5_2p8125/era5_data      # u10 / v10 (not KAI channels)
+  cache: data/cvlm_2p8125
+  # state = what the downscaler restores and the physics diagnoses (z, t, q, u, v at 500 / 700 / 850 hPa + surface)
+  state_channels: [z500, z700, z850, t500, t700, t850, q500, q700, q850, u500, u700, u850, v500, v700, v850, t2m, msl, tcwv]
+  extra_channels: [u10, v10]                 # forecast-only outputs (ClimODE / pg-flow scoring variables)
+  factor: 2                                  # HR 2.8125 deg -> LR 5.625 deg input
+  history_h: [-72, -48, -24, 0]
+  leads_h: [24, 48, 72, 120]
+  # pg-flow splits (train 1979-2015, validation 2016, test 2017-2018, hold-out 2020); plan p.9 example split is
+  # 1979-2017 / 2018-2020 / 2021-2025 -- change here once the data and the Qwen pretraining period are fixed.
+  train_years: ["1979-2015"]
+  val_years: [2016]
+  test_years: [2017, 2018]
+  ic_hours: [0, 6, 12, 18]
+  ic_stride: 1
+
+model:
+  qwen: {name_or_path: Qwen/Qwen3.5-0.8B, dtype: bfloat16}
+  prompt: true                               # metadata as text before the weather tokens
+  downscaler:                                # physicsnemo CorrDiff (examples/weather/corrdiff)
+    lon_pad: 16
+    unet: {model_channels: 128, channel_mult: [1, 2, 2, 2], attn_resolutions: [16], N_grid_channels: 4}
+    residual: false                          # true + stage 1res: EDM residual diffusion -> spread tokens
+    res_unet: {model_channels: 128, channel_mult: [1, 2, 2, 2], attn_resolutions: [16], N_grid_channels: 4}
+    sampler_steps: 18
+    spread_members: 0                        # > 1 adds the Spread token type (needs residual: true)
+  vision:                                    # path A: Qwen3.5's own vision tower, frozen
+    groups: [[z500, t850, q850], [u850, v850, msl], [t2m, tcwv, z850]]
+    ranges: {lr: 3.0, mean: 3.0, tendency: 1.0, spread: 1.0}   # +-range std -> [0, 1], fixed train stats
+    image_scale: 2                           # 64x128 -> 128x256 px -> 32 tokens per image
+    n_tokens: 256                            # LLM token budget for the weather (plan p.4)
+    dim: 512
+    heads: 8
+    layers: 2
+    numeric_patch: 8                         # numeric tokens in the resampler memory (0 = off)
+  n_query_tokens: 16
+  lora: {r: 16, alpha: 32, dropout: 0.05}    # enabled automatically in stage 3
+  gradient_checkpointing: true
+  decoder:                                   # plan p.5: 4 leads x 128 patches = 512 queries
+    dim: 256
+    heads: 8
+    patch: 8
+    f_layers: 4
+    g_layers: 2
+    self_attn: true
+    gaussian: false                          # true: mean + scale, CRPS loss
+    residual_base: persistence               # Y^ = D_mu(x_t) + decoder output
+    cnn_hidden: 64
+
+loss: {diag: 0.1, phys: 0.0, cons: 0.0, text: 0.0, phys_floor_m: 1.0}
+
+train:
+  seed: 0
+  workers: 8
+  amp: true
+  val_every: 1000
+  val_batches: 32
+  log_every: 100
+  grad_clip: 1.0
+  stage1: {steps: 50000, batch: 16, lr: 2.0e-4}
+  stage1res: {steps: 50000, batch: 16, lr: 2.0e-4}
+  stage2: {steps: 20000, batch: 4, lr: 2.0e-4, loss: {diag: 0.1}}
+  # plan p.7: forecast first, then diagnostics, then physics residuals from a small weight
+  stage3: {steps: 20000, batch: 4, lr: 1.0e-4, loss: {diag: 0.1, cons: 0.1, phys: 0.001}}
