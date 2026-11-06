@@ -59,6 +59,8 @@ def main(argv=None):
     a.add_argument("--init", help="checkpoint of the previous stage")
     a.add_argument("--steps", type=int)
     a.add_argument("--device", default="cuda" if torch.cuda.is_available() else "cpu")
+    a.add_argument("--resume", action="store_true",
+                   help="continue from <out>/stage<N>_resume.pt (written at every validation) if it exists")
     a = a.parse_args(argv)
     cfg = build.load_config(a.config)
     tc = cfg["train"][f"stage{a.stage}"]
@@ -198,8 +200,21 @@ def main(argv=None):
         opt, lambda s: min(1.0, (s + 1) / warm) * 0.5 * (1 + math.cos(math.pi * min(s, steps) / steps)))
     best, t0, it = float("inf"), time.time(), iter(())
     every = cfg["train"].get("val_every", 500)
-    hist = []
-    for step in range(1, steps + 1):
+    hist, start = [], 1
+    rpath = os.path.join(a.out, f"stage{a.stage}_resume.pt")
+    if a.resume and os.path.exists(rpath):
+        r = torch.load(rpath, map_location="cpu", weights_only=False)
+        sd = r["state"]
+        target = D if a.stage in ("1", "1res") else model
+        if a.stage in ("1", "1res"):
+            sd = {k[2:]: v for k, v in sd.items() if k.startswith("D.")}
+        target.load_state_dict(sd, strict=False)
+        opt.load_state_dict(r["opt"])
+        sched.load_state_dict(r["sched"])
+        best, hist, start = r["best"], r["hist"], r["step"] + 1
+        torch.set_rng_state(r["rng"])
+        log(a.out, f"resumed from {rpath} at step {r['step']} (best val {best:.4f})")
+    for step in range(start, steps + 1):
         try:
             b = next(it)
         except StopIteration:
@@ -222,6 +237,9 @@ def main(argv=None):
             if v < best:
                 best = v
                 save(os.path.join(a.out, f"stage{a.stage}.pt"), own(), a.stage, cfg, val=v, step=step, **extra)
+            torch.save({"state": own(), "opt": opt.state_dict(), "sched": sched.state_dict(), "step": step,
+                        "best": best, "hist": hist, "rng": torch.get_rng_state()}, rpath + ".tmp")
+            os.replace(rpath + ".tmp", rpath)
     save(os.path.join(a.out, f"stage{a.stage}_last.pt"), own(), a.stage, cfg, step=steps, **extra)
     with open(os.path.join(a.out, f"stage{a.stage}_val.json"), "w") as fh:
         json.dump({"best": best, "history": hist}, fh)

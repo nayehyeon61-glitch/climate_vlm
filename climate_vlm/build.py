@@ -20,16 +20,17 @@ def _merge(base: Dict, over: Dict) -> Dict:
 
 
 def load_config(path: str) -> Dict:
-    """YAML config; ``extends: <other.yaml>`` (relative to the working directory or to this file) is loaded first
-    and this file's keys are merged over it, dict by dict."""
+    """YAML config; ``extends: <other.yaml>`` or a list of them (relative to the working directory or to this file)
+    is loaded first, in order, and this file's keys are merged over it, dict by dict."""
     with open(path) as fh:
         cfg = yaml.safe_load(fh)
-    parent = cfg.pop("extends", None)
-    if parent:
+    parents = cfg.pop("extends", None) or []
+    base = {}
+    for parent in [parents] if isinstance(parents, str) else parents:
         if not os.path.exists(parent):
             parent = os.path.join(os.path.dirname(path), os.path.basename(parent))
-        cfg = _merge(load_config(parent), cfg)
-    return cfg
+        base = _merge(base, load_config(parent))
+    return _merge(base, cfg) if parents else cfg
 
 
 def years(spec) -> list:

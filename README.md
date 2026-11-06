@@ -57,6 +57,7 @@ CPU 확인용: `python scripts/make_synthetic.py --out data/synthetic` 뒤 `conf
 | 02 | [docs/stage02_laya_router.md](docs/stage02_laya_router.md) | Laya를 기후 전문가 선택 과제에 학습시켜 라우터로 시험 |
 | 03 | [docs/stage03_lead_questions.md](docs/stage03_lead_questions.md) | 프롬프트에서 리드(24/72/96/120 h)를 묻고 물리 상태를 답하게 학습 (진행 중) |
 | 04 | [docs/stage04_neural_operator.md](docs/stage04_neural_operator.md) | 구면조화 대역 분해와 SFNO(neuraloperator), 대역 결합과 ClimODE식 이류 출력 (진행 중) |
+| 05 | [docs/stage05_long_training.md](docs/stage05_long_training.md) | 대조군과 stage 04 최고 갈래를 5 epoch 학습 (예정) |
 
 ## 작은 규모 실행과 ClimODE 비교 (WeatherBench2, CPU)
 
