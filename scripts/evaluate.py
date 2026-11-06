@@ -66,7 +66,14 @@ def main(argv=None):
         acc_y = {k: [] for k in ("mean", "truth", "x0", "ics", "scale", "members")}
         for b in dl:
             with torch.no_grad(), torch.autocast("cuda", dtype=torch.bfloat16, enabled=amp):
-                out = model(b["x_lr"].to(dev), pb.prompt_ids(b["issue"]) if use_prompt else None)
+                prompt = pb.prompt_ids(b["issue"]) if use_prompt else None
+                if model.ask:  # lead questions: one sequence per asked lead, stacked to (B, L, C, H, W)
+                    outs = [model(b["x_lr"].to(dev), prompt, question_ids=pb.question_ids([h] * len(b["t"])),
+                                  ask_h=torch.full((len(b["t"]),), h, device=dev)) for h in leads]
+                    out = {"mean": torch.cat([o["mean"] for o in outs], 1),
+                           "scale": None if outs[0]["scale"] is None else torch.cat([o["scale"] for o in outs], 1)}
+                else:
+                    out = model(b["x_lr"].to(dev), prompt)
             mu = norm.denorm_t(out["mean"].float().cpu(), all_idx).numpy()
             O = norm.denorm_t(b["y"], all_idx).numpy()
             X0 = norm.denorm_t(b["x0"], all_idx).numpy()

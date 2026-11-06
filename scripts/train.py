@@ -40,12 +40,15 @@ def save(path, state, stage, cfg, **extra):
     os.replace(path + ".tmp", path)
 
 
-def text_batch(obj, batch, meta, lead_h):
-    """Template explanations from the verified diagnostics of this batch (labels only)."""
+def text_batch(obj, batch, meta, lead_h, include_now=True):
+    """Template explanations from the verified diagnostics of this batch (labels only). lead_h: one lead, or one per
+    sample when batch["y"] holds only the asked lead of each sample (lead questions)."""
     with torch.no_grad():
         z = obj.targets(batch["x_hr"], batch["y"]) * obj.ds.to(batch["y"]) + obj.dm.to(batch["y"])
     z = z.cpu().numpy()
-    return [explain(z[b, 0], z[b, 1], obj.po.diags, meta["lat"], meta["lon"], lead_h) for b in range(len(z))]
+    leads = list(lead_h) if isinstance(lead_h, (list, tuple)) else [lead_h] * len(z)
+    return [explain(z[b, 0], z[b, 1], obj.po.diags, meta["lat"], meta["lon"], leads[b], include_now)
+            for b in range(len(z))]
 
 
 def main(argv=None):
@@ -134,17 +137,36 @@ def main(argv=None):
                            cfg["data"]["leads_h"], compact=cfg["model"].get("prompt") == "compact")
         lam_t = obj.lam["text"]
         log(a.out, f"loss weights {obj.lam}")
+        leads_h = cfg["data"]["leads_h"]
+        qcfg = cfg["model"].get("question", {})
+        g_lead = torch.Generator().manual_seed(cfg["train"].get("seed", 0))
+        if model.ask:
+            log(a.out, f"lead questions: one asked lead per sequence from {leads_h}, lead embedding "
+                       f"{'on' if model.ask_lead_emb else 'off (lead only in the question text)'}")
 
-        def run(b):
+        def run(b, lead_index=None):
+            """lead_index: None = a random asked lead per sample (training), k = ask leads_h[k] of every sample."""
             bb = {k: (v.to(dev) if torch.is_tensor(v) else v) for k, v in b.items()}
             prompt = pb.prompt_ids(b["issue"]) if use_prompt else None
+            question, ask_h, text_leads = None, None, leads_h[0]
+            if model.ask:
+                B = bb["y"].shape[0]
+                j = (torch.randint(0, len(leads_h), (B,), generator=g_lead) if lead_index is None
+                     else torch.full((B,), lead_index, dtype=torch.long))
+                bb["y"] = bb["y"][torch.arange(B), j.to(bb["y"].device)][:, None]
+                text_leads = [leads_h[k] for k in j.tolist()]
+                ask_h = torch.tensor(text_leads, device=dev)
+                question = pb.question_ids(text_leads)
             text = None
             if lam_t and use_prompt:
-                text = pb.text_ids(text_batch(obj, bb, meta, cfg["data"]["leads_h"][0]))
+                texts = text_batch(obj, bb, meta, text_leads, include_now=qcfg.get("answer_now", not model.ask))
+                if model.ask:
+                    texts = [pb.ANSWER.format(h=h) + t for h, t in zip(text_leads, texts)]
+                text = pb.text_ids(texts)
                 n = max(len(t) for t in text)
                 bb["text_ids"] = torch.tensor([t + [0] * (n - len(t)) for t in text], device=dev)
             with ac():
-                out = model(bb["x_lr"], prompt, text)
+                out = model(bb["x_lr"], prompt, text, question_ids=question, ask_h=ask_h)
             return out, bb
 
         def step_loss(b, train=True):
@@ -158,8 +180,9 @@ def main(argv=None):
             errs = []
             with torch.no_grad():
                 for b in itertools.islice(vdl, n_val):
-                    out, bb = run(b)
-                    errs.append(float(((out["mean"].float() - bb["y"]) ** 2 * w_lat.view(-1, 1)).mean()))
+                    for k in range(len(leads_h)) if model.ask else [None]:  # lead questions: every lead
+                        out, bb = run(b, k)
+                        errs.append(float(((out["mean"].float() - bb["y"]) ** 2 * w_lat.view(-1, 1)).mean()))
             model.train()
             return float(np.mean(errs))
 

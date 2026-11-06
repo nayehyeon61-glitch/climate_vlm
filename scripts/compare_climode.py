@@ -108,9 +108,9 @@ def main(argv=None):
         if missing:
             raise ValueError(f"reference ICs {missing} are not in the forecast file")
         use = [int(i) for i in ref["ics"]]
-        bad = [h for h in ref["leads"] if h not in leads]
+        bad = [h for h in leads if h not in ref["leads"]]
         if bad:
-            raise ValueError(f"reference leads {bad} are not in the forecast file")
+            raise ValueError(f"forecast leads {bad} are not in the reference")  # a subset of its leads is fine
     rows = [ics.index(i) for i in use]
     cp = None
     if a.climode_pred:

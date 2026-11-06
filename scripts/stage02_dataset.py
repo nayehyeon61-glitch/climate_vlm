@@ -153,11 +153,11 @@ def tokenizer_check(lc, files, max_show=3):
         rows = lt.read_jsonl(path)
         n = np.array([len(tok(r["state"], add_special_tokens=False)["input_ids"]) for r in rows])
         items, skipped = lt.items_from_rows(tok, rows, max_len, head_max_len)
-        seq = [len(lt.encode_item(tok, it, max_len, head_max_len)["input_ids"]) for it in items[:50]]
+        seq = [len(lt.encode_item(tok, it, max_len, head_max_len)["ids"]) for it in items]
         rep["splits"][split] = {"rows": len(rows), "items": len(items), "skipped": skipped,
                                 "state_tokens": {"min": int(n.min()), "mean": float(n.mean()), "max": int(n.max())},
                                 "state_truncated": int((n > max_len).sum()),
-                                "full_input_tokens_first50": {"min": int(min(seq)), "max": int(max(seq))}}
+                                "full_input_tokens": {"min": int(min(seq)), "max": int(max(seq)), "limit": max_len}}
     rep["examples"] = [r["state"] for r in lt.read_jsonl(files["B"])[:max_show]]
     return rep
 

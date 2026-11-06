@@ -2,7 +2,7 @@
 
     x_lr (B, S, C_state, h, w)  --D-->  lr / mean / tendency (/ spread) maps on the HR grid
                                 --E,P-> weather tokens (B, n_tokens, D_llm)
-    [prompt | weather tokens | forecast queries | explanation text]  --LLM-->  hidden states
+    [prompt | weather tokens | (question) | forecast queries | explanation text]  --LLM-->  hidden states
     hidden(weather, queries) --proj--> memory --G--> z^ (diagnostics), Z_phys
                                           [memory, Z_phys] --F--> Y^ (B, L, C_out, H, W)
 
@@ -62,6 +62,8 @@ class ClimateVLM(nn.Module):
         self.F = ForecastDecoder(geo, lead, self.leads_h, len(self.out), d["patch"], dim, d["heads"],
                                  d.get("f_layers", 2), d.get("self_attn", True), d.get("gaussian", False),
                                  d.get("cnn_hidden", 64))
+        qn = m.get("question", {})  # lead questions (stage 03): the lead is asked in text, one lead per sequence
+        self.ask, self.ask_lead_emb = bool(qn.get("enabled", False)), bool(qn.get("lead_embedding", True))
         self.base = d.get("residual_base", "persistence")
         self.out_from_state = [self.state.index(c) if c in self.state else -1 for c in self.out]
         if m.get("lora", {}).get("enabled", False):
@@ -124,34 +126,75 @@ class ClimateVLM(nn.Module):
                 tok[b, sl], mask[b, sl] = torch.tensor(i, device=device), 1
         return self.llm.get_input_embeddings()(tok), mask
 
-    def forward(self, x_lr: torch.Tensor, prompt_ids: Optional[List[List[int]]] = None,
-                text_ids: Optional[List[List[int]]] = None) -> Dict[str, torch.Tensor]:
-        B, dev = x_lr.shape[0], x_lr.device
+    def _sequence(self, x_lr, prompt_ids, question_ids, B, dev):
         with torch.set_grad_enabled(torch.is_grad_enabled() and not self.d_frozen):
             maps = self.D.tokens(x_lr, self.static_hr, self.history_h, members=self.spread_members)
         wtok, info = self.tokenizer(maps)
         dtype = next(self.llm.parameters()).dtype
         pe, pm = self._embed_ids(prompt_ids or [[] for _ in range(B)], True, dev)
-        te, tm = self._embed_ids(text_ids or [[] for _ in range(B)], False, dev)
+        qe, qm = self._embed_ids(question_ids or [[] for _ in range(B)], True, dev)
         q = self.fq[None].expand(B, -1, -1)
-        emb = torch.cat([pe.to(dtype), wtok.to(dtype), q.to(dtype), te.to(dtype)], 1)
-        ones = torch.ones(B, wtok.shape[1] + self.n_query, dtype=torch.long, device=dev)
-        mask = torch.cat([pm, ones, tm], 1)
+        emb = torch.cat([pe.to(dtype), wtok.to(dtype), qe.to(dtype), q.to(dtype)], 1)
+        mask = torch.cat([pm, torch.ones(B, wtok.shape[1], dtype=torch.long, device=dev), qm,
+                          torch.ones(B, self.n_query, dtype=torch.long, device=dev)], 1)
+        return maps, info, emb, mask, (pe.shape[1], wtok.shape[1], qe.shape[1])
+
+    def forward(self, x_lr: torch.Tensor, prompt_ids: Optional[List[List[int]]] = None,
+                text_ids: Optional[List[List[int]]] = None, question_ids: Optional[List[List[int]]] = None,
+                ask_h: Optional[torch.Tensor] = None) -> Dict[str, torch.Tensor]:
+        """Sequence [prompt | weather tokens | question | forecast queries | text]. With ask_h (B,) (lead questions)
+        G and F answer only the asked lead: mean (B, 1, C, H, W), z_hat (B, 2, ...) for [issue time, asked lead]."""
+        B, dev = x_lr.shape[0], x_lr.device
+        maps, info, emb, mask, (p0, n_w, n_q) = self._sequence(x_lr, prompt_ids, question_ids, B, dev)
+        te, tm = self._embed_ids(text_ids or [[] for _ in range(B)], False, dev)
+        emb = torch.cat([emb, te.to(emb.dtype)], 1)
+        mask = torch.cat([mask, tm], 1)
         hidden = self.llm(inputs_embeds=emb, attention_mask=mask).last_hidden_state
-        p0, n_mem = pe.shape[1], wtok.shape[1] + self.n_query
-        mem = self.hproj(hidden[:, p0:p0 + n_mem].float())
-        z_hat, z_tok = self.G(mem)
+        s = p0 + n_w + n_q + self.n_query  # end of the query tokens
+        # memory: weather tokens and queries (the question is read by the queries, which come after it)
+        mem = self.hproj(torch.cat([hidden[:, p0:p0 + n_w], hidden[:, s - self.n_query:s]], 1).float())
+        if ask_h is not None:
+            slots = torch.stack([torch.zeros_like(ask_h), ask_h], 1)
+            z_hat, z_tok = self.G(mem, slots=slots, use_lead=self.ask_lead_emb)
+        else:
+            z_hat, z_tok = self.G(mem)
         base = None
         if self.base == "persistence":  # downscaled issue-time state (zero for output-only channels)
             now = maps["mean"][:, self.history_h.index(0) if 0 in self.history_h else -1]
             base = torch.cat([now, torch.zeros_like(now[:, :1])], 1)[:, self.out_from_state]
-        mean, scale = self.F(torch.cat([mem, z_tok], 1), base)
+        mean, scale = self.F(torch.cat([mem, z_tok], 1), base, leads=ask_h, use_lead=self.ask_lead_emb)
         out = {"mean": mean, "scale": scale, "z_hat": z_hat, "maps": maps, **info}
         if te.shape[1]:
-            s = p0 + n_mem
             out["text_logits"] = self.lm_head(hidden[:, s - 1:s - 1 + te.shape[1]]).float()
             out["text_mask"] = tm
         return out
+
+    @torch.no_grad()
+    def generate(self, x_lr: torch.Tensor, prompt_ids=None, question_ids=None, prefix_ids=None,
+                 max_new_tokens: int = 160, eos_id: Optional[int] = None) -> List[List[int]]:
+        """Greedy text after the query tokens (the answer to the question), with the LLM's KV cache."""
+        B, dev = x_lr.shape[0], x_lr.device
+        _, _, emb, mask, _ = self._sequence(x_lr, prompt_ids, question_ids, B, dev)
+        if prefix_ids:
+            pe, pm = self._embed_ids(prefix_ids, True, dev)
+            emb, mask = torch.cat([emb, pe.to(emb.dtype)], 1), torch.cat([mask, pm], 1)
+        o = self.llm(inputs_embeds=emb, attention_mask=mask, use_cache=True)
+        past, h = o.past_key_values, o.last_hidden_state[:, -1]
+        out, done = [[] for _ in range(B)], torch.zeros(B, dtype=torch.bool, device=dev)
+        for _ in range(max_new_tokens):
+            nxt = self.lm_head(h).argmax(-1)
+            for b in range(B):
+                if not done[b]:
+                    out[b].append(int(nxt[b]))
+            if eos_id is not None:
+                done |= nxt == eos_id
+            if bool(done.all()):
+                break
+            mask = torch.cat([mask, torch.ones(B, 1, dtype=mask.dtype, device=dev)], 1)
+            o = self.llm(inputs_embeds=self.llm.get_input_embeddings()(nxt[:, None]), attention_mask=mask,
+                         past_key_values=past, use_cache=True)
+            past, h = o.past_key_values, o.last_hidden_state[:, -1]
+        return [[t for t in seq if t != eos_id] for seq in out]
 
 
 def output_units(channels: Sequence[str]) -> List[str]:

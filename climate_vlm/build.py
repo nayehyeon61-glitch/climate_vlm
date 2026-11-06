@@ -12,9 +12,24 @@ from .losses import Objective
 from .model import ClimateVLM, make_downscaler
 
 
+def _merge(base: Dict, over: Dict) -> Dict:
+    out = dict(base)
+    for k, v in over.items():
+        out[k] = _merge(out[k], v) if isinstance(v, dict) and isinstance(out.get(k), dict) else v
+    return out
+
+
 def load_config(path: str) -> Dict:
+    """YAML config; ``extends: <other.yaml>`` (relative to the working directory or to this file) is loaded first
+    and this file's keys are merged over it, dict by dict."""
     with open(path) as fh:
-        return yaml.safe_load(fh)
+        cfg = yaml.safe_load(fh)
+    parent = cfg.pop("extends", None)
+    if parent:
+        if not os.path.exists(parent):
+            parent = os.path.join(os.path.dirname(path), os.path.basename(parent))
+        cfg = _merge(load_config(parent), cfg)
+    return cfg
 
 
 def years(spec) -> list:

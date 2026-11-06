@@ -96,6 +96,21 @@ class PromptBuilder:
             return [[] for _ in issue]
         return [self.tok(self.head + s + ". Weather tokens:", add_special_tokens=False)["input_ids"] for s in issue]
 
+    QUESTION = (" Question: from the current state, what are the physical state and the fields of the forecast at "
+                "+{h:03d} h? Forecast tokens:")
+    ANSWER = "Answer at +{h:03d} h: "
+
+    def question_ids(self, leads_h: Sequence[int]) -> List[List[int]]:
+        """Lead questions (stage 03): the lead in text, written with three digits so all questions have one length."""
+        if self.tok is None:
+            return [[] for _ in leads_h]
+        return [self.tok(self.QUESTION.format(h=int(h)), add_special_tokens=False)["input_ids"] for h in leads_h]
+
+    def answer_prefix_ids(self, leads_h: Sequence[int]) -> List[List[int]]:
+        if self.tok is None:
+            return [[] for _ in leads_h]
+        return [self.tok(self.ANSWER.format(h=int(h)), add_special_tokens=False)["input_ids"] for h in leads_h]
+
     def text_ids(self, texts: Sequence[str]) -> List[List[int]]:
         if self.tok is None:
             return [[] for _ in texts]
@@ -103,9 +118,9 @@ class PromptBuilder:
         return [self.tok(t, add_special_tokens=False)["input_ids"] + ([eos] if eos is not None else []) for t in texts]
 
 
-def explain(z_now, z_next, names: Sequence[str], lat, lon, lead_h: int) -> str:
+def explain(z_now, z_next, names: Sequence[str], lat, lon, lead_h: int, include_now: bool = True) -> str:
     """Template explanation from verified diagnostics (patch-pooled, physical units, (n_diag, Hp, Wp) arrays):
-    location and size of the strongest positive / negative patch of each diagnostic now and at the first lead."""
+    location and size of the strongest positive / negative patch of each diagnostic now (optional) and at +lead_h."""
     import numpy as np
     Hp, Wp = z_now.shape[-2:]
     la = np.asarray(lat).reshape(Hp, -1).mean(1)
@@ -114,12 +129,13 @@ def explain(z_now, z_next, names: Sequence[str], lat, lon, lead_h: int) -> str:
              "qadv850": ("moist advection", "dry advection", "g/kg/day"),
              "qconv850": ("moisture convergence", "moisture divergence", "g/kg/day"),
              "thick500_850": ("thickest 850-500 hPa layer", "thinnest 850-500 hPa layer", "m")}
+    where = lambda r, c: f"{abs(la[r]):.0f}{'N' if la[r] >= 0 else 'S'} {lo[c] % 360:.0f}E"  # noqa: E731
     parts = []
-    for when, z in (("now", z_now), (f"at +{lead_h} h", z_next)):
+    for when, z in ((("now", z_now),) if include_now else ()) + ((f"at +{lead_h} h", z_next),):
         for i, n in enumerate(names):
             pos, neg, u = words[n]
             hi = np.unravel_index(np.argmax(z[i]), z[i].shape)
             lo_ = np.unravel_index(np.argmin(z[i]), z[i].shape)
-            parts.append(f"{when}: {pos} {z[i][hi]:.1f} {u} near {la[hi[0]]:.0f}N {lo[hi[1]]:.0f}E, "
-                         f"{neg} {z[i][lo_]:.1f} {u} near {la[lo_[0]]:.0f}N {lo[lo_[1]]:.0f}E")
+            parts.append((f"{when}: " if include_now else "") + f"{pos} {z[i][hi]:.1f} {u} near {where(*hi)}, "
+                         f"{neg} {z[i][lo_]:.1f} {u} near {where(*lo_)}")
     return "; ".join(parts) + "."

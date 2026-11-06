@@ -91,18 +91,28 @@ class PhysicsHead(nn.Module):
         self.out = nn.Linear(dim, n_diag)
         self.back = nn.Linear(n_diag, dim)  # quantitative values -> token, so F sees the numbers G committed to
         self.n_diag = n_diag
+        self.asked = nn.Parameter(torch.zeros(dim))  # slot "the asked lead" when the lead is given only as text
 
-    def forward(self, mem, mem_mask=None):
+    def forward(self, mem, mem_mask=None, slots: Optional[torch.Tensor] = None, use_lead: bool = True):
+        """slots (B, T) hours per sample (lead questions: [0, asked lead]); default: the fixed slots_h.
+        use_lead False: the asked slot gets one learned vector, so the lead reaches G only through the LLM memory."""
         B = mem.shape[0]
         g = self.geo()  # (P, d)
-        q = (self.lead(self.slots_h)[:, None] + g[None]).flatten(0, 1)  # (T*P, d)
-        q = q[None].expand(B, -1, -1)
+        if slots is None:
+            q = (self.lead(self.slots_h)[:, None] + g[None]).flatten(0, 1)[None].expand(B, -1, -1)  # (B, T*P, d)
+            T = len(self.slots_h)
+        else:
+            T = slots.shape[1]
+            e = self.lead(slots.flatten()).view(B, T, -1)
+            if not use_lead:
+                e = torch.where(slots[..., None] > 0, self.lead(torch.zeros_like(slots[:1, :1]).flatten()) + self.asked, e)
+            q = (e[:, :, None] + g[None, None]).flatten(1, 2)
         for blk in self.blocks:
             q = blk(q, mem, mem_mask)
         z = self.out(q)  # (B, T*P, n_diag)
         tokens = q + self.back(z)
         Hp, Wp = self.geo.grid
-        z = z.view(B, len(self.slots_h), Hp, Wp, self.n_diag).permute(0, 1, 4, 2, 3)
+        z = z.view(B, T, Hp, Wp, self.n_diag).permute(0, 1, 4, 2, 3)
         return z, tokens
 
 
@@ -124,11 +134,21 @@ class ForecastDecoder(nn.Module):
         nn.init.zeros_(self.cnn[-1].conv.weight)
         nn.init.zeros_(self.cnn[-1].conv.bias)
 
-    def forward(self, mem, base: Optional[torch.Tensor] = None, mem_mask=None):
-        """base (B, C, H, W): added to every lead (e.g. the downscaled issue-time state). Returns (mean, scale)."""
-        B, L = mem.shape[0], len(self.leads_h)
+    def forward(self, mem, base: Optional[torch.Tensor] = None, mem_mask=None, leads: Optional[torch.Tensor] = None,
+                use_lead: bool = True):
+        """base (B, C, H, W): added to every lead (e.g. the downscaled issue-time state). Returns (mean, scale).
+        leads (B,): one asked lead per sample (lead questions) -> (B, 1, C, H, W); use_lead False drops E_lead so
+        the lead reaches F only through the LLM memory (the question text)."""
+        B = mem.shape[0]
         Hp, Wp = self.geo.grid
-        q = (self.lead(self.leads_h)[:, None] + self.geo()[None]).flatten(0, 1)[None].expand(B, -1, -1)
+        if leads is None:
+            L = len(self.leads_h)
+            q = (self.lead(self.leads_h)[:, None] + self.geo()[None]).flatten(0, 1)[None].expand(B, -1, -1)
+        else:
+            L = 1
+            q = self.geo()[None].expand(B, -1, -1)
+            if use_lead:
+                q = q + self.lead(leads)[:, None]
         for blk in self.blocks:
             q = blk(q, mem, mem_mask)
         p, n_out = self.patch, self.C * (2 if self.gaussian else 1)
