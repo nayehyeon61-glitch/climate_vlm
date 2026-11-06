@@ -1,5 +1,8 @@
 """Climate VLM: D (downscaler) -> E (vision encoder) -> P (resampler) -> LLM (+LoRA) -> G (physics) / F (fields).
 
+Stage 04 options (model.spectral, model.vision.encoder): D's mean maps split into spherical-harmonic bands before E
+(token types band0..), a neuraloperator SFNO in place of E, and F's maps recombined per band or advected (ClimODE).
+
     x_lr (B, S, C_state, h, w)  --D-->  lr / mean / tendency (/ spread) maps on the HR grid
                                 --E,P-> weather tokens (B, n_tokens, D_llm)
     [prompt | weather tokens | (question) | forecast queries | explanation text]  --LLM-->  hidden states
@@ -20,7 +23,8 @@ from .decoder import ForecastDecoder, GeoEmbedding, LeadEmbedding, PhysicsHead
 from .data import lon0_grid
 from .downscaler import Downscaler
 from .llm import DEFAULT_LORA_TARGETS, QwenParts, add_lora
-from .vision import QwenVisionEncoder, WeatherImages, WeatherTokenizer
+from .spectral import Advection, SphericalBands
+from .vision import OperatorTokenizer, QwenVisionEncoder, WeatherImages, WeatherTokenizer
 
 FROZEN_PREFIXES = ("tokenizer.encoder.", "lm_head.")
 
@@ -46,24 +50,57 @@ class ClimateVLM(nn.Module):
         self.D = make_downscaler(cfg, meta)
         self.spread_members = ds.get("spread_members", 0) if ds.get("residual", False) else 0
         self.register_buffer("static_hr", static_hr, persistent=False)
-        types = ["lr", "mean", "tendency"] + (["spread"] if self.spread_members > 1 else [])
-        enc = QwenVisionEncoder(qwen.visual, qwen.image_mean, qwen.image_std, v.get("image_scale", 1))
-        self.tokenizer = WeatherTokenizer(
-            enc, WeatherImages(self.state, v["groups"], v["ranges"]), types, len(self.history_h), lat, lon, (H, W),
-            n_tokens=v["n_tokens"], dim=v["dim"], heads=v["heads"], layers=v["layers"],
-            numeric_patch=v.get("numeric_patch", 0), n_state=len(self.state))
+        # stage 04: spherical-harmonic bands of one D map become token types band0, band1, ... (decompose before E)
+        sp = m.get("spectral") or {}
+        self.bands = SphericalBands(lat, lon, sp.get("edges", [6, 15])) if sp else None
+        self.split = sp.get("split", "mean")
+        have = ["lr", "mean", "tendency"] + (["spread"] if self.spread_members > 1 else [])
+        if self.bands is not None:
+            have += [f"band{k}" for k in range(self.bands.n_bands)]
+        types = list(v.get("types") or [t for t in have if not t.startswith("band")])
+        if set(types) - set(have):
+            raise ValueError(f"vision.types {sorted(set(types) - set(have))} not available (have {have})")
         self.llm, self.lm_head, self.D_llm = qwen.language_model, qwen.lm_head, qwen.hidden_size
+        if v.get("encoder", "qwen") == "sfno":  # stage 04: neural operator instead of the frozen vision tower
+            o = v.get("sfno", {})
+            self.tokenizer = OperatorTokenizer(
+                types, len(self.history_h), len(self.state), lat, lon, (H, W), self.D_llm, v["n_tokens"], v["dim"],
+                v["heads"], v["layers"], hidden=o.get("hidden", 64), n_layers=o.get("layers", 4),
+                out=o.get("out", 256), patch=o.get("patch", 8), modes=o.get("modes"))
+        else:
+            enc = QwenVisionEncoder(qwen.visual, qwen.image_mean, qwen.image_std, v.get("image_scale", 1))
+            self.tokenizer = WeatherTokenizer(
+                enc, WeatherImages(self.state, v["groups"], v["ranges"]), types, len(self.history_h), lat, lon,
+                (H, W), n_tokens=v["n_tokens"], dim=v["dim"], heads=v["heads"], layers=v["layers"],
+                numeric_patch=v.get("numeric_patch", 0), n_state=len(self.state))
         self.n_query = m.get("n_query_tokens", 16)
         self.fq = nn.Parameter(torch.randn(self.n_query, self.D_llm) * 0.02)
         dim = d["dim"]
         self.hproj = nn.Sequential(nn.LayerNorm(self.D_llm), nn.Linear(self.D_llm, dim))
         geo, lead = GeoEmbedding(lat, lon, d["patch"], dim), LeadEmbedding(dim)
         self.G = PhysicsHead(geo, lead, [0] + self.leads_h, n_diag, dim, d["heads"], d.get("g_layers", 2))
-        self.F = ForecastDecoder(geo, lead, self.leads_h, len(self.out), d["patch"], dim, d["heads"],
-                                 d.get("f_layers", 2), d.get("self_attn", True), d.get("gaussian", False),
-                                 d.get("cnn_hidden", 64))
         qn = m.get("question", {})  # lead questions (stage 03): the lead is asked in text, one lead per sequence
         self.ask, self.ask_lead_emb = bool(qn.get("enabled", False)), bool(qn.get("lead_embedding", True))
+        # stage 04 output: direct (base + F), bands (base + sum of each band map projected on its band), advect
+        # (ClimODE-style: F gives velocity and source per lead segment for the advected channels, bands for the rest)
+        self.out_mode = sp.get("output", "direct")
+        C, K = len(self.out), (self.bands.n_bands if self.bands is not None else 1)
+        if self.out_mode != "direct" and self.bands is None:
+            raise ValueError("spectral.output bands / advect needs model.spectral")
+        self.adv_idx = []
+        if self.out_mode == "advect":
+            ad = sp.get("advect", {})
+            self.adv_idx = [self.out.index(c) for c in ad.get("channels", [])]
+            if not self.adv_idx or any(self.out_from_state_of(c) < 0 for c in ad.get("channels", [])):
+                raise ValueError("spectral.advect.channels: output channels that are also state channels")
+            if self.ask:
+                raise ValueError("the advection output integrates over every lead: not with lead questions")
+            self.advect = Advection(ad.get("dt_h", 6.0), ad.get("max_cells_per_h", 1.0), ad.get("compression", True))
+        self.rest_idx = [i for i in range(C) if i not in self.adv_idx]
+        n_maps = {"direct": C, "bands": C * K, "advect": 3 * len(self.adv_idx) + len(self.rest_idx) * K}[self.out_mode]
+        self.F = ForecastDecoder(geo, lead, self.leads_h, C, d["patch"], dim, d["heads"],
+                                 d.get("f_layers", 2), d.get("self_attn", True), d.get("gaussian", False),
+                                 d.get("cnn_hidden", 64), n_maps=n_maps)
         self.base = d.get("residual_base", "persistence")
         self.out_from_state = [self.state.index(c) if c in self.state else -1 for c in self.out]
         if m.get("lora", {}).get("enabled", False):
@@ -90,7 +127,7 @@ class ClimateVLM(nn.Module):
         for mod in mods:
             for p in mod.parameters():
                 p.requires_grad_(True)
-        for p in self.tokenizer.encoder.parameters():
+        for p in self.frozen_encoder.parameters():
             p.requires_grad_(False)
         if stage in ("2", "3"):
             self.fq.requires_grad_(True)
@@ -107,13 +144,22 @@ class ClimateVLM(nn.Module):
         super().train(mode)
         if self.d_frozen:
             self.D.eval()
-        self.tokenizer.encoder.eval()
+        self.frozen_encoder.eval()
         return self
+
+    @property
+    def frozen_encoder(self) -> nn.Module:
+        """The pretrained vision tower (never trained); an empty module for the neural-operator tokenizer."""
+        enc = getattr(self.tokenizer, "encoder", None)
+        return nn.Identity() if enc is None else enc
+
+    def out_from_state_of(self, channel: str) -> int:
+        return self.state.index(channel) if channel in self.state else -1
 
     def own_state_dict(self) -> Dict[str, torch.Tensor]:
         """Everything this repository trains: D, P (+ tags / numeric tokens), queries, G, F and LoRA."""
-        return {k: v for k, v in self.state_dict().items()
-                if not k.startswith(FROZEN_PREFIXES) and (not k.startswith("llm.") or "lora_" in k)}
+        return {k: v for k, v in self.state_dict().items()  # (neuraloperator adds a non-tensor "_metadata" entry)
+                if torch.is_tensor(v) and not k.startswith(FROZEN_PREFIXES) and (not k.startswith("llm.") or "lora_" in k)}
 
     # ------------------------------------------------------------------------------------------ forward
     def _embed_ids(self, ids: List[List[int]], left: bool, device) -> (torch.Tensor, torch.Tensor):
@@ -129,6 +175,8 @@ class ClimateVLM(nn.Module):
     def _sequence(self, x_lr, prompt_ids, question_ids, B, dev):
         with torch.set_grad_enabled(torch.is_grad_enabled() and not self.d_frozen):
             maps = self.D.tokens(x_lr, self.static_hr, self.history_h, members=self.spread_members)
+        if self.bands is not None:
+            maps.update({f"band{k}": b for k, b in enumerate(self.bands(maps[self.split]))})
         wtok, info = self.tokenizer(maps)
         dtype = next(self.llm.parameters()).dtype
         pe, pm = self._embed_ids(prompt_ids or [[] for _ in range(B)], True, dev)
@@ -162,11 +210,29 @@ class ClimateVLM(nn.Module):
         if self.base == "persistence":  # downscaled issue-time state (zero for output-only channels)
             now = maps["mean"][:, self.history_h.index(0) if 0 in self.history_h else -1]
             base = torch.cat([now, torch.zeros_like(now[:, :1])], 1)[:, self.out_from_state]
-        mean, scale = self.F(torch.cat([mem, z_tok], 1), base, leads=ask_h, use_lead=self.ask_lead_emb)
+        raw, scale = self.F(torch.cat([mem, z_tok], 1), base if self.out_mode == "direct" else None, leads=ask_h,
+                            use_lead=self.ask_lead_emb)
+        mean = raw if self.out_mode == "direct" else self._fields(raw, base)
         out = {"mean": mean, "scale": scale, "z_hat": z_hat, "maps": maps, **info}
         if te.shape[1]:
             out["text_logits"] = self.lm_head(hidden[:, s - 1:s - 1 + te.shape[1]]).float()
             out["text_mask"] = tm
+        return out
+
+    def _fields(self, raw: torch.Tensor, base: Optional[torch.Tensor]) -> torch.Tensor:
+        """Stage 04 output maps (B, L, n_maps, H, W) -> fields (B, L, C, H, W): band maps of channel c are
+        recombined by their spherical-harmonic projections; advected channels are integrated from the base."""
+        B, L, _, H, W = raw.shape
+        C, K = len(self.out), self.bands.n_bands
+        base = base if base is not None else raw.new_zeros(B, C, H, W)
+        out = raw.new_zeros(B, L, C, H, W)
+        A = len(self.adv_idx)
+        if A:
+            vel = raw[:, :, :2 * A].reshape(B, L, A, 2, H, W)
+            src = raw[:, :, 2 * A:3 * A]
+            out[:, :, self.adv_idx] = self.advect(base[:, self.adv_idx], vel, src, self.leads_h)
+        parts = raw[:, :, 3 * A:].reshape(B, L, len(self.rest_idx), K, H, W)
+        out[:, :, self.rest_idx] = base[:, None, self.rest_idx] + self.bands.combine(parts)
         return out
 
     @torch.no_grad()

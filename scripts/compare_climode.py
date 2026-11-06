@@ -18,6 +18,7 @@ Persistence is recomputed here and checked against the reference file, which val
         --reference ../physical_guide_flowmatching/docs/results_2026_11/scores/raw/blend_ngcm_2020_climode_paired.json
     # paired intervals against ClimODE need its per-IC forecasts (pg-flow scripts/run_climode_2020.py output):
     #   --climode-pred runs/blend_ngcm/ngcm2020/climode2020/climode_pred_2020_valid.npz
+    # --bands 6,15: RMSE of the error split into spherical-harmonic bands (l <= 6, 7..15, > 15) on the 64x32 grid
 """
 
 import argparse
@@ -32,6 +33,7 @@ import torch
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), ".."))
 from climate_vlm import build, data  # noqa: E402
 from climate_vlm.contract import CLIMODE_VARS  # noqa: E402
+from climate_vlm.spectral import SphericalBands  # noqa: E402
 
 REF_VARS = ["z", "t", "t2m", "u10", "v10"]  # pg-flow's names of CLIMODE_VARS
 UNITS = {"z": "m2/s2", "t": "K", "t2m": "K", "u10": "m/s", "v10": "m/s"}
@@ -87,6 +89,7 @@ def main(argv=None):
     a.add_argument("--reference", help="pg-flow climode_paired JSON of the same year (ClimODE, persistence, ...)")
     a.add_argument("--climode-pred", help="pg-flow ClimODE per-IC forecasts (npz with mean, std, ics, lead_hours)")
     a.add_argument("--out", help="default: <eval>/climode_compare")
+    a.add_argument("--bands", help="comma-separated band edges in total wavenumber l, e.g. 6,15")
     a = a.parse_args(argv)
     cfg = build.load_config(a.config)
     cache = build.paths(cfg)["cache"]
@@ -123,6 +126,12 @@ def main(argv=None):
 
     per = {}  # name -> metric -> (n_ic, L, 5)
     grid_err = np.zeros((len(leads), 5))
+    sb = None
+    if a.bands:
+        sb = SphericalBands(lat, np.arange(truth.shape[-1]) * 360.0 / truth.shape[-1],
+                            [int(e) for e in a.bands.split(",")])
+        alpha = torch.tensor(np.cos(np.deg2rad(lat)) / np.cos(np.deg2rad(lat)).mean())[:, None]
+        band_mse = {}  # name -> (L, 5, K) summed over ICs
     for e, (r, i0) in enumerate(zip(rows, use)):
         for j, h in enumerate(leads):
             O = np.asarray(truth[i0 + h // 6], np.float64)
@@ -134,6 +143,10 @@ def main(argv=None):
                 c = cpi.index(i0)
                 items["climode"] = (cp["mean"][yi, c, cpl.index(h)], cp["std"][yi, c, cpl.index(h)])
             for name, (p, s) in items.items():
+                if sb is not None:
+                    err = torch.tensor(np.asarray(p, np.float64) - O)
+                    m = torch.stack([(b ** 2 * alpha).mean((-1, -2)) for b in sb(err)], -1).numpy()  # (5, K)
+                    band_mse.setdefault(name, np.zeros((len(leads), 5, sb.n_bands)))[j] += m
                 for met, v in climode_scores(np.asarray(p, np.float64), O, np.asarray(s, np.float64), clim, lat,
                                              mx, mn).items():
                     per.setdefault(name, {}).setdefault(met, np.zeros((len(use), len(leads), 5)))[e, j] = v
@@ -178,6 +191,10 @@ def main(argv=None):
                                   for h in leads if str(h) in rs}
         res["reference"] = a.reference
     res["checks"] = check
+    if sb is not None:
+        res["band_edges"] = sb.edges
+        res["band_rmse"] = {n: {str(h): {v: np.sqrt(x[j, k] / len(use)).tolist() for k, v in enumerate(REF_VARS)}
+                                for j, h in enumerate(leads)} for n, x in band_mse.items()}
 
     out = a.out or os.path.join(a.eval, "climode_compare")
     os.makedirs(out, exist_ok=True)
@@ -215,6 +232,16 @@ def table(res):
                 lines.append(f"- {met} {v}: " + ", ".join(
                     f"{h} h {d[str(h)][met][v]['mean']:.3g} [{d[str(h)][met][v]['ci95'][0]:.3g}, "
                     f"{d[str(h)][met][v]['ci95'][1]:.3g}]" for h in leads))
+        lines.append("")
+    if "band_rmse" in res:
+        e = res["band_edges"]
+        names_b = [f"l<={e[0]}"] + [f"{a + 1}<=l<={b}" for a, b in zip(e[:-1], e[1:])] + [f"l>{e[-1]}"]
+        lines += ["## RMSE by spherical-harmonic band of the error (" + ", ".join(names_b) + ")", "",
+                  "| var | model | " + " | ".join(f"{h // 24} d" for h in leads) + " |", "|---|---|" + "---:|" * len(leads)]
+        for v in res["vars"]:
+            for n, d in res["band_rmse"].items():
+                lines.append(f"| {v} | {label.get(n, n)} | " + " | ".join(
+                    " / ".join(f"{x:.3g}" for x in d[str(h)][v]) for h in leads) + " |")
         lines.append("")
     lines += [f"Units: {', '.join(f'{v} {u}' for v, u in UNITS.items())}.",
               "truth coarsening RMSE (our HR truth averaged to 64x32 vs WB2 64x32), z500 / t2m at 24 h: "

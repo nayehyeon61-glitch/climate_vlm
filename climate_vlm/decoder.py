@@ -117,16 +117,20 @@ class PhysicsHead(nn.Module):
 
 
 class ForecastDecoder(nn.Module):
-    """F: (B, N, dim) memory -> Y^ (B, L, C, H, W) normalised fields (+ scale when gaussian)."""
+    """F: (B, N, dim) memory -> Y^ (B, L, C, H, W) normalised fields (+ scale when gaussian).
+
+    n_maps (default C): number of mean maps; more than C when the model turns them into fields itself (stage 04:
+    one map per channel and spherical-harmonic band, or velocity and source maps of the advection step)."""
 
     def __init__(self, geo: GeoEmbedding, lead: LeadEmbedding, leads_h: Sequence[int], channels: int, patch: int,
                  dim: int, heads: int, layers: int, self_attn: bool = True, gaussian: bool = False,
-                 cnn_hidden: int = 64):
+                 cnn_hidden: int = 64, n_maps: Optional[int] = None):
         super().__init__()
         self.geo, self.lead, self.patch, self.C, self.gaussian = geo, lead, patch, channels, gaussian
+        self.n_maps = n_maps or channels
         self.register_buffer("leads_h", torch.tensor(list(leads_h)), persistent=False)
         self.blocks = nn.ModuleList([CrossBlock(dim, heads, self_attn) for _ in range(layers)])
-        n_out = channels * (2 if gaussian else 1)
+        n_out = self.n_maps + (channels if gaussian else 0)
         self.head = nn.Sequential(nn.LayerNorm(dim), nn.Linear(dim, dim), nn.GELU(),
                                   nn.Linear(dim, patch * patch * n_out))
         self.cnn = nn.Sequential(Conv(n_out, cnn_hidden), nn.GELU(), Conv(cnn_hidden, cnn_hidden), nn.GELU(),
@@ -151,12 +155,12 @@ class ForecastDecoder(nn.Module):
                 q = q + self.lead(leads)[:, None]
         for blk in self.blocks:
             q = blk(q, mem, mem_mask)
-        p, n_out = self.patch, self.C * (2 if self.gaussian else 1)
+        p, n_out = self.patch, self.n_maps + (self.C if self.gaussian else 0)
         x = self.head(q).view(B * L, Hp, Wp, p, p, n_out)
         x = x.permute(0, 5, 1, 3, 2, 4).reshape(B * L, n_out, Hp * p, Wp * p)  # unpatchify
         x = (x + self.cnn(x)).view(B, L, n_out, Hp * p, Wp * p)
-        mean = x[:, :, :self.C]
+        mean = x[:, :, :self.n_maps]
         if base is not None:
             mean = mean + base[:, None]
-        scale = F.softplus(x[:, :, self.C:]) + 1e-3 if self.gaussian else None
+        scale = F.softplus(x[:, :, self.n_maps:]) + 1e-3 if self.gaussian else None
         return mean, scale

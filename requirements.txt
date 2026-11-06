@@ -6,3 +6,5 @@ numpy
 netCDF4
 pyyaml
 pytest
+neuraloperator>=2.0        # stage 04 SFNO encoder (optional: only for vision.encoder: sfno)
+torch-harmonics>=0.8       # needed by neuraloperator's SFNO

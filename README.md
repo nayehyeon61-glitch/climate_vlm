@@ -55,6 +55,8 @@ CPU 확인용: `python scripts/make_synthetic.py --out data/synthetic` 뒤 `conf
 | 00 | [docs/stage00_initial_implementation.md](docs/stage00_initial_implementation.md) | 첫 구현, 합성 자료로 구조 검사 |
 | 01 | [docs/stage01_cpu_small_climode.md](docs/stage01_cpu_small_climode.md) | CPU 작은 규모 학습, 2020년 ClimODE 규약 비교 |
 | 02 | [docs/stage02_laya_router.md](docs/stage02_laya_router.md) | Laya를 기후 전문가 선택 과제에 학습시켜 라우터로 시험 |
+| 03 | [docs/stage03_lead_questions.md](docs/stage03_lead_questions.md) | 프롬프트에서 리드(24/72/96/120 h)를 묻고 물리 상태를 답하게 학습 (진행 중) |
+| 04 | [docs/stage04_neural_operator.md](docs/stage04_neural_operator.md) | 구면조화 대역 분해와 SFNO(neuraloperator), 대역 결합과 ClimODE식 이류 출력 (진행 중) |
 
 ## 작은 규모 실행과 ClimODE 비교 (WeatherBench2, CPU)
 

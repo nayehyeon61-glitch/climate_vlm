@@ -1,0 +1,14 @@
+# Stage 04 arm (a) (docs/stage04_neural_operator.md): D_mu's maps split into spherical-harmonic bands before the frozen
+# vision tower (token types band0..2 instead of lr / mean), and F's maps recombined per band at the end.
+# Same training as stage 01's phase 2 (the control: runs/stage01/stage2.pt, scored in runs/stage01/eval_stage2).
+#   python scripts/train.py --config configs/stage04_bands.yaml --stage 2 --init runs/stage01/stage1.pt \
+#       --out runs/stage04/bands
+extends: configs/stage01_cpu_small.yaml
+model:
+  spectral:
+    edges: [6, 15]             # l <= 6 planetary, 7..15 synoptic, > 15 the rest (exact projections on 64x32 too)
+    split: mean                # D_mu
+    output: bands              # F gives one map per channel and band; each is projected on its band and summed
+  vision:
+    types: [band0, band1, band2, tendency]
+    ranges: {band0: 2.5, band1: 2.0, band2: 1.5}   # ~ the 99th percentile of |z| per band (2012-2015 sample)

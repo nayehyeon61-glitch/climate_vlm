@@ -183,3 +183,36 @@ class WeatherTokenizer(nn.Module):
             n = n.view(B, S, *n.shape[1:]) + self.time_emb[None, :, None]
             mem = torch.cat([mem, n.flatten(1, 2)], 1)
         return self.resampler(mem), {"clip_frac": clipped, "n_memory": mem.shape[1]}
+
+
+class OperatorTokenizer(nn.Module):
+    """Stage 04: a neural operator in place of the vision tower (neuraloperator's SFNO, trainable).
+
+    maps[type] (B, S, C, H, W) for every type and history time are stacked as input channels, the SFNO maps them to
+    ``out`` latent fields on the same grid, a strided convolution cuts those into patch tokens, and the Perceiver
+    resampler P reads them (with their sphere positions) into ``n_tokens`` LLM tokens, exactly as for the vision
+    tower. Band types (band0, band1, ...) keep the spherical-harmonic split visible to the operator.
+    """
+
+    def __init__(self, types: Sequence[str], n_hist: int, n_state: int, lat, lon, hr_shape, d_llm: int,
+                 n_tokens: int, dim: int, heads: int, layers: int, hidden: int = 64, n_layers: int = 4,
+                 out: int = 256, patch: int = 8, modes=None):
+        super().__init__()
+        from neuralop.models import SFNO  # optional dependency: pip install neuraloperator torch-harmonics
+        H, W = hr_shape
+        if H % patch or W % patch:
+            raise ValueError("sfno patch must divide the HR grid")
+        self.types = list(types)
+        cin = len(self.types) * n_hist * n_state
+        self.operator = SFNO(n_modes=tuple(modes or (H // 2, W // 2)), in_channels=cin, out_channels=out,
+                             hidden_channels=hidden, n_layers=n_layers)
+        self.embed = nn.Conv2d(out, out, patch, stride=patch)
+        self.register_buffer("pos", sphere_positions(lat, lon, H // patch, W // patch), persistent=False)
+        self.pos_mlp = nn.Sequential(nn.Linear(self.pos.shape[1], out), nn.GELU(), nn.Linear(out, out))
+        self.resampler = Resampler(out, d_llm, n_tokens, dim, heads, layers)
+
+    def forward(self, maps: Dict[str, torch.Tensor], encoder_grad: bool = False):
+        x = torch.cat([maps[k] for k in self.types], 2).flatten(1, 2).float()  # (B, S*K*C, H, W)
+        z = self.embed(self.operator(x)).flatten(2).transpose(1, 2)  # (B, P, out)
+        mem = z + self.pos_mlp(self.pos)[None]
+        return self.resampler(mem), {"clip_frac": torch.zeros((), device=x.device), "n_memory": mem.shape[1]}
