@@ -10,4 +10,5 @@ extends: configs/stage03_control.yaml
 model:
   question: {enabled: true, lead_embedding: true, answer_now: false}
 train:
-  stage3: {loss: {diag: 0.1, cons: 0.0, phys: 0.0, text: 0.1}}
+  # batch 4 as the control, in micro-batches of 1: with the answer text a batch of 4 ran out of the 15 GB of RAM
+  stage3: {micro_batch: 1, loss: {diag: 0.1, cons: 0.0, phys: 0.0, text: 0.1}}

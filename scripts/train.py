@@ -65,6 +65,7 @@ def main(argv=None):
     cfg = build.load_config(a.config)
     tc = cfg["train"][f"stage{a.stage}"]
     steps = a.steps or tc["steps"]
+    mb = tc.get("micro_batch") or tc["batch"]
     dev = torch.device(a.device)
     os.makedirs(a.out, exist_ok=True)
     torch.manual_seed(cfg["train"].get("seed", 0))
@@ -220,9 +221,13 @@ def main(argv=None):
         except StopIteration:
             it = iter(dl)
             b = next(it)
-        loss = step_loss(b)
         opt.zero_grad(set_to_none=True)
-        loss.backward()
+        n_b, loss = len(b["t"]), 0.0
+        for i in range(0, n_b, mb):  # micro-batches: same update as one batch, less memory (long answer texts)
+            part = {k: v[i:i + mb] for k, v in b.items()}
+            lp = step_loss(part) * (len(part["t"]) / n_b)
+            lp.backward()
+            loss = loss + lp.detach()
         torch.nn.utils.clip_grad_norm_(params, cfg["train"].get("grad_clip", 1.0))
         opt.step()
         sched.step()
