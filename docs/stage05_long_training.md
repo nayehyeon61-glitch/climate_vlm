@@ -13,8 +13,11 @@
 
 - 갈래 두 개:
   - control: stage 01 모델(vision tower, 격자 직접 출력), `configs/stage05_long_control.yaml`.
-  - stage 04에서 2016 검증 손실이 가장 낮은 갈래, `configs/stage05_long_<갈래>.yaml`. 2020 시험 연도는 고르는 데 쓰지
-    않습니다(`scripts/run_stage05.sh`가 `runs/stage04/<갈래>/stage2_val.json`으로 고릅니다).
+  - stage 04의 sfno_advect(`configs/stage05_long_sfno_advect.yaml`). 처음 규칙은 학습 단계 2 검증 손실(출력 20채널
+    평균)이 가장 낮은 갈래였고 그 규칙으로는 bands(0.5106)가 뽑힙니다. 그러나 bands는 대조군과 결과가 같고, 2016 검증을
+    변수별로 보면 z500과 t850을 줄인 것은 sfno_advect뿐이어서 그것으로 정했습니다(근거와 표:
+    [docs/stage04_neural_operator.md](stage04_neural_operator.md)). 2020 시험 연도로 고르지는 않았지만, 결과를 본 뒤
+    규칙을 바꾼 것입니다. 선택은 `runs/stage04/stage05_arm.txt`에 적혀 `scripts/run_stage05.sh`가 읽습니다.
 - 학습(`configs/stage05_long_train.yaml`): 학습 단계 2(P, F, G; D는 stage 01의 `runs/stage01/stage1.pt` 그대로),
   7,270 step × batch 4 = 5 epoch, lr 3e-4(warm-up 2 %, cosine), 진단 손실 0.1. 검증은 반 epoch마다 2016 전체(179개 창).
 - 중단 대비: 검증 때마다 `stage2_resume.pt`(모델, optimizer, 일정, step)를 쓰고, `--resume`으로 그 지점부터 이어갑니다.
