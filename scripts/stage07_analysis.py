@@ -34,7 +34,9 @@ PAIRS = [("fm_vla_x0", "fm_mu_x0", "VLM memory"), ("fm_vla_x0", "fm_vla", "issue
          ("fm_mu_x0", "fm_x0", "VLM mean"), ("fm_vla_x0", "fm_x0", "whole VLM"),
          ("fm_mu_x0_sn", "fm_mu_x0", "structured source noise"),
          ("fm_vla_x0_sn", "fm_vla_x0", "structured source noise"),
-         ("fm_vla_x0_sn", "fm_mu_x0_sn", "VLM memory, structured noise")]
+         ("fm_vla_x0_sn", "fm_mu_x0_sn", "VLM memory, structured noise"),
+         ("fm_mu_x0_sn", "fm_x0_sn", "VLM mean, structured noise"),
+         ("fm_vla_x0_sn", "fm_x0_sn", "whole VLM, structured noise")]
 BOX = 8  # cells per side of the box means (2 x 2 tokens of 4 x 4 cells)
 
 

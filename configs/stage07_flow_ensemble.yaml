@@ -42,3 +42,4 @@ arms:                                         # base: the field the residual is 
   # the source noise from a Gaussian with the targets' spectrum and lead correlation (climate_vlm/flow.py).
   fm_mu_x0_sn: {base: mu, use_mu: true, use_x0: true, use_mem: false, noise: structured}
   fm_vla_x0_sn: {base: mu, use_mu: true, use_x0: true, use_mem: true, noise: structured}
+  fm_x0_sn: {base: x0, use_mu: false, use_x0: true, use_mem: false, noise: structured}  # control without the VLM
