@@ -15,7 +15,8 @@ step() { local out=$1; shift; if [ -e "$out" ]; then echo "done already: $out"; 
 for s in train val test; do
     python scripts/stage07_cache.py --config "$C" --split "$s"
 done
-A=$(python -c "from climate_vlm import build; print(' '.join(build.load_config('$C')['arms']))" | tail -1)
+# the config's run_arms if it has them (the main run trains a subset), else every arm
+A=$(python -c "from climate_vlm import build; c = build.load_config('$C'); print(' '.join(c.get('run_arms') or c['arms']))" | tail -1)
 for arm in ${ARMS:-$A}; do
     step "$O/$arm/flow.pt" python scripts/stage07_flow.py --config "$C" train --arm "$arm"
     step "$O/$arm/members_2020.npz" python scripts/stage07_flow.py --config "$C" sample --arm "$arm"

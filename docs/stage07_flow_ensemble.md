@@ -153,7 +153,16 @@ CRPS와 spread/RMSE. 가우시안 머리는 격자점·리드마다 따로 뽑�
 - 남은 문제는 여전히 퍼짐이 6~15 % 부족한 것(spread/RMSE 0.85~0.94, 범위 밖 0.23~0.28)과 평균 자체의 정확도(z500 RMSE 485 / 749 / 832로
   ClimODE 225 / 509 / 874에 크게 뒤짐)입니다. 후자는 생성기가 아니라 VLM 평균 μ에서 옵니다.
 
-VLM 없는 대조군을 구조 잡음으로 다시 돌리는 중입니다(fm_x0_sn, 아침 7시 30분 KST쯤 끝).
+VLM 없는 대조군도 구조 잡음으로 돌렸습니다(fm_x0_sn). 구조 잡음 아래에서도 VLM 평균의 몫은 그대로입니다:
+fm_mu_x0_sn − fm_x0_sn이 z500 CRPS −2.6 [−3.5, −1.7] / −5.8 / −9.8, RMSE −22 / −19 / −33, 리드 평균 CRPS −4.5입니다.
+t2m은 24 h에서만 VLM 평균이 해롭습니다(+8.8, μ의 t2m이 persistence보다 나쁨).
+
+### 본 실행 계획
+
+stage 05 이류 모델(5 epoch, 2016 검증 0.4978)이 끝나면 자동으로 시작합니다(`runs/stage07/queue_s05.sh`). 학습 창은
+2012~2015 전체(5,816개), 3,000 step, 4스레드. 갈래는 `configs/stage07_flow_ensemble_s05.yaml`의 `run_arms`:
+fm_mu_x0_sn, fm_vla_x0_sn, fm_x0_sn, 그리고 흰 잡음 비교용 fm_mu_x0입니다. 시험 실행의 학습 창 저장분(2.1 GB)은 디스크
+때문에 지웁니다(`scripts/stage07_cache.py`로 다시 만들 수 있음).
 
 ## 재현
 
@@ -163,5 +172,7 @@ CONFIG=configs/stage07_flow_ensemble_s05.yaml OMP_NUM_THREADS=4 HF_HOME=/home/us
     bash scripts/run_stage07.sh                                                                         # 본 실행
 ```
 
-CPU 1스레드에서 VLM 저장은 표본당 약 1.8 s(학습 2,900개, 2016과 2020 ClimODE IC), 생성기 학습은 step당 약 2 s,
-멤버 생성은 IC당 약 3 s(8멤버, 10 step)입니다.
+시험 실행(1스레드, stage 05가 나머지 3스레드를 쓰는 중)에서 VLM 저장은 창당 약 1.8 s(학습 2,908개, 2016과 2020
+ClimODE IC 179개, 180개), 생성기 학습은 step당 약 1.9 s(메모리 없음)~3.3 s(메모리 있음), 멤버 생성은 IC당 약 6~8 s(8멤버,
+10 step)였습니다. 갈래를 더하면 `run_stage07.sh`를 다시 실행하면 됩니다(끝난 단계는 건너뜀). 분석만 다시 하려면
+`python scripts/stage07_analysis.py --config <설정>`.
