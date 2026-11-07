@@ -175,15 +175,20 @@ def fc_feature_idx(qid, leads, n_sub):
     return list(range(base + 1, base + 1 + n_sub))
 
 
-def cmd_rows(cfg, a):
+def period_quantities(cfg, splits):
     bc = build.load_config(cfg["base"]["config"])
     p = build.paths(bc)
     meta, norm = data.load_meta(p["cache"]), data.Normalizer.load(p["stats"])
     truth = Truth(os.path.join(p["cache"], "truth_5p625"), p["cache"])
     q = {}
-    for sp, name in PERIODS.items():
-        z = np.load(os.path.join(cfg["out"], f"fc_{name}.npz"))
+    for sp in splits:
+        z = np.load(os.path.join(cfg["out"], f"fc_{PERIODS[sp]}.npz"))
         q[sp] = quantities(z, truth, meta, norm, bc["data"]["factor"], cfg["domain"])
+    return q
+
+
+def cmd_rows(cfg, a):
+    q = period_quantities(cfg, PERIODS)
     qs, th = make_questions(q["B"], cfg.get("drop_quantile", 0.2))
     dom = domain_label(cfg["domain"])
     res = {"questions": qs, "thresholds": {str(k): v for k, v in th.items()}, "leads": q["B"]["leads"],
@@ -340,6 +345,27 @@ def predict_all(agent, rows, qs, tag):
         if (i + 1) % 20 == 0 or i + 1 == len(rows):
             print(f"{tag}: {i + 1}/{len(rows)} rows, {time.time() - t0:.0f} s", flush=True)
     return out
+
+
+def cmd_warm(cfg, a, agent=None):
+    """Read the 2016 rows into the cache (features per question and one engine pass) before the other periods
+    exist; the heads' fit later finds them there. Same states and questions as `rows` builds."""
+    q = period_quantities(cfg, "B")["B"]
+    qs, th = make_questions(q, cfg.get("drop_quantile", 0.2))
+    k = int(cfg.get("sample", {}).get(PERIODS["B"], 1) or 1)
+    rows = rows_of(q, th, domain_label(cfg["domain"]))[::k]
+    torch.set_num_threads(1)
+    agent = agent or make_agent()
+    from laya.vega import _to_vega_questions
+    sheet = _to_vega_questions(qs)
+    install_cache(agent, ReadCache(os.path.join(cfg["out"], "vega_cache.sqlite")), sheet)
+    t0 = time.time()
+    for i, r in enumerate(rows):
+        agent.vega.engine.decide(r["state"], sheet)
+        for qid in sheet:
+            agent.vega.features(r["state"], sheet[qid])
+        if (i + 1) % 10 == 0 or i + 1 == len(rows):
+            print(f"warm B: {i + 1}/{len(rows)} rows, {time.time() - t0:.0f} s", flush=True)
 
 
 def cmd_laya(cfg, a, agent=None):
@@ -499,11 +525,12 @@ def table(out, D, preds):
 def main(argv=None):
     a = argparse.ArgumentParser()
     a.add_argument("--config", required=True)
-    a.add_argument("cmd", choices=["rows", "baselines", "laya", "report"])
+    a.add_argument("cmd", choices=["rows", "warm", "baselines", "laya", "report"])
     a.add_argument("--arms", nargs="+", default=["zero", "cal", "fit"])
     a = a.parse_args(argv)
     cfg = build.load_config(a.config)
-    return {"rows": cmd_rows, "baselines": cmd_baselines, "laya": cmd_laya, "report": cmd_report}[a.cmd](cfg, a)
+    return {"rows": cmd_rows, "warm": cmd_warm, "baselines": cmd_baselines, "laya": cmd_laya,
+            "report": cmd_report}[a.cmd](cfg, a)
 
 
 if __name__ == "__main__":
