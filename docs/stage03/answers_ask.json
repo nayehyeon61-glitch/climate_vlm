@@ -1,0 +1,2674 @@
+{
+ "checkpoint": "runs/stage03/ask/stage3.pt",
+ "n_ics": 24,
+ "leads": [
+  24,
+  72,
+  96,
+  120
+ ],
+ "summary": {
+  "24": {
+   "answer": {
+    "stated": 0.7083333333333334,
+    "value_abs_err": 5.0801470588235516,
+    "dist_km": 7342.677302291184
+   },
+   "numeric": {
+    "stated": 1.0,
+    "value_abs_err": 3.99270833333334,
+    "dist_km": 6166.814561966574
+   },
+   "persistence": {
+    "stated": 1.0,
+    "value_abs_err": 3.0072916666666765,
+    "dist_km": 5915.71137937764
+   }
+  },
+  "72": {
+   "answer": {
+    "stated": 0.7083333333333334,
+    "value_abs_err": 5.3647058823529585,
+    "dist_km": 8223.642275416138
+   },
+   "numeric": {
+    "stated": 1.0,
+    "value_abs_err": 5.914062500000001,
+    "dist_km": 7317.52033398372
+   },
+   "persistence": {
+    "stated": 1.0,
+    "value_abs_err": 4.6859374999999925,
+    "dist_km": 7028.0273148119
+   }
+  },
+  "96": {
+   "answer": {
+    "stated": 0.75,
+    "value_abs_err": 4.794444444444447,
+    "dist_km": 6708.955361222839
+   },
+   "numeric": {
+    "stated": 1.0,
+    "value_abs_err": 4.674479166666669,
+    "dist_km": 7221.261190177512
+   },
+   "persistence": {
+    "stated": 1.0,
+    "value_abs_err": 4.134374999999994,
+    "dist_km": 7395.217964149252
+   }
+  },
+  "120": {
+   "answer": {
+    "stated": 0.75,
+    "value_abs_err": 5.064583333333327,
+    "dist_km": 7661.731269862949
+   },
+   "numeric": {
+    "stated": 1.0,
+    "value_abs_err": 4.26666666666667,
+    "dist_km": 6811.031706330464
+   },
+   "persistence": {
+    "stated": 1.0,
+    "value_abs_err": 4.4645833333333345,
+    "dist_km": 6861.6737867910315
+   }
+  }
+ },
+ "rows": [
+  {
+   "issue": "2020-01-01 12 UTC",
+   "lead_h": 24,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56N 32E, cold advection -10.0 K/day near 56N 32E; moist advection 2.1 g/kg/day near 56S 302E, dry advection -2.1 g/kg/day near 34N 145E; moisture convergence 3.0 g/kg/day near 56S 302E, moisture divergence -2.5 g/kg/day near 34N 145E; thickest 850-500 hPa layer 4376.4 m near 11S 167E, thinnest 850-500 hPa layer 3709.0 m near 79N 122E.",
+    "truth": "warm advection 10.9 K/day near 56N 32E, cold advection -10.5 K/day near 56N 347E; moist advection 1.7 g/kg/day near 34N 280E, dry advection -2.5 g/kg/day near 34N 302E; moisture convergence 3.7 g/kg/day near 34S 212E, moisture divergence -3.3 g/kg/day near 11N 235E; thickest 850-500 hPa layer 4383.1 m near 11S 10E, thinnest 850-500 hPa layer 3665.5 m near 79N 302E.",
+    "numeric": "warm advection 6.2 K/day near 79N 122E, cold advection -10.9 K/day near 56N 212E; moist advection 1.6 g/kg/day near 34S 212E, dry advection -2.4 g/kg/day near 56N 325E; moisture convergence 5.5 g/kg/day near 34S 212E, moisture divergence -3.1 g/kg/day near 11N 235E; thickest 850-500 hPa layer 4381.4 m near 11S 190E, thinnest 850-500 hPa layer 3656.6 m near 79N 302E.",
+    "persistence": "warm advection 6.3 K/day near 79N 145E, cold advection -11.0 K/day near 56N 212E; moist advection 1.6 g/kg/day near 34S 212E, dry advection -2.7 g/kg/day near 56N 325E; moisture convergence 4.9 g/kg/day near 34S 212E, moisture divergence -3.4 g/kg/day near 11N 235E; thickest 850-500 hPa layer 4385.6 m near 11S 32E, thinnest 850-500 hPa layer 3625.4 m near 79N 302E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 6.737500000000091,
+     "dist_km": 7531.225687935926
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 2.2375000000001024,
+     "dist_km": 5226.081150582466
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 6.162499999999988,
+     "dist_km": 3384.6395253519513
+    }
+   }
+  },
+  {
+   "issue": "2020-01-17 12 UTC",
+   "lead_h": 24,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56N 32E, cold advection -10.0 K/day near 56N 32E; moist advection 2.1 g/kg/day near 56S 302E, dry advection -2.1 g/kg/day near 34N 145E; moisture convergence 3.1 g/kg/day near 11S 302E, moisture divergence -2.4 g/kg/day near 34N 145E; thickest 850-500 hPa layer 4377.0 m near 11S 167E, thinnest 850-500 hPa layer 3709.0 m near 79N 122E.",
+    "truth": "warm advection 9.1 K/day near 56N 325E, cold advection -13.0 K/day near 34N 302E; moist advection 2.7 g/kg/day near 56N 325E, dry advection -3.4 g/kg/day near 34N 302E; moisture convergence 4.2 g/kg/day near 56N 325E, moisture divergence -3.5 g/kg/day near 34N 302E; thickest 850-500 hPa layer 4387.6 m near 11S 32E, thinnest 850-500 hPa layer 3705.1 m near 79N 77E.",
+    "numeric": "warm advection 12.4 K/day near 79N 235E, cold advection -10.5 K/day near 34N 280E; moist advection 1.8 g/kg/day near 56S 347E, dry advection -3.0 g/kg/day near 34N 302E; moisture convergence 5.5 g/kg/day near 11S 190E, moisture divergence -2.7 g/kg/day near 11S 235E; thickest 850-500 hPa layer 4390.9 m near 11S 190E, thinnest 850-500 hPa layer 3745.0 m near 79N 55E.",
+    "persistence": "warm advection 14.4 K/day near 79N 235E, cold advection -10.1 K/day near 34N 280E; moist advection 1.5 g/kg/day near 34N 257E, dry advection -3.1 g/kg/day near 34N 302E; moisture convergence 4.4 g/kg/day near 11S 190E, moisture divergence -2.6 g/kg/day near 11N 55E; thickest 850-500 hPa layer 4386.6 m near 11S 32E, thinnest 850-500 hPa layer 3720.6 m near 79N 55E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 2.812500000000057,
+     "dist_km": 8859.86713706114
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 6.549999999999921,
+     "dist_km": 7244.669993025722
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 3.4125000000000005,
+     "dist_km": 4637.281052510826
+    }
+   }
+  },
+  {
+   "issue": "2020-02-02 12 UTC",
+   "lead_h": 24,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56N 10E, cold advection -10.0 K/day near 34N 145E; moist advection 2.1 g/kg/day near 56S 302E, dry advection -2.0 g/kg/day near 34N 145E; moisture convergence 3.1 g/kg/day near 56S 302E, moisture divergence -2.5 g/kg/day near 34N 145E; thickest 850-500 hPa layer 4377.0 m near 11S 167E, thinnest 850-500 hPa layer 3709.0 m near 79N 122E.",
+    "truth": "warm advection 9.6 K/day near 56N 212E, cold advection -11.5 K/day near 79N 10E; moist advection 2.0 g/kg/day near 56S 190E, dry advection -2.3 g/kg/day near 56S 212E; moisture convergence 2.9 g/kg/day near 56S 235E, moisture divergence -3.2 g/kg/day near 11N 235E; thickest 850-500 hPa layer 4385.6 m near 11S 167E, thinnest 850-500 hPa layer 3696.3 m near 79N 235E.",
+    "numeric": "warm advection 7.6 K/day near 56N 212E, cold advection -10.3 K/day near 56S 100E; moist advection 1.5 g/kg/day near 56N 212E, dry advection -2.9 g/kg/day near 34N 280E; moisture convergence 3.4 g/kg/day near 34N 302E, moisture divergence -3.1 g/kg/day near 34N 280E; thickest 850-500 hPa layer 4379.8 m near 11N 167E, thinnest 850-500 hPa layer 3721.5 m near 79N 235E.",
+    "persistence": "warm advection 8.5 K/day near 56N 212E, cold advection -12.5 K/day near 56S 100E; moist advection 1.6 g/kg/day near 56N 212E, dry advection -2.9 g/kg/day near 34N 280E; moisture convergence 3.1 g/kg/day near 34N 302E, moisture divergence -2.9 g/kg/day near 34N 280E; thickest 850-500 hPa layer 4382.4 m near 11N 167E, thinnest 850-500 hPa layer 3706.1 m near 79N 212E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 3.0625000000000226,
+     "dist_km": 5983.040736054842
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 4.4875,
+     "dist_km": 7507.496313876865
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 2.075000000000057,
+     "dist_km": 7568.101050832365
+    }
+   }
+  },
+  {
+   "issue": "2020-02-16 12 UTC",
+   "lead_h": 24,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56N 32E, cold advection -10.0 K/day near 56N 32E; moist advection 2.1 g/kg/day near 56S 302E, dry advection -2.0 g/kg/day near 34N 145E; moisture convergence 3.1 g/kg/day near 56S 302E, moisture divergence -2.5 g/kg/day near 34N 145E; thickest 850-500 hPa layer 4376.0 m near 11S 167E, thinnest 850-500 hPa layer 3709.0 m near 79N 122E.",
+    "truth": "warm advection 8.0 K/day near 79N 55E, cold advection -8.8 K/day near 79S 145E; moist advection 1.9 g/kg/day near 34N 167E, dry advection -2.7 g/kg/day near 56S 257E; moisture convergence 4.6 g/kg/day near 34S 302E, moisture divergence -3.0 g/kg/day near 56S 257E; thickest 850-500 hPa layer 4383.2 m near 11S 167E, thinnest 850-500 hPa layer 3753.5 m near 79N 235E.",
+    "numeric": "warm advection 9.2 K/day near 56N 32E, cold advection -8.6 K/day near 34N 122E; moist advection 1.8 g/kg/day near 56S 257E, dry advection -2.6 g/kg/day near 34N 122E; moisture convergence 4.3 g/kg/day near 11S 190E, moisture divergence -2.7 g/kg/day near 34N 122E; thickest 850-500 hPa layer 4390.9 m near 11S 167E, thinnest 850-500 hPa layer 3773.2 m near 79N 235E.",
+    "persistence": "warm advection 9.4 K/day near 56N 32E, cold advection -9.5 K/day near 34N 122E; moist advection 1.9 g/kg/day near 56S 257E, dry advection -2.8 g/kg/day near 56S 235E; moisture convergence 4.3 g/kg/day near 11S 190E, moisture divergence -2.8 g/kg/day near 11N 167E; thickest 850-500 hPa layer 4386.0 m near 11S 167E, thinnest 850-500 hPa layer 3759.0 m near 79N 235E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 7.224999999999977,
+     "dist_km": 8545.757698055186
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 3.699999999999955,
+     "dist_km": 8918.948894630968
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 1.3750000000000226,
+     "dist_km": 6510.447442629879
+    }
+   }
+  },
+  {
+   "issue": "2020-01-01 12 UTC",
+   "lead_h": 72,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56N 10E, cold advection -10.0 K/day near 34N 145E; moist advection 2.1 g/kg/day near 56S 302E, dry advection -2.0 g/kg/day near 34N 145E; moisture convergence 3.1 g/kg/day near 56S 302E, moisture divergence -2.5 g/kg/day near 34N 145E; thickest 850-500 hPa layer 4376.3 m near 11S 167E, thinnest 850-500 hPa layer 3709.0 m near 79N 122E.",
+    "truth": "warm advection 7.0 K/day near 56N 257E, cold advection -9.3 K/day near 79N 32E; moist advection 2.1 g/kg/day near 56S 235E, dry advection -2.5 g/kg/day near 34N 280E; moisture convergence 3.8 g/kg/day near 11S 122E, moisture divergence -2.9 g/kg/day near 11N 235E; thickest 850-500 hPa layer 4379.6 m near 11S 347E, thinnest 850-500 hPa layer 3606.2 m near 79N 280E.",
+    "numeric": "warm advection 6.3 K/day near 79N 122E, cold advection -10.9 K/day near 56N 212E; moist advection 1.6 g/kg/day near 34S 212E, dry advection -2.3 g/kg/day near 56N 325E; moisture convergence 5.5 g/kg/day near 34S 212E, moisture divergence -3.1 g/kg/day near 11N 235E; thickest 850-500 hPa layer 4382.2 m near 11S 190E, thinnest 850-500 hPa layer 3656.6 m near 79N 302E.",
+    "persistence": "warm advection 6.3 K/day near 79N 145E, cold advection -11.0 K/day near 56N 212E; moist advection 1.6 g/kg/day near 34S 212E, dry advection -2.7 g/kg/day near 56N 325E; moisture convergence 4.9 g/kg/day near 34S 212E, moisture divergence -3.4 g/kg/day near 11N 235E; thickest 850-500 hPa layer 4385.6 m near 11S 32E, thinnest 850-500 hPa layer 3625.4 m near 79N 302E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 13.925000000000045,
+     "dist_km": 8740.455436801425
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 7.237499999999943,
+     "dist_km": 5399.901769149874
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 3.7375000000000345,
+     "dist_km": 3909.143561001084
+    }
+   }
+  },
+  {
+   "issue": "2020-01-17 12 UTC",
+   "lead_h": 72,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56N 10E, cold advection -10.0 K/day near 34N 145E; moist advection 2.1 g/kg/day near 56S 302E, dry advection -2.0 g/kg/day near 34N 145E; moisture convergence 3.1 g/kg/day near 56S 302E, moisture divergence -2.5 g/kg/day near 34N 145E; thickest 850-500 hPa layer 4376.0 m near 11S 167E, thinnest 850-500 hPa layer 3709.0 m near 79N 122E.",
+    "truth": "warm advection 8.1 K/day near 56N 257E, cold advection -7.4 K/day near 34S 55E; moist advection 2.9 g/kg/day near 56S 77E, dry advection -4.0 g/kg/day near 34S 55E; moisture convergence 4.9 g/kg/day near 34S 212E, moisture divergence -3.8 g/kg/day near 34N 167E; thickest 850-500 hPa layer 4394.4 m near 11S 32E, thinnest 850-500 hPa layer 3711.2 m near 79N 302E.",
+    "numeric": "warm advection 12.3 K/day near 79N 235E, cold advection -10.4 K/day near 34N 280E; moist advection 1.9 g/kg/day near 56S 347E, dry advection -3.0 g/kg/day near 34N 302E; moisture convergence 5.5 g/kg/day near 11S 190E, moisture divergence -2.7 g/kg/day near 11S 235E; thickest 850-500 hPa layer 4391.8 m near 11S 190E, thinnest 850-500 hPa layer 3745.8 m near 79N 55E.",
+    "persistence": "warm advection 14.4 K/day near 79N 235E, cold advection -10.1 K/day near 34N 280E; moist advection 1.5 g/kg/day near 34N 257E, dry advection -3.1 g/kg/day near 34N 302E; moisture convergence 4.4 g/kg/day near 11S 190E, moisture divergence -2.6 g/kg/day near 11N 55E; thickest 850-500 hPa layer 4386.6 m near 11S 32E, thinnest 850-500 hPa layer 3720.6 m near 79N 55E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 3.874999999999932,
+     "dist_km": 7880.827906031071
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 6.012499999999978,
+     "dist_km": 8557.129056896427
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 3.7749999999999204,
+     "dist_km": 8352.69804620921
+    }
+   }
+  },
+  {
+   "issue": "2020-02-02 12 UTC",
+   "lead_h": 72,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56N 10E, cold advection -10.0 K/day near 34N 145E; moist advection 2.1 g/kg/day near 56S 302E, dry advection -2.1 g/kg/day near 34N 145E; moisture convergence 3.1 g/kg/day near 56S 302E, moisture divergence -2.4 g/kg/day near 34N 145E; thickest 850-500 hPa layer 4377.0 m near 11S 167E, thinnest 850-500 hPa layer 3709.0 m near 79N 122E.",
+    "truth": "warm advection 6.9 K/day near 56N 347E, cold advection -7.6 K/day near 34S 10E; moist advection 1.7 g/kg/day near 79S 280E, dry advection -1.7 g/kg/day near 11N 302E; moisture convergence 3.1 g/kg/day near 34S 302E, moisture divergence -2.9 g/kg/day near 11N 302E; thickest 850-500 hPa layer 4387.1 m near 11S 122E, thinnest 850-500 hPa layer 3716.6 m near 79N 257E.",
+    "numeric": "warm advection 7.6 K/day near 56N 212E, cold advection -10.3 K/day near 56S 100E; moist advection 1.5 g/kg/day near 56N 212E, dry advection -2.9 g/kg/day near 34N 280E; moisture convergence 3.4 g/kg/day near 34N 302E, moisture divergence -3.1 g/kg/day near 34N 280E; thickest 850-500 hPa layer 4380.6 m near 11N 167E, thinnest 850-500 hPa layer 3722.1 m near 79N 235E.",
+    "persistence": "warm advection 8.5 K/day near 56N 212E, cold advection -12.5 K/day near 56S 100E; moist advection 1.6 g/kg/day near 56N 212E, dry advection -2.9 g/kg/day near 34N 280E; moisture convergence 3.1 g/kg/day near 34N 302E, moisture divergence -2.9 g/kg/day near 34N 280E; thickest 850-500 hPa layer 4382.4 m near 11N 167E, thinnest 850-500 hPa layer 3706.1 m near 79N 212E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 3.062500000000034,
+     "dist_km": 7315.255243862006
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 2.1625,
+     "dist_km": 6232.3368293512685
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 2.875000000000091,
+     "dist_km": 6290.740366882928
+    }
+   }
+  },
+  {
+   "issue": "2020-02-16 12 UTC",
+   "lead_h": 72,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56N 10E, cold advection -10.0 K/day near 34N 145E; moist advection 2.1 g/kg/day near 56S 302E, dry advection -2.0 g/kg/day near 34N 145E; moisture convergence 3.1 g/kg/day near 56S 302E, moisture divergence -2.5 g/kg/day near 34N 145E; thickest 850-500 hPa layer 4376.0 m near 11S 167E, thinnest 850-500 hPa layer 3709.0 m near 79N 122E.",
+    "truth": "warm advection 7.2 K/day near 56N 257E, cold advection -13.4 K/day near 79N 55E; moist advection 2.1 g/kg/day near 56S 280E, dry advection -2.0 g/kg/day near 11N 302E; moisture convergence 4.4 g/kg/day near 11S 190E, moisture divergence -2.9 g/kg/day near 11N 302E; thickest 850-500 hPa layer 4383.9 m near 11S 77E, thinnest 850-500 hPa layer 3753.8 m near 56N 280E.",
+    "numeric": "warm advection 9.2 K/day near 56N 32E, cold advection -8.4 K/day near 34N 122E; moist advection 1.8 g/kg/day near 56S 257E, dry advection -2.6 g/kg/day near 56S 235E; moisture convergence 4.3 g/kg/day near 11S 190E, moisture divergence -2.7 g/kg/day near 34N 122E; thickest 850-500 hPa layer 4391.6 m near 11S 167E, thinnest 850-500 hPa layer 3773.8 m near 79N 235E.",
+    "persistence": "warm advection 9.4 K/day near 56N 32E, cold advection -9.5 K/day near 34N 122E; moist advection 1.9 g/kg/day near 56S 257E, dry advection -2.8 g/kg/day near 56S 235E; moisture convergence 4.3 g/kg/day near 11S 190E, moisture divergence -2.8 g/kg/day near 11N 167E; thickest 850-500 hPa layer 4386.0 m near 11S 167E, thinnest 850-500 hPa layer 3759.0 m near 79N 235E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 7.574999999999978,
+     "dist_km": 8471.525221348003
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 4.487500000000091,
+     "dist_km": 6453.186042279554
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 1.8250000000000228,
+     "dist_km": 6385.944387023606
+    }
+   }
+  },
+  {
+   "issue": "2020-01-01 12 UTC",
+   "lead_h": 96,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56N 32E, cold advection -10.0 K/day near 34N 145E; moist advection 2.1 g/kg/day near 56S 302E, dry advection -2.0 g/kg/day near 34N 145E; moisture convergence 3.1 g/kg/day near 56S 302E, moisture divergence -2.5 g/kg/day near 34N 145E; thickest 850-500 hPa layer 4376.3 m near 11S 145E, thinnest 850-500 hPa layer 3709.0 m near 79N 122E.",
+    "truth": "warm advection 6.2 K/day near 56N 10E, cold advection -9.3 K/day near 56N 302E; moist advection 2.0 g/kg/day near 56S 55E, dry advection -2.9 g/kg/day near 34N 280E; moisture convergence 3.5 g/kg/day near 34S 325E, moisture divergence -3.9 g/kg/day near 34N 280E; thickest 850-500 hPa layer 4379.2 m near 11N 167E, thinnest 850-500 hPa layer 3662.2 m near 79N 280E.",
+    "numeric": "warm advection 6.3 K/day near 79N 122E, cold advection -10.9 K/day near 56N 212E; moist advection 1.6 g/kg/day near 34S 212E, dry advection -2.3 g/kg/day near 56N 325E; moisture convergence 5.5 g/kg/day near 34S 212E, moisture divergence -3.1 g/kg/day near 11N 235E; thickest 850-500 hPa layer 4382.2 m near 11S 190E, thinnest 850-500 hPa layer 3656.1 m near 79N 302E.",
+    "persistence": "warm advection 6.3 K/day near 79N 145E, cold advection -11.0 K/day near 56N 212E; moist advection 1.6 g/kg/day near 34S 212E, dry advection -2.7 g/kg/day near 56N 325E; moisture convergence 4.9 g/kg/day near 34S 212E, moisture divergence -3.4 g/kg/day near 11N 235E; thickest 850-500 hPa layer 4385.6 m near 11S 32E, thinnest 850-500 hPa layer 3625.4 m near 79N 302E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 7.124999999999977,
+     "dist_km": 6051.497327960904
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 1.8249999999999886,
+     "dist_km": 5306.927770636594
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 5.937500000000034,
+     "dist_km": 6797.685978785385
+    }
+   }
+  },
+  {
+   "issue": "2020-01-17 12 UTC",
+   "lead_h": 96,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56N 32E, cold advection -10.0 K/day near 56N 32E; moist advection 2.1 g/kg/day near 56S 302E, dry advection -2.1 g/kg/day near 34N 145E; moisture convergence 3.1 g/kg/day near 11S 302E, moisture divergence -2.4 g/kg/day near 34N 145E; thickest 850-500 hPa layer 4376.1 m near 11S 167E, thinnest 850-500 hPa layer 3709.0 m near 79N 122E.",
+    "truth": "warm advection 8.4 K/day near 56N 280E, cold advection -8.6 K/day near 34N 145E; moist advection 2.0 g/kg/day near 34S 235E, dry advection -2.3 g/kg/day near 34N 145E; moisture convergence 2.9 g/kg/day near 34S 77E, moisture divergence -3.6 g/kg/day near 34N 145E; thickest 850-500 hPa layer 4389.6 m near 11S 32E, thinnest 850-500 hPa layer 3705.4 m near 79N 100E.",
+    "numeric": "warm advection 12.2 K/day near 79N 235E, cold advection -10.4 K/day near 34N 280E; moist advection 1.9 g/kg/day near 56S 347E, dry advection -3.0 g/kg/day near 34N 302E; moisture convergence 5.5 g/kg/day near 11S 190E, moisture divergence -2.7 g/kg/day near 11S 235E; thickest 850-500 hPa layer 4391.7 m near 11S 190E, thinnest 850-500 hPa layer 3745.5 m near 79N 55E.",
+    "persistence": "warm advection 14.4 K/day near 79N 235E, cold advection -10.1 K/day near 34N 280E; moist advection 1.5 g/kg/day near 34N 257E, dry advection -3.1 g/kg/day near 34N 302E; moisture convergence 4.4 g/kg/day near 11S 190E, moisture divergence -2.6 g/kg/day near 11N 55E; thickest 850-500 hPa layer 4386.6 m near 11S 32E, thinnest 850-500 hPa layer 3720.6 m near 79N 55E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 2.7249999999999885,
+     "dist_km": 5990.271050720477
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 6.51249999999992,
+     "dist_km": 9238.74769229374
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 3.6874999999999774,
+     "dist_km": 6968.718335273962
+    }
+   }
+  },
+  {
+   "issue": "2020-02-02 12 UTC",
+   "lead_h": 96,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56N 32E, cold advection -10.0 K/day near 34N 145E; moist advection 2.1 g/kg/day near 56S 302E, dry advection -2.0 g/kg/day near 34N 145E; moisture convergence 3.1 g/kg/day near 56S 302E, moisture divergence -2.5 g/kg/day near 34N 145E; thickest 850-500 hPa layer 4376.0 m near 11S 145E, thinnest 850-500 hPa layer 3709.0 m near 79N 122E.",
+    "truth": "warm advection 17.2 K/day near 79N 347E, cold advection -10.2 K/day near 34N 145E; moist advection 2.3 g/kg/day near 79N 347E, dry advection -2.1 g/kg/day near 34N 145E; moisture convergence 3.6 g/kg/day near 34N 280E, moisture divergence -3.2 g/kg/day near 11N 257E; thickest 850-500 hPa layer 4386.8 m near 11S 122E, thinnest 850-500 hPa layer 3721.3 m near 56N 145E.",
+    "numeric": "warm advection 7.6 K/day near 56N 212E, cold advection -10.3 K/day near 56S 100E; moist advection 1.5 g/kg/day near 56N 212E, dry advection -2.9 g/kg/day near 34N 280E; moisture convergence 3.4 g/kg/day near 34N 302E, moisture divergence -3.1 g/kg/day near 34N 280E; thickest 850-500 hPa layer 4380.7 m near 11N 167E, thinnest 850-500 hPa layer 3721.7 m near 79N 235E.",
+    "persistence": "warm advection 8.5 K/day near 56N 212E, cold advection -12.5 K/day near 56S 100E; moist advection 1.6 g/kg/day near 56N 212E, dry advection -2.9 g/kg/day near 34N 280E; moisture convergence 3.1 g/kg/day near 34N 302E, moisture divergence -2.9 g/kg/day near 34N 280E; thickest 850-500 hPa layer 4382.4 m near 11N 167E, thinnest 850-500 hPa layer 3706.1 m near 79N 212E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 4.000000000000045,
+     "dist_km": 5628.705900743086
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 2.2625,
+     "dist_km": 5800.517098329375
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 4.112500000000102,
+     "dist_km": 5740.121995837961
+    }
+   }
+  },
+  {
+   "issue": "2020-02-16 12 UTC",
+   "lead_h": 96,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56N 10E, cold advection -10.0 K/day near 34N 145E; moist advection 2.1 g/kg/day near 56S 302E, dry advection -2.0 g/kg/day near 34N 145E; moisture convergence 3.1 g/kg/day near 56S 302E, moisture divergence -2.5 g/kg/day near 34N 145E; thickest 850-500 hPa layer 4376.0 m near 11S 167E, thinnest 850-500 hPa layer 3709.0 m near 79N 122E.",
+    "truth": "warm advection 10.2 K/day near 56N 257E, cold advection -12.9 K/day near 56N 302E; moist advection 1.6 g/kg/day near 56S 167E, dry advection -2.7 g/kg/day near 34S 302E; moisture convergence 5.6 g/kg/day near 11S 302E, moisture divergence -2.9 g/kg/day near 11N 302E; thickest 850-500 hPa layer 4384.0 m near 11S 10E, thinnest 850-500 hPa layer 3753.6 m near 79N 280E.",
+    "numeric": "warm advection 9.2 K/day near 56N 32E, cold advection -8.4 K/day near 34N 122E; moist advection 1.8 g/kg/day near 56S 257E, dry advection -2.5 g/kg/day near 56S 235E; moisture convergence 4.3 g/kg/day near 11S 190E, moisture divergence -2.7 g/kg/day near 34N 122E; thickest 850-500 hPa layer 4391.5 m near 11S 167E, thinnest 850-500 hPa layer 3773.5 m near 79N 235E.",
+    "persistence": "warm advection 9.4 K/day near 56N 32E, cold advection -9.5 K/day near 34N 122E; moist advection 1.9 g/kg/day near 56S 257E, dry advection -2.8 g/kg/day near 56S 235E; moisture convergence 4.3 g/kg/day near 11S 190E, moisture divergence -2.8 g/kg/day near 11N 167E; thickest 850-500 hPa layer 4386.0 m near 11S 167E, thinnest 850-500 hPa layer 3759.0 m near 79N 235E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 7.474999999999988,
+     "dist_km": 9889.402890121779
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 4.350000000000011,
+     "dist_km": 9024.008210094866
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 1.6750000000000114,
+     "dist_km": 8956.766554838918
+    }
+   }
+  },
+  {
+   "issue": "2020-01-01 12 UTC",
+   "lead_h": 120,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56N 32E, cold advection -10.0 K/day near 34N 145E; moist advection 2.1 g/kg/day near 56S 302E, dry advection -2.1 g/kg/day near 34N 145E; moisture convergence 3.0 g/kg/day near 56S 302E, moisture divergence -2.5 g/kg/day near 34N 145E; thickest 850-500 hPa layer 4376.3 m near 11S 145E, thinnest 850-500 hPa layer 3709.0 m near 79N 122E.",
+    "truth": "warm advection 9.9 K/day near 79N 347E, cold advection -8.7 K/day near 56N 302E; moist advection 2.3 g/kg/day near 79N 347E, dry advection -3.0 g/kg/day near 56S 55E; moisture convergence 3.8 g/kg/day near 79N 347E, moisture divergence -3.0 g/kg/day near 56S 257E; thickest 850-500 hPa layer 4379.0 m near 11S 122E, thinnest 850-500 hPa layer 3692.5 m near 79N 280E.",
+    "numeric": "warm advection 6.3 K/day near 79N 122E, cold advection -10.9 K/day near 56N 212E; moist advection 1.6 g/kg/day near 34S 212E, dry advection -2.3 g/kg/day near 56N 325E; moisture convergence 5.5 g/kg/day near 34S 212E, moisture divergence -3.1 g/kg/day near 11N 235E; thickest 850-500 hPa layer 4382.2 m near 11S 190E, thinnest 850-500 hPa layer 3656.5 m near 79N 302E.",
+    "persistence": "warm advection 6.3 K/day near 79N 145E, cold advection -11.0 K/day near 56N 212E; moist advection 1.6 g/kg/day near 34S 212E, dry advection -2.7 g/kg/day near 56N 325E; moisture convergence 4.9 g/kg/day near 34S 212E, moisture divergence -3.4 g/kg/day near 11N 235E; thickest 850-500 hPa layer 4385.6 m near 11S 32E, thinnest 850-500 hPa layer 3625.4 m near 79N 302E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 2.8749999999999774,
+     "dist_km": 9474.6596740686
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 6.024999999999977,
+     "dist_km": 8384.787807257351
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 10.262500000000035,
+     "dist_km": 8699.077648087383
+    }
+   }
+  },
+  {
+   "issue": "2020-01-17 12 UTC",
+   "lead_h": 120,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56N 32E, cold advection -10.0 K/day near 34N 145E; moist advection 2.1 g/kg/day near 56S 302E, dry advection -2.0 g/kg/day near 34N 145E; moisture convergence 3.1 g/kg/day near 56S 302E, moisture divergence -2.5 g/kg/day near 34N 145E; thickest 850-500 hPa layer 4376.3 m near 11S 167E, thinnest 850-500 hPa layer 3709.0 m near 79N 122E.",
+    "truth": "warm advection 17.9 K/day near 79N 347E, cold advection -13.5 K/day near 34N 167E; moist advection 4.1 g/kg/day near 56S 235E, dry advection -3.8 g/kg/day near 34N 167E; moisture convergence 6.1 g/kg/day near 56S 235E, moisture divergence -4.1 g/kg/day near 34N 167E; thickest 850-500 hPa layer 4385.5 m near 11S 122E, thinnest 850-500 hPa layer 3697.2 m near 79N 122E.",
+    "numeric": "warm advection 12.3 K/day near 79N 235E, cold advection -10.4 K/day near 34N 280E; moist advection 1.9 g/kg/day near 56S 347E, dry advection -3.0 g/kg/day near 34N 302E; moisture convergence 5.5 g/kg/day near 11S 190E, moisture divergence -2.7 g/kg/day near 11S 235E; thickest 850-500 hPa layer 4391.7 m near 11S 190E, thinnest 850-500 hPa layer 3746.0 m near 79N 55E.",
+    "persistence": "warm advection 14.4 K/day near 79N 235E, cold advection -10.1 K/day near 34N 280E; moist advection 1.5 g/kg/day near 34N 257E, dry advection -3.1 g/kg/day near 34N 302E; moisture convergence 4.4 g/kg/day near 11S 190E, moisture divergence -2.6 g/kg/day near 11N 55E; thickest 850-500 hPa layer 4386.6 m near 11S 32E, thinnest 850-500 hPa layer 3720.6 m near 79N 55E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 5.1,
+     "dist_km": 2750.254233739173
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 8.5875,
+     "dist_km": 6602.512919097202
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 4.737500000000057,
+     "dist_km": 7726.728554794333
+    }
+   }
+  },
+  {
+   "issue": "2020-02-02 12 UTC",
+   "lead_h": 120,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56N 32E, cold advection -10.0 K/day near 34N 145E; moist advection 2.1 g/kg/day near 56S 302E, dry advection -2.0 g/kg/day near 34N 145E; moisture convergence 3.1 g/kg/day near 56S 302E, moisture divergence -2.5 g/kg/day near 34N 145E; thickest 850-500 hPa layer 4377.0 m near 11S 145E, thinnest 850-500 hPa layer 3709.0 m near 79N 122E.",
+    "truth": "warm advection 9.2 K/day near 79N 32E, cold advection -8.2 K/day near 34N 280E; moist advection 2.2 g/kg/day near 79S 257E, dry advection -4.5 g/kg/day near 34N 280E; moisture convergence 3.8 g/kg/day near 11S 302E, moisture divergence -3.5 g/kg/day near 11N 235E; thickest 850-500 hPa layer 4383.8 m near 11S 167E, thinnest 850-500 hPa layer 3723.8 m near 56N 145E.",
+    "numeric": "warm advection 7.6 K/day near 56N 212E, cold advection -10.3 K/day near 56S 100E; moist advection 1.5 g/kg/day near 56N 212E, dry advection -2.9 g/kg/day near 34N 280E; moisture convergence 3.4 g/kg/day near 34N 302E, moisture divergence -3.1 g/kg/day near 34N 280E; thickest 850-500 hPa layer 4380.5 m near 11N 167E, thinnest 850-500 hPa layer 3721.7 m near 79N 235E.",
+    "persistence": "warm advection 8.5 K/day near 56N 212E, cold advection -12.5 K/day near 56S 100E; moist advection 1.6 g/kg/day near 56N 212E, dry advection -2.9 g/kg/day near 34N 280E; moisture convergence 3.1 g/kg/day near 34N 302E, moisture divergence -2.9 g/kg/day near 34N 280E; thickest 850-500 hPa layer 4382.4 m near 11N 167E, thinnest 850-500 hPa layer 3706.1 m near 79N 212E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 3.5625000000000453,
+     "dist_km": 5905.275560997929
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 1.5250000000000683,
+     "dist_km": 6812.227560240665
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 3.4500000000001023,
+     "dist_km": 6751.832457749251
+    }
+   }
+  },
+  {
+   "issue": "2020-02-16 12 UTC",
+   "lead_h": 120,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56N 32E, cold advection -10.0 K/day near 34N 145E; moist advection 2.1 g/kg/day near 56S 302E, dry advection -2.0 g/kg/day near 34N 145E; moisture convergence 3.1 g/kg/day near 56S 302E, moisture divergence -2.5 g/kg/day near 34N 145E; thickest 850-500 hPa layer 4376.3 m near 11S 167E, thinnest 850-500 hPa layer 3709.0 m near 79N 122E.",
+    "truth": "warm advection 12.0 K/day near 56N 280E, cold advection -11.3 K/day near 56N 325E; moist advection 3.8 g/kg/day near 56S 190E, dry advection -2.4 g/kg/day near 56S 212E; moisture convergence 4.4 g/kg/day near 56S 190E, moisture divergence -2.6 g/kg/day near 34N 280E; thickest 850-500 hPa layer 4388.7 m near 11S 10E, thinnest 850-500 hPa layer 3770.7 m near 79N 280E.",
+    "numeric": "warm advection 9.2 K/day near 56N 32E, cold advection -8.4 K/day near 34N 122E; moist advection 1.8 g/kg/day near 56S 257E, dry advection -2.5 g/kg/day near 56S 235E; moisture convergence 4.3 g/kg/day near 11S 190E, moisture divergence -2.7 g/kg/day near 34N 122E; thickest 850-500 hPa layer 4391.6 m near 11S 167E, thinnest 850-500 hPa layer 3773.6 m near 79N 235E.",
+    "persistence": "warm advection 9.4 K/day near 56N 32E, cold advection -9.5 K/day near 34N 122E; moist advection 1.9 g/kg/day near 56S 257E, dry advection -2.8 g/kg/day near 56S 235E; moisture convergence 4.3 g/kg/day near 11S 190E, moisture divergence -2.8 g/kg/day near 11N 167E; thickest 850-500 hPa layer 4386.0 m near 11S 167E, thinnest 850-500 hPa layer 3759.0 m near 79N 235E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 10.112499999999933,
+     "dist_km": 8783.943097467578
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 1.7250000000000798,
+     "dist_km": 6984.035347605776
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 2.6749999999999545,
+     "dist_km": 6890.332477457617
+    }
+   }
+  },
+  {
+   "issue": "2020-03-03 12 UTC",
+   "lead_h": 24,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56S 32E, cold advection -10.0 K/day near 56S 145E; moist advection 2.1 g/kg/day near 56S 32E, dry advection -2.0 g/kg/day near 34N 122E; moisture convergence 3.0 g/kg/day near 56S 32E, moisture divergence -2.5 g/kg/day near 34N 122E; thickest 850-500 hPa layer 4376.4 m near 11S 10E, thinnest 850-500 hPa layer 3709.0 m near 79N 122E.",
+    "truth": "warm advection 6.4 K/day near 56S 167E, cold advection -7.4 K/day near 56S 190E; moist advection 2.0 g/kg/day near 56S 167E, dry advection -2.2 g/kg/day near 34S 55E; moisture convergence 3.1 g/kg/day near 11S 145E, moisture divergence -2.8 g/kg/day near 11N 145E; thickest 850-500 hPa layer 4392.0 m near 11S 145E, thinnest 850-500 hPa layer 3658.2 m near 79N 257E.",
+    "numeric": "warm advection 7.2 K/day near 79S 280E, cold advection -8.5 K/day near 56N 212E; moist advection 1.5 g/kg/day near 56S 280E, dry advection -2.2 g/kg/day near 56S 167E; moisture convergence 3.2 g/kg/day near 11S 145E, moisture divergence -2.9 g/kg/day near 11N 235E; thickest 850-500 hPa layer 4384.1 m near 11S 122E, thinnest 850-500 hPa layer 3670.1 m near 79N 257E.",
+    "persistence": "warm advection 6.9 K/day near 79S 280E, cold advection -9.0 K/day near 56N 212E; moist advection 1.6 g/kg/day near 56S 280E, dry advection -2.2 g/kg/day near 56S 167E; moisture convergence 3.1 g/kg/day near 11S 145E, moisture divergence -2.7 g/kg/day near 11S 10E; thickest 850-500 hPa layer 4388.0 m near 11S 122E, thinnest 850-500 hPa layer 3653.4 m near 79N 257E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 9.162500000000069,
+     "dist_km": 7179.228935522176
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 2.7999999999999656,
+     "dist_km": 5449.815142570611
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 1.4249999999999658,
+     "dist_km": 6116.38982187882
+    }
+   }
+  },
+  {
+   "issue": "2020-03-19 12 UTC",
+   "lead_h": 24,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56S 10E, cold advection -10.0 K/day near 79S 145E; moist advection 2.1 g/kg/day near 56S 10E, dry advection -2.0 g/kg/day near 34S 325E; moisture convergence 3.1 g/kg/day near 56S 10E, moisture divergence -2.4 g/kg/day near 34S 325E; thickest 850-500 hPa layer 4378.0 m near 11N 10E, thinnest 850-500 hPa layer 3728.0 m near 79S 122E.",
+    "truth": "warm advection 8.6 K/day near 79N 347E, cold advection -10.6 K/day near 79S 100E; moist advection 3.3 g/kg/day near 56S 77E, dry advection -2.2 g/kg/day near 34N 145E; moisture convergence 4.3 g/kg/day near 56S 77E, moisture divergence -2.5 g/kg/day near 11N 302E; thickest 850-500 hPa layer 4373.0 m near 11S 347E, thinnest 850-500 hPa layer 3690.0 m near 79S 100E.",
+    "numeric": "warm advection 7.3 K/day near 79S 235E, cold advection -12.3 K/day near 56S 122E; moist advection 2.0 g/kg/day near 56S 235E, dry advection -2.1 g/kg/day near 56S 122E; moisture convergence 3.5 g/kg/day near 56S 235E, moisture divergence -2.3 g/kg/day near 34S 190E; thickest 850-500 hPa layer 4374.3 m near 11S 77E, thinnest 850-500 hPa layer 3665.8 m near 79S 100E.",
+    "persistence": "warm advection 6.7 K/day near 79S 235E, cold advection -12.2 K/day near 56S 122E; moist advection 2.2 g/kg/day near 56S 235E, dry advection -1.7 g/kg/day near 56S 122E; moisture convergence 3.9 g/kg/day near 56S 235E, moisture divergence -2.3 g/kg/day near 34S 190E; thickest 850-500 hPa layer 4377.5 m near 11S 77E, thinnest 850-500 hPa layer 3694.1 m near 79S 100E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 5.9624999999999995,
+     "dist_km": 6698.120603717614
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 3.8625,
+     "dist_km": 8608.758375539855
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 1.7874999999999885,
+     "dist_km": 8608.758375539855
+    }
+   }
+  },
+  {
+   "issue": "2020-04-04 12 UTC",
+   "lead_h": 24,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56S 32E, cold advection -10.0 K/day near 79S 145E; moist advection 2.1 g/kg/day near 56S 32E, dry advection -2.0 g/kg/day near 34S 325E; moisture convergence 3.1 g/kg/day near 56S 32E, moisture divergence -2.5 g/kg/day near 34S 325E; thickest 850-500 hPa layer 4376.3 m near 11N 10E, thinnest 850-500 hPa layer 3736.0 m near 79S 122E.",
+    "truth": "warm advection 7.2 K/day near 79S 190E, cold advection -11.1 K/day near 56S 235E; moist advection 1.8 g/kg/day near 79S 190E, dry advection -1.7 g/kg/day near 56S 235E; moisture convergence 3.2 g/kg/day near 34S 347E, moisture divergence -2.2 g/kg/day near 11S 325E; thickest 850-500 hPa layer 4390.6 m near 11N 10E, thinnest 850-500 hPa layer 3751.8 m near 79S 55E.",
+    "numeric": "warm advection 6.6 K/day near 56N 347E, cold advection -10.3 K/day near 56S 212E; moist advection 2.4 g/kg/day near 56S 235E, dry advection -3.0 g/kg/day near 56S 212E; moisture convergence 3.6 g/kg/day near 56S 235E, moisture divergence -3.2 g/kg/day near 56S 212E; thickest 850-500 hPa layer 4384.0 m near 11N 32E, thinnest 850-500 hPa layer 3743.6 m near 79N 347E.",
+    "persistence": "warm advection 6.6 K/day near 56S 190E, cold advection -11.3 K/day near 56S 212E; moist advection 2.5 g/kg/day near 56S 235E, dry advection -3.1 g/kg/day near 56S 212E; moisture convergence 3.7 g/kg/day near 56S 235E, moisture divergence -3.6 g/kg/day near 56S 212E; thickest 850-500 hPa layer 4389.1 m near 11N 32E, thinnest 850-500 hPa layer 3736.0 m near 79N 347E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 4.375000000000045,
+     "dist_km": 3605.7632094152514
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 2.4375000000000795,
+     "dist_km": 7761.008196366351
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 2.762500000000023,
+     "dist_km": 5915.361428450448
+    }
+   }
+  },
+  {
+   "issue": "2020-04-20 12 UTC",
+   "lead_h": 24,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56S 32E, cold advection -10.0 K/day near 79S 145E; moist advection 2.1 g/kg/day near 56S 32E, dry advection -2.0 g/kg/day near 34S 100E; moisture convergence 3.1 g/kg/day near 56S 32E, moisture divergence -2.3 g/kg/day near 34S 100E; thickest 850-500 hPa layer 4377.0 m near 11N 10E, thinnest 850-500 hPa layer 3736.0 m near 79S 122E.",
+    "truth": "warm advection 8.4 K/day near 79S 235E, cold advection -15.9 K/day near 79S 145E; moist advection 1.6 g/kg/day near 34S 55E, dry advection -2.1 g/kg/day near 34S 77E; moisture convergence 2.2 g/kg/day near 56N 302E, moisture divergence -2.8 g/kg/day near 34S 77E; thickest 850-500 hPa layer 4385.0 m near 11N 100E, thinnest 850-500 hPa layer 3724.0 m near 79S 190E.",
+    "numeric": "warm advection 7.3 K/day near 79S 257E, cold advection -10.5 K/day near 56S 32E; moist advection 1.5 g/kg/day near 34S 32E, dry advection -2.3 g/kg/day near 56S 32E; moisture convergence 1.9 g/kg/day near 56S 10E, moisture divergence -2.5 g/kg/day near 11S 347E; thickest 850-500 hPa layer 4379.9 m near 11N 100E, thinnest 850-500 hPa layer 3767.5 m near 79N 280E.",
+    "persistence": "warm advection 7.1 K/day near 79N 145E, cold advection -10.4 K/day near 56S 32E; moist advection 1.6 g/kg/day near 56S 55E, dry advection -2.9 g/kg/day near 56S 32E; moisture convergence 2.2 g/kg/day near 56S 55E, moisture divergence -3.5 g/kg/day near 56S 32E; thickest 850-500 hPa layer 4383.9 m near 11N 100E, thinnest 850-500 hPa layer 3754.8 m near 79N 280E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 3.6875,
+     "dist_km": 4767.888130484307
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 7.000000000000046,
+     "dist_km": 6580.904489217325
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 5.025000000000069,
+     "dist_km": 8476.549617313947
+    }
+   }
+  },
+  {
+   "issue": "2020-03-03 12 UTC",
+   "lead_h": 72,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56S 32E, cold advection -10.0 K/day near 56S 145E; moist advection 2.1 g/kg/day near 56S 32E, dry advection -2.0 g/kg/day near 34N 122E; moisture convergence 3.1 g/kg/day near 56S 32E, moisture divergence -2.5 g/kg/day near 34N 122E; thickest 850-500 hPa layer 4377.0 m near 11S 10E, thinnest 850-500 hPa layer 3719.0 m near 79N 122E.",
+    "truth": "warm advection 7.4 K/day near 79N 55E, cold advection -5.7 K/day near 79S 100E; moist advection 2.1 g/kg/day near 56S 122E, dry advection -2.2 g/kg/day near 34S 55E; moisture convergence 3.1 g/kg/day near 56S 167E, moisture divergence -3.0 g/kg/day near 34S 145E; thickest 850-500 hPa layer 4387.6 m near 11S 145E, thinnest 850-500 hPa layer 3617.6 m near 79N 257E.",
+    "numeric": "warm advection 7.2 K/day near 79S 280E, cold advection -8.4 K/day near 56N 212E; moist advection 1.5 g/kg/day near 56S 280E, dry advection -2.2 g/kg/day near 56S 167E; moisture convergence 3.2 g/kg/day near 11S 145E, moisture divergence -2.9 g/kg/day near 11N 235E; thickest 850-500 hPa layer 4384.3 m near 11S 122E, thinnest 850-500 hPa layer 3670.3 m near 79N 257E.",
+    "persistence": "warm advection 6.9 K/day near 79S 280E, cold advection -9.0 K/day near 56N 212E; moist advection 1.6 g/kg/day near 56S 280E, dry advection -2.2 g/kg/day near 56S 167E; moisture convergence 3.1 g/kg/day near 11S 145E, moisture divergence -2.7 g/kg/day near 11S 10E; thickest 850-500 hPa layer 4388.0 m near 11S 122E, thinnest 850-500 hPa layer 3653.4 m near 79N 257E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 14.950000000000056,
+     "dist_km": 8145.662322841559
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 7.462500000000057,
+     "dist_km": 8712.574165042968
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 5.0999999999999766,
+     "dist_km": 9015.969944434488
+    }
+   }
+  },
+  {
+   "issue": "2020-03-19 12 UTC",
+   "lead_h": 72,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56S 10E, cold advection -10.0 K/day near 79S 145E; moist advection 2.1 g/kg/day near 56S 10E, dry advection -2.0 g/kg/day near 34S 325E; moisture convergence 3.0 g/kg/day near 56S 10E, moisture divergence -2.5 g/kg/day near 34S 325E; thickest 850-500 hPa layer 4376.1 m near 11N 10E, thinnest 850-500 hPa layer 3719.0 m near 79S 122E.",
+    "truth": "warm advection 18.4 K/day near 79N 55E, cold advection -10.1 K/day near 79N 235E; moist advection 2.4 g/kg/day near 79N 55E, dry advection -1.7 g/kg/day near 79N 10E; moisture convergence 2.2 g/kg/day near 79N 55E, moisture divergence -2.8 g/kg/day near 34S 145E; thickest 850-500 hPa layer 4378.5 m near 11S 77E, thinnest 850-500 hPa layer 3717.7 m near 79N 212E.",
+    "numeric": "warm advection 7.3 K/day near 79S 235E, cold advection -12.3 K/day near 56S 122E; moist advection 2.0 g/kg/day near 56S 235E, dry advection -2.1 g/kg/day near 56S 122E; moisture convergence 3.5 g/kg/day near 56S 235E, moisture divergence -2.3 g/kg/day near 34S 190E; thickest 850-500 hPa layer 4374.2 m near 11S 77E, thinnest 850-500 hPa layer 3666.0 m near 79S 100E.",
+    "persistence": "warm advection 6.7 K/day near 79S 235E, cold advection -12.2 K/day near 56S 122E; moist advection 2.2 g/kg/day near 56S 235E, dry advection -1.7 g/kg/day near 56S 122E; moisture convergence 3.9 g/kg/day near 56S 235E, moisture divergence -2.3 g/kg/day near 34S 190E; thickest 850-500 hPa layer 4377.5 m near 11S 77E, thinnest 850-500 hPa layer 3694.1 m near 79S 100E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 1.737499999999977,
+     "dist_km": 14452.457454015854
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 8.987499999999999,
+     "dist_km": 13846.322296456001
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 5.099999999999988,
+     "dist_km": 13846.322296456001
+    }
+   }
+  },
+  {
+   "issue": "2020-04-04 12 UTC",
+   "lead_h": 72,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56S 10E, cold advection -10.0 K/day near 79S 145E; moist advection 2.1 g/kg/day near 56S 10E, dry advection -2.0 g/kg/day near 34S 325E; moisture convergence 3.1 g/kg/day near 56S 10E, moisture divergence -2.5 g/kg/day near 34S 325E; thickest 850-500 hPa layer 4376.4 m near 11N 10E, thinnest 850-500 hPa layer 3736.0 m near 79S 122E.",
+    "truth": "warm advection 9.4 K/day near 56S 77E, cold advection -12.1 K/day near 79S 145E; moist advection 2.6 g/kg/day near 56S 77E, dry advection -2.5 g/kg/day near 34S 77E; moisture convergence 3.2 g/kg/day near 56S 77E, moisture divergence -3.8 g/kg/day near 34S 77E; thickest 850-500 hPa layer 4391.6 m near 11N 32E, thinnest 850-500 hPa layer 3786.0 m near 79S 32E.",
+    "numeric": "warm advection 6.7 K/day near 56N 347E, cold advection -10.2 K/day near 56S 212E; moist advection 2.4 g/kg/day near 56S 235E, dry advection -2.9 g/kg/day near 56S 212E; moisture convergence 3.6 g/kg/day near 56S 235E, moisture divergence -3.2 g/kg/day near 56S 212E; thickest 850-500 hPa layer 4384.4 m near 11N 32E, thinnest 850-500 hPa layer 3743.7 m near 79N 347E.",
+    "persistence": "warm advection 6.6 K/day near 56S 190E, cold advection -11.3 K/day near 56S 212E; moist advection 2.5 g/kg/day near 56S 235E, dry advection -3.1 g/kg/day near 56S 212E; moisture convergence 3.7 g/kg/day near 56S 235E, moisture divergence -3.6 g/kg/day near 56S 212E; thickest 850-500 hPa layer 4389.1 m near 11N 32E, thinnest 850-500 hPa layer 3736.0 m near 79N 347E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 8.787500000000092,
+     "dist_km": 4428.76461713258
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 6.962500000000114,
+     "dist_km": 8643.449747536131
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 7.1875,
+     "dist_km": 7561.692001430255
+    }
+   }
+  },
+  {
+   "issue": "2020-04-20 12 UTC",
+   "lead_h": 72,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56S 325E, cold advection -10.0 K/day near 79S 145E; moist advection 2.1 g/kg/day near 56S 325E, dry advection -2.0 g/kg/day near 34S 100E; moisture convergence 3.1 g/kg/day near 56S 325E, moisture divergence -2.5 g/kg/day near 34S 100E; thickest 850-500 hPa layer 4376.1 m near 11N 10E, thinnest 850-500 hPa layer 3730.8 m near 79S 122E.",
+    "truth": "warm advection 18.0 K/day near 79S 257E, cold advection -11.3 K/day near 79S 167E; moist advection 1.6 g/kg/day near 79S 257E, dry advection -1.6 g/kg/day near 56S 235E; moisture convergence 4.2 g/kg/day near 34N 280E, moisture divergence -2.2 g/kg/day near 11S 10E; thickest 850-500 hPa layer 4379.8 m near 11N 10E, thinnest 850-500 hPa layer 3717.6 m near 79S 212E.",
+    "numeric": "warm advection 7.2 K/day near 79S 257E, cold advection -10.4 K/day near 56S 32E; moist advection 1.5 g/kg/day near 34S 32E, dry advection -2.3 g/kg/day near 56S 32E; moisture convergence 1.9 g/kg/day near 56S 10E, moisture divergence -2.5 g/kg/day near 11S 347E; thickest 850-500 hPa layer 4379.9 m near 11N 100E, thinnest 850-500 hPa layer 3767.5 m near 79N 280E.",
+    "persistence": "warm advection 7.1 K/day near 79N 145E, cold advection -10.4 K/day near 56S 32E; moist advection 1.6 g/kg/day near 56S 55E, dry advection -2.9 g/kg/day near 56S 32E; moisture convergence 2.2 g/kg/day near 56S 55E, moisture divergence -3.5 g/kg/day near 56S 32E; thickest 850-500 hPa layer 4383.9 m near 11N 100E, thinnest 850-500 hPa layer 3754.8 m near 79N 280E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 3.5625000000000115,
+     "dist_km": 4813.4425292951955
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 8.137499999999942,
+     "dist_km": 7823.228885658249
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 7.212499999999966,
+     "dist_km": 10579.649584690394
+    }
+   }
+  },
+  {
+   "issue": "2020-03-03 12 UTC",
+   "lead_h": 96,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56S 32E, cold advection -10.0 K/day near 56S 32E; moist advection 2.1 g/kg/day near 56S 32E, dry advection -2.0 g/kg/day near 34N 145E; moisture convergence 3.1 g/kg/day near 56S 32E, moisture divergence -2.5 g/kg/day near 34N 145E; thickest 850-500 hPa layer 4377.0 m near 11S 10E, thinnest 850-500 hPa layer 3736.0 m near 79N 122E.",
+    "truth": "warm advection 9.7 K/day near 56S 55E, cold advection -8.8 K/day near 79S 145E; moist advection 1.9 g/kg/day near 56S 55E, dry advection -2.2 g/kg/day near 34N 280E; moisture convergence 4.1 g/kg/day near 11S 145E, moisture divergence -2.4 g/kg/day near 34N 280E; thickest 850-500 hPa layer 4385.2 m near 11S 55E, thinnest 850-500 hPa layer 3632.0 m near 79N 280E.",
+    "numeric": "warm advection 7.3 K/day near 79S 280E, cold advection -8.4 K/day near 56N 212E; moist advection 1.5 g/kg/day near 56S 280E, dry advection -2.2 g/kg/day near 56S 167E; moisture convergence 3.2 g/kg/day near 11S 145E, moisture divergence -2.9 g/kg/day near 11N 235E; thickest 850-500 hPa layer 4384.1 m near 11S 122E, thinnest 850-500 hPa layer 3670.2 m near 79N 257E.",
+    "persistence": "warm advection 6.9 K/day near 79S 280E, cold advection -9.0 K/day near 56N 212E; moist advection 1.6 g/kg/day near 56S 280E, dry advection -2.2 g/kg/day near 56S 167E; moisture convergence 3.1 g/kg/day near 11S 145E, moisture divergence -2.7 g/kg/day near 11S 10E; thickest 850-500 hPa layer 4388.0 m near 11S 122E, thinnest 850-500 hPa layer 3653.4 m near 79N 257E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 14.399999999999977,
+     "dist_km": 5892.861415363925
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 5.487499999999909,
+     "dist_km": 6842.25747850164
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 3.600000000000034,
+     "dist_km": 7525.226203449749
+    }
+   }
+  },
+  {
+   "issue": "2020-03-19 12 UTC",
+   "lead_h": 96,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56S 32E, cold advection -10.0 K/day near 79S 145E; moist advection 2.1 g/kg/day near 56S 32E, dry advection -2.0 g/kg/day near 34S 100E; moisture convergence 3.1 g/kg/day near 56S 32E, moisture divergence -2.3 g/kg/day near 34S 100E; thickest 850-500 hPa layer 4377.0 m near 11N 10E, thinnest 850-500 hPa layer 3736.0 m near 79S 122E.",
+    "truth": "warm advection 9.3 K/day near 79N 77E, cold advection -12.6 K/day near 79S 145E; moist advection 3.1 g/kg/day near 56S 32E, dry advection -2.8 g/kg/day near 56S 55E; moisture convergence 3.6 g/kg/day near 56S 32E, moisture divergence -2.7 g/kg/day near 56S 55E; thickest 850-500 hPa layer 4377.1 m near 11S 77E, thinnest 850-500 hPa layer 3693.3 m near 79N 257E.",
+    "numeric": "warm advection 7.3 K/day near 79S 235E, cold advection -12.4 K/day near 56S 122E; moist advection 2.0 g/kg/day near 56S 235E, dry advection -2.1 g/kg/day near 56S 122E; moisture convergence 3.5 g/kg/day near 56S 235E, moisture divergence -2.3 g/kg/day near 34S 190E; thickest 850-500 hPa layer 4374.4 m near 11S 77E, thinnest 850-500 hPa layer 3665.8 m near 79S 100E.",
+    "persistence": "warm advection 6.7 K/day near 79S 235E, cold advection -12.2 K/day near 56S 122E; moist advection 2.2 g/kg/day near 56S 235E, dry advection -1.7 g/kg/day near 56S 122E; moisture convergence 3.9 g/kg/day near 56S 235E, moisture divergence -2.3 g/kg/day near 34S 190E; thickest 850-500 hPa layer 4377.5 m near 11S 77E, thinnest 850-500 hPa layer 3694.1 m near 79S 100E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 6.100000000000023,
+     "dist_km": 6320.053232236078
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 4.337500000000091,
+     "dist_km": 8711.3101147269
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 0.8624999999999206,
+     "dist_km": 8711.3101147269
+    }
+   }
+  },
+  {
+   "issue": "2020-04-04 12 UTC",
+   "lead_h": 96,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56S 10E, cold advection -10.0 K/day near 79S 145E; moist advection 2.1 g/kg/day near 56S 10E, dry advection -2.0 g/kg/day near 34S 325E; moisture convergence 3.1 g/kg/day near 56S 10E, moisture divergence -2.3 g/kg/day near 34S 325E; thickest 850-500 hPa layer 4377.0 m near 11N 10E, thinnest 850-500 hPa layer 3736.0 m near 79S 122E.",
+    "truth": "warm advection 8.0 K/day near 56S 302E, cold advection -7.6 K/day near 79S 145E; moist advection 2.2 g/kg/day near 56S 212E, dry advection -2.0 g/kg/day near 34S 100E; moisture convergence 3.6 g/kg/day near 11S 190E, moisture divergence -2.7 g/kg/day near 34S 77E; thickest 850-500 hPa layer 4392.9 m near 11N 32E, thinnest 850-500 hPa layer 3752.5 m near 79S 145E.",
+    "numeric": "warm advection 6.7 K/day near 56N 347E, cold advection -10.2 K/day near 56S 212E; moist advection 2.4 g/kg/day near 56S 235E, dry advection -2.9 g/kg/day near 56S 212E; moisture convergence 3.6 g/kg/day near 56S 235E, moisture divergence -3.2 g/kg/day near 56S 212E; thickest 850-500 hPa layer 4384.3 m near 11N 32E, thinnest 850-500 hPa layer 3743.4 m near 79N 347E.",
+    "persistence": "warm advection 6.6 K/day near 56S 190E, cold advection -11.3 K/day near 56S 212E; moist advection 2.5 g/kg/day near 56S 235E, dry advection -3.1 g/kg/day near 56S 212E; moisture convergence 3.7 g/kg/day near 56S 235E, moisture divergence -3.6 g/kg/day near 56S 212E; thickest 850-500 hPa layer 4389.1 m near 11N 32E, thinnest 850-500 hPa layer 3736.0 m near 79N 347E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 4.724999999999954,
+     "dist_km": 5959.969436814323
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 2.8999999999999204,
+     "dist_km": 7642.267445109279
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 3.474999999999909,
+     "dist_km": 6772.873007379859
+    }
+   }
+  },
+  {
+   "issue": "2020-04-20 12 UTC",
+   "lead_h": 96,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56S 10E, cold advection -10.0 K/day near 79S 145E; moist advection 2.1 g/kg/day near 56S 10E, dry advection -2.0 g/kg/day near 34S 325E; moisture convergence 3.1 g/kg/day near 56S 10E, moisture divergence -2.3 g/kg/day near 34S 325E; thickest 850-500 hPa layer 4377.4 m near 11N 10E, thinnest 850-500 hPa layer 3736.0 m near 79S 122E.",
+    "truth": "warm advection 8.8 K/day near 79S 347E, cold advection -14.2 K/day near 79S 145E; moist advection 1.6 g/kg/day near 56S 10E, dry advection -1.6 g/kg/day near 34S 347E; moisture convergence 2.5 g/kg/day near 34N 280E, moisture divergence -2.1 g/kg/day near 11S 257E; thickest 850-500 hPa layer 4382.5 m near 11N 10E, thinnest 850-500 hPa layer 3755.0 m near 79S 55E.",
+    "numeric": "warm advection 7.2 K/day near 79S 257E, cold advection -10.3 K/day near 56S 32E; moist advection 1.5 g/kg/day near 34S 32E, dry advection -2.3 g/kg/day near 56S 32E; moisture convergence 1.9 g/kg/day near 56S 10E, moisture divergence -2.5 g/kg/day near 11S 347E; thickest 850-500 hPa layer 4379.8 m near 11N 100E, thinnest 850-500 hPa layer 3767.1 m near 79N 280E.",
+    "persistence": "warm advection 7.1 K/day near 79N 145E, cold advection -10.4 K/day near 56S 32E; moist advection 1.6 g/kg/day near 56S 55E, dry advection -2.9 g/kg/day near 56S 32E; moisture convergence 2.2 g/kg/day near 56S 55E, moisture divergence -3.5 g/kg/day near 56S 32E; thickest 850-500 hPa layer 4383.9 m near 11N 100E, thinnest 850-500 hPa layer 3754.8 m near 79N 280E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 3.9000000000000457,
+     "dist_km": 3305.604733917223
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 2.7624999999999655,
+     "dist_km": 8122.951074776574
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 1.2624999999999318,
+     "dist_km": 10880.826300218065
+    }
+   }
+  },
+  {
+   "issue": "2020-03-03 12 UTC",
+   "lead_h": 120,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56S 32E, cold advection -10.0 K/day near 56S 145E; moist advection 2.1 g/kg/day near 56S 32E, dry advection -2.0 g/kg/day near 34N 122E; moisture convergence 3.0 g/kg/day near 56S 32E, moisture divergence -2.5 g/kg/day near 34N 122E; thickest 850-500 hPa layer 4376.0 m near 11S 10E, thinnest 850-500 hPa layer 3719.0 m near 79N 122E.",
+    "truth": "warm advection 10.1 K/day near 56S 77E, cold advection -9.4 K/day near 34N 302E; moist advection 2.5 g/kg/day near 56S 77E, dry advection -2.4 g/kg/day near 34N 302E; moisture convergence 3.7 g/kg/day near 11S 145E, moisture divergence -2.7 g/kg/day near 11S 347E; thickest 850-500 hPa layer 4381.2 m near 11N 32E, thinnest 850-500 hPa layer 3639.0 m near 79N 280E.",
+    "numeric": "warm advection 7.3 K/day near 79S 280E, cold advection -8.4 K/day near 56N 212E; moist advection 1.5 g/kg/day near 56S 280E, dry advection -2.2 g/kg/day near 56S 167E; moisture convergence 3.2 g/kg/day near 11S 145E, moisture divergence -2.9 g/kg/day near 11N 235E; thickest 850-500 hPa layer 4384.4 m near 11S 122E, thinnest 850-500 hPa layer 3670.4 m near 79N 257E.",
+    "persistence": "warm advection 6.9 K/day near 79S 280E, cold advection -9.0 K/day near 56N 212E; moist advection 1.6 g/kg/day near 56S 280E, dry advection -2.2 g/kg/day near 56S 167E; moisture convergence 3.1 g/kg/day near 11S 145E, moisture divergence -2.7 g/kg/day near 11S 10E; thickest 850-500 hPa layer 4388.0 m near 11S 122E, thinnest 850-500 hPa layer 3653.4 m near 79N 257E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 10.949999999999978,
+     "dist_km": 8244.921213458205
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 5.037499999999989,
+     "dist_km": 7301.646709545295
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 3.312500000000034,
+     "dist_km": 6038.994682428434
+    }
+   }
+  },
+  {
+   "issue": "2020-03-19 12 UTC",
+   "lead_h": 120,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56S 32E, cold advection -10.0 K/day near 79S 145E; moist advection 2.1 g/kg/day near 56S 32E, dry advection -2.1 g/kg/day near 34S 100E; moisture convergence 3.1 g/kg/day near 56S 32E, moisture divergence -2.3 g/kg/day near 34S 100E; thickest 850-500 hPa layer 4377.0 m near 11N 10E, thinnest 850-500 hPa layer 3736.0 m near 79S 122E.",
+    "truth": "warm advection 15.6 K/day near 56S 325E, cold advection -18.7 K/day near 79S 145E; moist advection 2.7 g/kg/day near 56S 212E, dry advection -2.6 g/kg/day near 56S 302E; moisture convergence 3.3 g/kg/day near 11S 145E, moisture divergence -2.7 g/kg/day near 56S 302E; thickest 850-500 hPa layer 4373.0 m near 11S 32E, thinnest 850-500 hPa layer 3669.8 m near 79N 257E.",
+    "numeric": "warm advection 7.3 K/day near 79S 235E, cold advection -12.3 K/day near 56S 122E; moist advection 2.0 g/kg/day near 56S 235E, dry advection -2.1 g/kg/day near 56S 122E; moisture convergence 3.5 g/kg/day near 56S 235E, moisture divergence -2.3 g/kg/day near 34S 190E; thickest 850-500 hPa layer 4374.5 m near 11S 77E, thinnest 850-500 hPa layer 3666.4 m near 79S 100E.",
+    "persistence": "warm advection 6.7 K/day near 79S 235E, cold advection -12.2 K/day near 56S 122E; moist advection 2.2 g/kg/day near 56S 235E, dry advection -1.7 g/kg/day near 56S 122E; moisture convergence 3.9 g/kg/day near 56S 235E, moisture divergence -2.3 g/kg/day near 34S 190E; thickest 850-500 hPa layer 4377.5 m near 11S 77E, thinnest 850-500 hPa layer 3694.1 m near 79S 100E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 10.774999999999977,
+     "dist_km": 8005.39719759792
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 2.6750000000000114,
+     "dist_km": 7149.273879766271
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 5.8249999999999655,
+     "dist_km": 7149.273879766271
+    }
+   }
+  },
+  {
+   "issue": "2020-04-04 12 UTC",
+   "lead_h": 120,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56S 32E, cold advection -10.0 K/day near 79S 145E; moist advection 2.1 g/kg/day near 56S 32E, dry advection -2.0 g/kg/day near 34S 100E; moisture convergence 3.1 g/kg/day near 56S 32E, moisture divergence -2.3 g/kg/day near 34S 100E; thickest 850-500 hPa layer 4377.0 m near 11N 10E, thinnest 850-500 hPa layer 3736.0 m near 79S 122E.",
+    "truth": "warm advection 8.7 K/day near 56S 325E, cold advection -8.4 K/day near 79S 100E; moist advection 1.6 g/kg/day near 56S 325E, dry advection -1.7 g/kg/day near 34S 325E; moisture convergence 2.7 g/kg/day near 34S 212E, moisture divergence -2.5 g/kg/day near 34S 167E; thickest 850-500 hPa layer 4386.4 m near 11N 32E, thinnest 850-500 hPa layer 3741.7 m near 79S 145E.",
+    "numeric": "warm advection 6.7 K/day near 56N 347E, cold advection -10.2 K/day near 56S 212E; moist advection 2.4 g/kg/day near 56S 235E, dry advection -2.9 g/kg/day near 56S 212E; moisture convergence 3.6 g/kg/day near 56S 235E, moisture divergence -3.2 g/kg/day near 56S 212E; thickest 850-500 hPa layer 4384.3 m near 11N 32E, thinnest 850-500 hPa layer 3743.7 m near 79N 347E.",
+    "persistence": "warm advection 6.6 K/day near 56S 190E, cold advection -11.3 K/day near 56S 212E; moist advection 2.5 g/kg/day near 56S 235E, dry advection -3.1 g/kg/day near 56S 212E; moisture convergence 3.7 g/kg/day near 56S 235E, moisture divergence -3.6 g/kg/day near 56S 212E; thickest 850-500 hPa layer 4389.1 m near 11N 32E, thinnest 850-500 hPa layer 3736.0 m near 79N 347E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 2.424999999999932,
+     "dist_km": 4874.179718111479
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 1.4374999999999316,
+     "dist_km": 7137.138193144666
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 2.225000000000068,
+     "dist_km": 6425.4667624060685
+    }
+   }
+  },
+  {
+   "issue": "2020-04-20 12 UTC",
+   "lead_h": 120,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56S 10E, cold advection -10.0 K/day near 79S 145E; moist advection 2.1 g/kg/day near 56S 10E, dry advection -2.0 g/kg/day near 34S 325E; moisture convergence 3.1 g/kg/day near 56S 10E, moisture divergence -2.5 g/kg/day near 34S 325E; thickest 850-500 hPa layer 4376.4 m near 11N 10E, thinnest 850-500 hPa layer 3736.0 m near 79S 122E.",
+    "truth": "warm advection 6.5 K/day near 56S 280E, cold advection -17.8 K/day near 79S 145E; moist advection 1.7 g/kg/day near 56S 280E, dry advection -1.8 g/kg/day near 34S 32E; moisture convergence 2.8 g/kg/day near 11N 100E, moisture divergence -2.3 g/kg/day near 11S 325E; thickest 850-500 hPa layer 4386.1 m near 11N 32E, thinnest 850-500 hPa layer 3762.9 m near 79S 235E.",
+    "numeric": "warm advection 7.2 K/day near 79S 257E, cold advection -10.4 K/day near 56S 32E; moist advection 1.5 g/kg/day near 34S 32E, dry advection -2.3 g/kg/day near 56S 32E; moisture convergence 1.9 g/kg/day near 56S 10E, moisture divergence -2.5 g/kg/day near 11S 347E; thickest 850-500 hPa layer 4379.7 m near 11N 100E, thinnest 850-500 hPa layer 3767.4 m near 79N 280E.",
+    "persistence": "warm advection 7.1 K/day near 79N 145E, cold advection -10.4 K/day near 56S 32E; moist advection 1.6 g/kg/day near 56S 55E, dry advection -2.9 g/kg/day near 56S 32E; moisture convergence 2.2 g/kg/day near 56S 55E, moisture divergence -3.5 g/kg/day near 56S 32E; thickest 850-500 hPa layer 4383.9 m near 11N 100E, thinnest 850-500 hPa layer 3754.8 m near 79N 280E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 6.125000000000102,
+     "dist_km": 4303.675600611699
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 2.600000000000068,
+     "dist_km": 7030.123139786965
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 2.6625000000000796,
+     "dist_km": 9000.563226779414
+    }
+   }
+  },
+  {
+   "issue": "2020-05-06 12 UTC",
+   "lead_h": 24,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56S 32E, cold advection -10.0 K/day near 79S 145E; moist advection 2.1 g/kg/day near 56S 32E, dry advection -2.1 g/kg/day near 34S 100E; moisture convergence 3.1 g/kg/day near 56S 32E, moisture divergence -2.5 g/kg/day near 34S 100E; thickest 850-500 hPa layer 4377.4 m near 11N 10E, thinnest 850-500 hPa layer 3736.0 m near 79S 122E.",
+    "truth": "warm advection 9.4 K/day near 56S 32E, cold advection -17.0 K/day near 79S 145E; moist advection 2.3 g/kg/day near 56S 32E, dry advection -2.2 g/kg/day near 34N 280E; moisture convergence 3.2 g/kg/day near 56S 32E, moisture divergence -2.6 g/kg/day near 34N 280E; thickest 850-500 hPa layer 4397.2 m near 11N 100E, thinnest 850-500 hPa layer 3768.1 m near 79S 55E.",
+    "numeric": "warm advection 13.2 K/day near 79S 235E, cold advection -9.7 K/day near 56S 212E; moist advection 2.5 g/kg/day near 79S 235E, dry advection -2.4 g/kg/day near 56S 212E; moisture convergence 4.0 g/kg/day near 79S 235E, moisture divergence -2.6 g/kg/day near 34S 167E; thickest 850-500 hPa layer 4394.2 m near 11N 100E, thinnest 850-500 hPa layer 3738.5 m near 79S 145E.",
+    "persistence": "warm advection 11.0 K/day near 79S 235E, cold advection -10.7 K/day near 56S 212E; moist advection 2.4 g/kg/day near 56S 10E, dry advection -2.4 g/kg/day near 56S 212E; moisture convergence 3.6 g/kg/day near 79S 235E, moisture divergence -2.5 g/kg/day near 34S 167E; thickest 850-500 hPa layer 4399.4 m near 11N 100E, thinnest 850-500 hPa layer 3750.2 m near 79S 145E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 7.5000000000000115,
+     "dist_km": 6393.7651007236855
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 5.612499999999988,
+     "dist_km": 5726.69356744554
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 3.5999999999999885,
+     "dist_km": 5281.102215159282
+    }
+   }
+  },
+  {
+   "issue": "2020-05-20 12 UTC",
+   "lead_h": 24,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56S 325E, cold advection -10.0 K/day near 79S 145E; moist advection 2.1 g/kg/day near 56S 325E, dry advection -2.0 g/kg/day near 34S 100E; moisture convergence 3.1 g/kg/day near 56S 325E, moisture divergence -2.3 g/kg/day near 34S 100E; thickest 850-500 hPa layer 4377.0 m near 11N 10E, thinnest 850-500 hPa layer 3727.0 m near 79S 122E.",
+    "truth": "warm advection 12.3 K/day near 56S 55E, cold advection -10.4 K/day near 56S 32E; moist advection 2.8 g/kg/day near 56S 55E, dry advection -3.4 g/kg/day near 56S 32E; moisture convergence 3.5 g/kg/day near 56S 55E, moisture divergence -3.1 g/kg/day near 56S 32E; thickest 850-500 hPa layer 4397.6 m near 11N 100E, thinnest 850-500 hPa layer 3718.3 m near 79S 122E.",
+    "numeric": "warm advection 9.1 K/day near 56S 167E, cold advection -13.5 K/day near 79S 145E; moist advection 2.2 g/kg/day near 79N 55E, dry advection -1.9 g/kg/day near 56S 55E; moisture convergence 2.9 g/kg/day near 34S 302E, moisture divergence -3.0 g/kg/day near 34S 212E; thickest 850-500 hPa layer 4395.8 m near 11N 100E, thinnest 850-500 hPa layer 3662.5 m near 79S 122E.",
+    "persistence": "warm advection 7.4 K/day near 56S 167E, cold advection -12.4 K/day near 79S 145E; moist advection 2.2 g/kg/day near 56S 32E, dry advection -2.1 g/kg/day near 56S 55E; moisture convergence 3.4 g/kg/day near 34N 100E, moisture divergence -3.2 g/kg/day near 34S 212E; thickest 850-500 hPa layer 4396.3 m near 11N 100E, thinnest 850-500 hPa layer 3703.4 m near 79S 122E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 4.412500000000023,
+     "dist_km": 5114.176386940282
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 8.337500000000047,
+     "dist_km": 5644.383877768512
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 3.150000000000034,
+     "dist_km": 4282.4180155723425
+    }
+   }
+  },
+  {
+   "issue": "2020-06-05 12 UTC",
+   "lead_h": 24,
+   "texts": {
+    "answer": "16.7 N 100E 16.7 S 16.7 E 16.7 N 100E 16.7 S 16.7 E 16.7 N 100E 16.7 S 16.7 E 16.7 N 100E 16.7 S 16.7 E 16.7 N 100E 16.7 S 16.7 E 16.7 N 100E 16.7 S 16.7 E 16.7 N 100E 16.7 S 16.7 E 16.7 N 100E 16.7 S 16.7 E 16.7 N 100E 16.7 S",
+    "truth": "warm advection 9.0 K/day near 56S 55E, cold advection -12.1 K/day near 79S 122E; moist advection 2.2 g/kg/day near 56S 235E, dry advection -1.8 g/kg/day near 34S 55E; moisture convergence 2.5 g/kg/day near 56S 55E, moisture divergence -2.8 g/kg/day near 34S 55E; thickest 850-500 hPa layer 4390.8 m near 11N 55E, thinnest 850-500 hPa layer 3741.6 m near 79S 167E.",
+    "numeric": "warm advection 7.6 K/day near 56S 32E, cold advection -10.4 K/day near 79S 122E; moist advection 2.6 g/kg/day near 56S 32E, dry advection -1.8 g/kg/day near 34S 257E; moisture convergence 3.5 g/kg/day near 56S 32E, moisture divergence -2.6 g/kg/day near 11S 325E; thickest 850-500 hPa layer 4390.2 m near 11N 55E, thinnest 850-500 hPa layer 3693.8 m near 79S 122E.",
+    "persistence": "warm advection 9.3 K/day near 56S 32E, cold advection -10.7 K/day near 79S 122E; moist advection 2.1 g/kg/day near 56S 32E, dry advection -1.8 g/kg/day near 34S 257E; moisture convergence 3.5 g/kg/day near 34N 280E, moisture divergence -2.8 g/kg/day near 11S 325E; thickest 850-500 hPa layer 4387.4 m near 11N 55E, thinnest 850-500 hPa layer 3716.0 m near 79S 145E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 0.0,
+     "value_abs_err": null,
+     "dist_km": null
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 6.637500000000012,
+     "dist_km": 4075.9576511398
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 3.975000000000057,
+     "dist_km": 5817.7270745115875
+    }
+   }
+  },
+  {
+   "issue": "2020-06-21 12 UTC",
+   "lead_h": 24,
+   "texts": {
+    "answer": "14.7 K 5677S 100E, 14.7 K 5677S 32E, -10.0 g/kg/day 5677S 100E, 14.7 g/kg/day 5677S 32E, 7.6 g/kg/day 5677S 32E, 10.0 g/kg/day 5677S 32E.",
+    "truth": "warm advection 8.4 K/day near 56S 32E, cold advection -15.0 K/day near 79S 235E; moist advection 1.9 g/kg/day near 56S 32E, dry advection -2.0 g/kg/day near 79N 190E; moisture convergence 2.9 g/kg/day near 34N 145E, moisture divergence -2.6 g/kg/day near 11S 212E; thickest 850-500 hPa layer 4402.7 m near 34N 77E, thinnest 850-500 hPa layer 3723.7 m near 79S 212E.",
+    "numeric": "warm advection 8.9 K/day near 79S 257E, cold advection -13.9 K/day near 79S 145E; moist advection 1.0 g/kg/day near 56S 55E, dry advection -1.2 g/kg/day near 34S 32E; moisture convergence 3.0 g/kg/day near 34N 100E, moisture divergence -2.1 g/kg/day near 11S 212E; thickest 850-500 hPa layer 4393.6 m near 11N 55E, thinnest 850-500 hPa layer 3730.5 m near 79S 10E.",
+    "persistence": "warm advection 6.6 K/day near 79S 257E, cold advection -14.9 K/day near 79S 145E; moist advection 1.2 g/kg/day near 79N 257E, dry advection -1.5 g/kg/day near 79N 235E; moisture convergence 3.0 g/kg/day near 34S 302E, moisture divergence -3.1 g/kg/day near 11S 302E; thickest 850-500 hPa layer 4398.9 m near 34N 55E, thinnest 850-500 hPa layer 3720.4 m near 79S 190E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 0.0,
+     "value_abs_err": null,
+     "dist_km": null
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 2.474999999999955,
+     "dist_km": 4085.3156677531965
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 1.3499999999999885,
+     "dist_km": 6815.324601592554
+    }
+   }
+  },
+  {
+   "issue": "2020-05-06 12 UTC",
+   "lead_h": 72,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56S 325E, cold advection -10.0 K/day near 79S 145E; moist advection 2.1 g/kg/day near 56S 325E, dry advection -2.0 g/kg/day near 34S 100E; moisture convergence 3.1 g/kg/day near 56S 325E, moisture divergence -2.3 g/kg/day near 34S 100E; thickest 850-500 hPa layer 4376.4 m near 11N 10E, thinnest 850-500 hPa layer 3736.0 m near 79S 122E.",
+    "truth": "warm advection 8.8 K/day near 79N 257E, cold advection -7.5 K/day near 79S 100E; moist advection 2.3 g/kg/day near 34N 145E, dry advection -2.0 g/kg/day near 34N 280E; moisture convergence 2.5 g/kg/day near 56S 10E, moisture divergence -2.1 g/kg/day near 11S 325E; thickest 850-500 hPa layer 4393.2 m near 11N 55E, thinnest 850-500 hPa layer 3741.5 m near 79S 122E.",
+    "numeric": "warm advection 13.2 K/day near 79S 235E, cold advection -9.6 K/day near 56S 212E; moist advection 2.5 g/kg/day near 79S 235E, dry advection -2.4 g/kg/day near 56S 212E; moisture convergence 4.0 g/kg/day near 79S 235E, moisture divergence -2.6 g/kg/day near 34S 167E; thickest 850-500 hPa layer 4394.2 m near 11N 100E, thinnest 850-500 hPa layer 3739.4 m near 79S 145E.",
+    "persistence": "warm advection 11.0 K/day near 79S 235E, cold advection -10.7 K/day near 56S 212E; moist advection 2.4 g/kg/day near 56S 10E, dry advection -2.4 g/kg/day near 56S 212E; moisture convergence 3.6 g/kg/day near 79S 235E, moisture divergence -2.5 g/kg/day near 34S 167E; thickest 850-500 hPa layer 4399.4 m near 11N 100E, thinnest 850-500 hPa layer 3750.2 m near 79S 145E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 3.3750000000000226,
+     "dist_km": 9366.363549099813
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 1.5249999999999884,
+     "dist_km": 9022.54236447681
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 2.7874999999999543,
+     "dist_km": 9286.960327518082
+    }
+   }
+  },
+  {
+   "issue": "2020-05-20 12 UTC",
+   "lead_h": 72,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56S 10E, cold advection -10.0 K/day near 79S 145E; moist advection 2.1 g/kg/day near 56S 10E, dry advection -2.0 g/kg/day near 34S 325E; moisture convergence 3.1 g/kg/day near 56S 10E, moisture divergence -2.3 g/kg/day near 34S 325E; thickest 850-500 hPa layer 4378.0 m near 11N 10E, thinnest 850-500 hPa layer 3728.0 m near 79S 122E.",
+    "truth": "warm advection 7.1 K/day near 56S 325E, cold advection -9.7 K/day near 79S 145E; moist advection 1.7 g/kg/day near 56S 55E, dry advection -2.6 g/kg/day near 11S 145E; moisture convergence 2.8 g/kg/day near 56S 55E, moisture divergence -2.8 g/kg/day near 56S 77E; thickest 850-500 hPa layer 4395.8 m near 11N 100E, thinnest 850-500 hPa layer 3735.5 m near 79S 10E.",
+    "numeric": "warm advection 9.1 K/day near 56S 167E, cold advection -13.3 K/day near 79S 145E; moist advection 2.3 g/kg/day near 79N 55E, dry advection -1.8 g/kg/day near 56S 55E; moisture convergence 2.9 g/kg/day near 34S 302E, moisture divergence -3.0 g/kg/day near 34S 212E; thickest 850-500 hPa layer 4395.9 m near 11N 100E, thinnest 850-500 hPa layer 3663.8 m near 79S 122E.",
+    "persistence": "warm advection 7.4 K/day near 56S 167E, cold advection -12.4 K/day near 79S 145E; moist advection 2.2 g/kg/day near 56S 32E, dry advection -2.1 g/kg/day near 56S 55E; moisture convergence 3.4 g/kg/day near 34N 100E, moisture divergence -3.2 g/kg/day near 34S 212E; thickest 850-500 hPa layer 4396.3 m near 11N 100E, thinnest 850-500 hPa layer 3703.4 m near 79S 122E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 3.7875000000000227,
+     "dist_km": 5398.546959006757
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 9.887499999999909,
+     "dist_km": 6344.740563457691
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 4.699999999999989,
+     "dist_km": 4982.774701261522
+    }
+   }
+  },
+  {
+   "issue": "2020-06-05 12 UTC",
+   "lead_h": 72,
+   "texts": {
+    "answer": "16.7 N 100E 16.7 S 16.7 E 16.7 N 100E 16.7 S 16.7 E 16.7 N 100E 16.7 S 16.7 E 16.7 N 100E 16.7 S 16.7 E 16.7 N 100E 16.7 S 16.7 E 16.7 N 100E 16.7 S 16.7 E 16.7 N 100E 16.7 S 16.7 E 16.7 N 100E 16.7 S 16.7 E 16.7 N 100E 16.7 S",
+    "truth": "warm advection 6.3 K/day near 79S 212E, cold advection -10.3 K/day near 79S 257E; moist advection 2.4 g/kg/day near 79N 77E, dry advection -2.5 g/kg/day near 56S 167E; moisture convergence 2.8 g/kg/day near 56S 235E, moisture divergence -2.5 g/kg/day near 56S 167E; thickest 850-500 hPa layer 4384.5 m near 11N 55E, thinnest 850-500 hPa layer 3687.5 m near 79S 167E.",
+    "numeric": "warm advection 7.6 K/day near 56S 32E, cold advection -10.4 K/day near 79S 122E; moist advection 2.6 g/kg/day near 56S 32E, dry advection -1.8 g/kg/day near 34S 257E; moisture convergence 3.5 g/kg/day near 56S 32E, moisture divergence -2.6 g/kg/day near 11S 325E; thickest 850-500 hPa layer 4390.4 m near 11N 55E, thinnest 850-500 hPa layer 3695.2 m near 79S 122E.",
+    "persistence": "warm advection 9.3 K/day near 56S 32E, cold advection -10.7 K/day near 79S 122E; moist advection 2.1 g/kg/day near 56S 32E, dry advection -1.8 g/kg/day near 34S 257E; moisture convergence 3.5 g/kg/day near 34N 280E, moisture divergence -2.8 g/kg/day near 11S 325E; thickest 850-500 hPa layer 4387.4 m near 11N 55E, thinnest 850-500 hPa layer 3716.0 m near 79S 145E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 0.0,
+     "value_abs_err": null,
+     "dist_km": null
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 2.087499999999932,
+     "dist_km": 6263.658574373374
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 4.599999999999954,
+     "dist_km": 6640.9806861365105
+    }
+   }
+  },
+  {
+   "issue": "2020-06-21 12 UTC",
+   "lead_h": 72,
+   "texts": {
+    "answer": "14.7 K 5677E 56N warm advection 10.0 K/day 5677E 56N cold advection -10.0 K/day; 5.6 g/kg/day 5677E 56N thickest 850-500 hPa layer 4390.1 m 5677E 56N thinnest 850-500 hPa layer 3706.0 m 3255E 79S. 500-500 hPa thickness 4390.1 m 5677E 56N 500-500 hPa thickness 3706.0 m 3255E 79S",
+    "truth": "warm advection 5.9 K/day near 79S 77E, cold advection -15.2 K/day near 79S 145E; moist advection 1.5 g/kg/day near 56N 212E, dry advection -1.6 g/kg/day near 11N 325E; moisture convergence 2.6 g/kg/day near 34S 302E, moisture divergence -2.6 g/kg/day near 34S 347E; thickest 850-500 hPa layer 4409.3 m near 34N 55E, thinnest 850-500 hPa layer 3691.0 m near 79S 190E.",
+    "numeric": "warm advection 8.9 K/day near 79S 257E, cold advection -13.6 K/day near 79S 145E; moist advection 1.0 g/kg/day near 56S 55E, dry advection -1.2 g/kg/day near 34S 32E; moisture convergence 2.9 g/kg/day near 34N 100E, moisture divergence -2.2 g/kg/day near 11S 212E; thickest 850-500 hPa layer 4393.8 m near 11N 55E, thinnest 850-500 hPa layer 3730.5 m near 79S 10E.",
+    "persistence": "warm advection 6.6 K/day near 79S 257E, cold advection -14.9 K/day near 79S 145E; moist advection 1.2 g/kg/day near 79N 257E, dry advection -1.5 g/kg/day near 79N 235E; moisture convergence 3.0 g/kg/day near 34S 302E, moisture divergence -3.1 g/kg/day near 11S 302E; thickest 850-500 hPa layer 4398.9 m near 34N 55E, thinnest 850-500 hPa layer 3720.4 m near 79S 190E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 0.0,
+     "value_abs_err": null,
+     "dist_km": null
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 7.65,
+     "dist_km": 8224.955083554942
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 5.262500000000079,
+     "dist_km": 2438.1343204919094
+    }
+   }
+  },
+  {
+   "issue": "2020-05-06 12 UTC",
+   "lead_h": 96,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56S 32E, cold advection -10.0 K/day near 79S 145E; moist advection 2.1 g/kg/day near 56S 32E, dry advection -2.0 g/kg/day near 34S 325E; moisture convergence 3.1 g/kg/day near 56S 32E, moisture divergence -2.3 g/kg/day near 34S 325E; thickest 850-500 hPa layer 4376.1 m near 11N 10E, thinnest 850-500 hPa layer 3736.0 m near 79S 122E.",
+    "truth": "warm advection 12.7 K/day near 79S 190E, cold advection -8.7 K/day near 79S 145E; moist advection 2.2 g/kg/day near 34S 302E, dry advection -2.1 g/kg/day near 34N 122E; moisture convergence 3.0 g/kg/day near 34S 302E, moisture divergence -2.7 g/kg/day near 34N 122E; thickest 850-500 hPa layer 4395.1 m near 11N 55E, thinnest 850-500 hPa layer 3731.3 m near 79S 122E.",
+    "numeric": "warm advection 13.3 K/day near 79S 235E, cold advection -9.6 K/day near 56S 212E; moist advection 2.5 g/kg/day near 79S 235E, dry advection -2.3 g/kg/day near 56S 212E; moisture convergence 4.0 g/kg/day near 79S 235E, moisture divergence -2.6 g/kg/day near 34S 167E; thickest 850-500 hPa layer 4394.1 m near 11N 100E, thinnest 850-500 hPa layer 3739.5 m near 79S 145E.",
+    "persistence": "warm advection 11.0 K/day near 79S 235E, cold advection -10.7 K/day near 56S 212E; moist advection 2.4 g/kg/day near 56S 10E, dry advection -2.4 g/kg/day near 56S 212E; moisture convergence 3.6 g/kg/day near 79S 235E, moisture divergence -2.5 g/kg/day near 34S 167E; thickest 850-500 hPa layer 4399.4 m near 11N 100E, thinnest 850-500 hPa layer 3750.2 m near 79S 145E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 3.549999999999977,
+     "dist_km": 7438.984426661287
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 1.5374999999999774,
+     "dist_km": 5426.379998038763
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 3.5249999999998636,
+     "dist_km": 5399.340211159515
+    }
+   }
+  },
+  {
+   "issue": "2020-05-20 12 UTC",
+   "lead_h": 96,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56S 10E, cold advection -10.0 K/day near 79S 145E; moist advection 2.1 g/kg/day near 56S 10E, dry advection -1.9 g/kg/day near 34S 325E; moisture convergence 3.1 g/kg/day near 56S 10E, moisture divergence -2.3 g/kg/day near 34S 325E; thickest 850-500 hPa layer 4378.0 m near 11N 100E, thinnest 850-500 hPa layer 3716.0 m near 79S 122E.",
+    "truth": "warm advection 12.0 K/day near 79S 257E, cold advection -13.6 K/day near 79S 145E; moist advection 1.9 g/kg/day near 56N 280E, dry advection -3.4 g/kg/day near 34S 100E; moisture convergence 4.2 g/kg/day near 34S 122E, moisture divergence -5.2 g/kg/day near 34S 100E; thickest 850-500 hPa layer 4393.7 m near 11N 77E, thinnest 850-500 hPa layer 3735.1 m near 79S 32E.",
+    "numeric": "warm advection 9.1 K/day near 56S 167E, cold advection -13.3 K/day near 79S 145E; moist advection 2.3 g/kg/day near 79N 55E, dry advection -1.8 g/kg/day near 56S 55E; moisture convergence 2.9 g/kg/day near 34S 302E, moisture divergence -3.0 g/kg/day near 34S 212E; thickest 850-500 hPa layer 4395.8 m near 11N 100E, thinnest 850-500 hPa layer 3663.9 m near 79S 122E.",
+    "persistence": "warm advection 7.4 K/day near 56S 167E, cold advection -12.4 K/day near 79S 145E; moist advection 2.2 g/kg/day near 56S 32E, dry advection -2.1 g/kg/day near 56S 55E; moisture convergence 3.4 g/kg/day near 34N 100E, moisture divergence -3.2 g/kg/day near 34S 212E; thickest 850-500 hPa layer 4396.3 m near 11N 100E, thinnest 850-500 hPa layer 3703.4 m near 79S 122E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 5.7624999999999655,
+     "dist_km": 6728.1100579715685
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 10.250000000000023,
+     "dist_km": 4900.030862718823
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 5.562500000000022,
+     "dist_km": 5736.900487566994
+    }
+   }
+  },
+  {
+   "issue": "2020-06-05 12 UTC",
+   "lead_h": 96,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56S 10E, cold advection -10.0 K/day near 79S 145E; moist advection 2.0 g/kg/day near 56S 10E, dry advection -1.9 g/kg/day near 34S 100E; moisture convergence 3.1 g/kg/day near 56S 10E, moisture divergence -2.3 g/kg/day near 34S 100E; thickest 850-500 hPa layer 4380.9 m near 11N 100E, thinnest 850-500 hPa layer 3706.8 m near 79S 122E.",
+    "truth": "warm advection 8.7 K/day near 56S 32E, cold advection -8.3 K/day near 79N 32E; moist advection 2.5 g/kg/day near 56S 32E, dry advection -2.6 g/kg/day near 34N 257E; moisture convergence 2.8 g/kg/day near 56S 32E, moisture divergence -2.4 g/kg/day near 56S 235E; thickest 850-500 hPa layer 4386.4 m near 11N 77E, thinnest 850-500 hPa layer 3696.1 m near 79S 145E.",
+    "numeric": "warm advection 7.6 K/day near 56S 32E, cold advection -10.5 K/day near 79S 122E; moist advection 2.6 g/kg/day near 56S 32E, dry advection -1.8 g/kg/day near 34S 257E; moisture convergence 3.5 g/kg/day near 56S 32E, moisture divergence -2.6 g/kg/day near 11S 325E; thickest 850-500 hPa layer 4390.3 m near 11N 55E, thinnest 850-500 hPa layer 3695.4 m near 79S 122E.",
+    "persistence": "warm advection 9.3 K/day near 56S 32E, cold advection -10.7 K/day near 79S 122E; moist advection 2.1 g/kg/day near 56S 32E, dry advection -1.8 g/kg/day near 34S 257E; moisture convergence 3.5 g/kg/day near 34N 280E, moisture divergence -2.8 g/kg/day near 11S 325E; thickest 850-500 hPa layer 4387.4 m near 11N 55E, thinnest 850-500 hPa layer 3716.0 m near 79S 145E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 2.600000000000034,
+     "dist_km": 6598.870900403202
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 1.2125000000000454,
+     "dist_km": 4716.627007806229
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 3.2750000000000115,
+     "dist_km": 6457.207007186724
+    }
+   }
+  },
+  {
+   "issue": "2020-06-21 12 UTC",
+   "lead_h": 96,
+   "texts": {
+    "answer": "14.7 S 325E warm advection 10.0 K/day, -10.2 N 145E cold advection -10.2 K/day; 5.5 g/kg/day n advection 5.5 g/kg/day, -2.8 g/kg/day n advection -2.8 g/kg/day; 850-500 hPa 3377.0 m 3377.0 m near 56S 100E, 776.2 g/kg/day thickest 850-500 hPa 3377.0 m 3377.0 m near 56S 100E, 776.2 g/kg/day thinnest 850-500 hPa 2670.8 m 2670.",
+    "truth": "warm advection 10.8 K/day near 79S 235E, cold advection -10.6 K/day near 56S 212E; moist advection 1.9 g/kg/day near 79S 235E, dry advection -1.9 g/kg/day near 56S 212E; moisture convergence 3.5 g/kg/day near 11N 122E, moisture divergence -2.3 g/kg/day near 11S 347E; thickest 850-500 hPa layer 4413.8 m near 34N 55E, thinnest 850-500 hPa layer 3700.6 m near 79S 190E.",
+    "numeric": "warm advection 8.9 K/day near 79S 257E, cold advection -13.6 K/day near 79S 145E; moist advection 1.0 g/kg/day near 56S 55E, dry advection -1.2 g/kg/day near 34S 32E; moisture convergence 3.0 g/kg/day near 34N 100E, moisture divergence -2.2 g/kg/day near 11S 212E; thickest 850-500 hPa layer 4393.8 m near 11N 55E, thinnest 850-500 hPa layer 3730.6 m near 79S 10E.",
+    "persistence": "warm advection 6.6 K/day near 79S 257E, cold advection -14.9 K/day near 79S 145E; moist advection 1.2 g/kg/day near 79N 257E, dry advection -1.5 g/kg/day near 79N 235E; moisture convergence 3.0 g/kg/day near 34S 302E, moisture divergence -3.1 g/kg/day near 11S 302E; thickest 850-500 hPa layer 4398.9 m near 34N 55E, thinnest 850-500 hPa layer 3720.4 m near 79S 190E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 0.0,
+     "value_abs_err": null,
+     "dist_km": null
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 7.1375,
+     "dist_km": 5227.047775184057
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 5.700000000000091,
+     "dist_km": 7374.8398280781275
+    }
+   }
+  },
+  {
+   "issue": "2020-05-06 12 UTC",
+   "lead_h": 120,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56S 32E, cold advection -10.0 K/day near 79S 145E; moist advection 2.1 g/kg/day near 56S 32E, dry advection -2.0 g/kg/day near 34S 100E; moisture convergence 3.1 g/kg/day near 56S 32E, moisture divergence -2.3 g/kg/day near 34S 100E; thickest 850-500 hPa layer 4376.1 m near 11N 10E, thinnest 850-500 hPa layer 3736.0 m near 79S 122E.",
+    "truth": "warm advection 7.6 K/day near 79S 212E, cold advection -12.7 K/day near 79S 145E; moist advection 1.5 g/kg/day near 34N 167E, dry advection -1.5 g/kg/day near 11S 347E; moisture convergence 2.5 g/kg/day near 11S 167E, moisture divergence -2.5 g/kg/day near 11N 212E; thickest 850-500 hPa layer 4397.5 m near 11N 55E, thinnest 850-500 hPa layer 3722.4 m near 79S 122E.",
+    "numeric": "warm advection 13.3 K/day near 79S 235E, cold advection -9.6 K/day near 56S 212E; moist advection 2.5 g/kg/day near 79S 235E, dry advection -2.3 g/kg/day near 56S 212E; moisture convergence 4.0 g/kg/day near 79S 235E, moisture divergence -2.6 g/kg/day near 34S 167E; thickest 850-500 hPa layer 4394.0 m near 11N 100E, thinnest 850-500 hPa layer 3740.6 m near 79S 145E.",
+    "persistence": "warm advection 11.0 K/day near 79S 235E, cold advection -10.7 K/day near 56S 212E; moist advection 2.4 g/kg/day near 56S 10E, dry advection -2.4 g/kg/day near 56S 212E; moisture convergence 3.6 g/kg/day near 79S 235E, moisture divergence -2.5 g/kg/day near 34S 167E; thickest 850-500 hPa layer 4399.4 m near 11N 100E, thinnest 850-500 hPa layer 3750.2 m near 79S 145E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 5.249999999999943,
+     "dist_km": 7661.892420815668
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 4.237499999999978,
+     "dist_km": 6168.190726523173
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 4.749999999999921,
+     "dist_km": 6635.1611372931075
+    }
+   }
+  },
+  {
+   "issue": "2020-05-20 12 UTC",
+   "lead_h": 120,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56S 32E, cold advection -10.0 K/day near 79S 145E; moist advection 2.1 g/kg/day near 56S 32E, dry advection -1.9 g/kg/day near 34S 100E; moisture convergence 3.1 g/kg/day near 56S 32E, moisture divergence -2.3 g/kg/day near 34S 100E; thickest 850-500 hPa layer 4378.0 m near 11N 10E, thinnest 850-500 hPa layer 3716.0 m near 79S 122E.",
+    "truth": "warm advection 9.2 K/day near 79S 280E, cold advection -14.1 K/day near 79S 145E; moist advection 1.7 g/kg/day near 56N 302E, dry advection -1.3 g/kg/day near 79N 100E; moisture convergence 3.4 g/kg/day near 56S 280E, moisture divergence -2.6 g/kg/day near 56N 77E; thickest 850-500 hPa layer 4393.7 m near 11N 77E, thinnest 850-500 hPa layer 3739.9 m near 79S 32E.",
+    "numeric": "warm advection 9.1 K/day near 56S 167E, cold advection -13.2 K/day near 79S 145E; moist advection 2.3 g/kg/day near 79N 55E, dry advection -1.8 g/kg/day near 56S 55E; moisture convergence 2.9 g/kg/day near 34S 302E, moisture divergence -3.0 g/kg/day near 34S 212E; thickest 850-500 hPa layer 4395.7 m near 11N 100E, thinnest 850-500 hPa layer 3664.9 m near 79S 122E.",
+    "persistence": "warm advection 7.4 K/day near 56S 167E, cold advection -12.4 K/day near 79S 145E; moist advection 2.2 g/kg/day near 56S 32E, dry advection -2.1 g/kg/day near 56S 55E; moisture convergence 3.4 g/kg/day near 34N 100E, moisture divergence -3.2 g/kg/day near 34S 212E; thickest 850-500 hPa layer 4396.3 m near 11N 100E, thinnest 850-500 hPa layer 3703.4 m near 79S 122E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 5.762499999999989,
+     "dist_km": 7146.88692014663
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 10.0,
+     "dist_km": 5887.673326355829
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 5.562500000000045,
+     "dist_km": 9018.759943385714
+    }
+   }
+  },
+  {
+   "issue": "2020-06-05 12 UTC",
+   "lead_h": 120,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56S 100E, cold advection -10.0 K/day near 79S 145E; moist advection 2.1 g/kg/day near 56S 100E, dry advection -1.9 g/kg/day near 34S 100E; moisture convergence 3.1 g/kg/day near 56S 100E, moisture divergence -2.3 g/kg/day near 34S 100E; thickest 850-500 hPa layer 4383.1 m near 11N 100E, thinnest 850-500 hPa layer 3709.0 m near 79S 122E.",
+    "truth": "warm advection 10.3 K/day near 79S 257E, cold advection -8.2 K/day near 56S 145E; moist advection 2.3 g/kg/day near 56S 55E, dry advection -2.5 g/kg/day near 79N 77E; moisture convergence 3.7 g/kg/day near 56N 280E, moisture divergence -2.6 g/kg/day near 79N 77E; thickest 850-500 hPa layer 4389.2 m near 11N 55E, thinnest 850-500 hPa layer 3695.5 m near 79S 145E.",
+    "numeric": "warm advection 7.6 K/day near 56S 32E, cold advection -10.4 K/day near 79S 122E; moist advection 2.6 g/kg/day near 56S 32E, dry advection -1.8 g/kg/day near 34S 257E; moisture convergence 3.5 g/kg/day near 56S 32E, moisture divergence -2.6 g/kg/day near 11S 325E; thickest 850-500 hPa layer 4390.0 m near 11N 55E, thinnest 850-500 hPa layer 3696.4 m near 79S 122E.",
+    "persistence": "warm advection 9.3 K/day near 56S 32E, cold advection -10.7 K/day near 79S 122E; moist advection 2.1 g/kg/day near 56S 32E, dry advection -1.8 g/kg/day near 34S 257E; moisture convergence 3.5 g/kg/day near 34N 280E, moisture divergence -2.8 g/kg/day near 11S 325E; thickest 850-500 hPa layer 4387.4 m near 11N 55E, thinnest 850-500 hPa layer 3716.0 m near 79S 145E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 2.924999999999932,
+     "dist_km": 7617.980327697763
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 0.9750000000000344,
+     "dist_km": 6494.620793341799
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 3.3875000000000224,
+     "dist_km": 4744.459787974687
+    }
+   }
+  },
+  {
+   "issue": "2020-06-21 12 UTC",
+   "lead_h": 120,
+   "texts": {
+    "answer": "14.7 K 56S 10E, -10.0 K 79S 145E, 5677.6 g/kg 56S 10E, 5677.6 g/kg 34S 145E, 5.0 g/kg 34N 10E, 10.0 g/kg 34N 325E.",
+    "truth": "warm advection 10.5 K/day near 79S 190E, cold advection -14.6 K/day near 79S 100E; moist advection 1.5 g/kg/day near 34S 235E, dry advection -2.4 g/kg/day near 34S 212E; moisture convergence 4.6 g/kg/day near 34S 235E, moisture divergence -2.8 g/kg/day near 34S 212E; thickest 850-500 hPa layer 4398.4 m near 34N 55E, thinnest 850-500 hPa layer 3746.6 m near 79S 100E.",
+    "numeric": "warm advection 8.9 K/day near 79S 257E, cold advection -13.5 K/day near 79S 145E; moist advection 1.0 g/kg/day near 56S 55E, dry advection -1.2 g/kg/day near 34S 32E; moisture convergence 2.9 g/kg/day near 34N 100E, moisture divergence -2.2 g/kg/day near 11S 212E; thickest 850-500 hPa layer 4393.5 m near 11N 55E, thinnest 850-500 hPa layer 3731.2 m near 79S 10E.",
+    "persistence": "warm advection 6.6 K/day near 79S 257E, cold advection -14.9 K/day near 79S 145E; moist advection 1.2 g/kg/day near 79N 257E, dry advection -1.5 g/kg/day near 79N 235E; moisture convergence 3.0 g/kg/day near 34S 302E, moisture divergence -3.1 g/kg/day near 11S 302E; thickest 850-500 hPa layer 4398.9 m near 34N 55E, thinnest 850-500 hPa layer 3720.4 m near 79S 190E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 0.0,
+     "value_abs_err": null,
+     "dist_km": null
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 3.374999999999966,
+     "dist_km": 5934.740443318584
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 4.249999999999977,
+     "dist_km": 5584.96305159903
+    }
+   }
+  },
+  {
+   "issue": "2020-07-07 12 UTC",
+   "lead_h": 24,
+   "texts": {
+    "answer": "14.7 K 5677S 100E, 14.7 K 5677S 145E, -10.0 g/kg/day 5677S 100E, 14.7 g/kg/day 5677S 145E, 7.6 g/kg/day 5677S 32E, 10.0 g/kg/day 5677S 32E.",
+    "truth": "warm advection 8.6 K/day near 56S 32E, cold advection -9.5 K/day near 34S 55E; moist advection 2.0 g/kg/day near 56S 32E, dry advection -2.4 g/kg/day near 11S 55E; moisture convergence 3.1 g/kg/day near 34N 100E, moisture divergence -2.1 g/kg/day near 34S 347E; thickest 850-500 hPa layer 4405.4 m near 34N 77E, thinnest 850-500 hPa layer 3705.1 m near 79S 347E.",
+    "numeric": "warm advection 5.3 K/day near 79S 257E, cold advection -9.3 K/day near 34S 32E; moist advection 1.6 g/kg/day near 56S 190E, dry advection -1.5 g/kg/day near 11N 302E; moisture convergence 2.8 g/kg/day near 34N 100E, moisture divergence -2.1 g/kg/day near 34S 32E; thickest 850-500 hPa layer 4411.3 m near 34N 100E, thinnest 850-500 hPa layer 3700.5 m near 79S 10E.",
+    "persistence": "warm advection 5.7 K/day near 79S 10E, cold advection -9.1 K/day near 79S 302E; moist advection 1.5 g/kg/day near 56S 190E, dry advection -1.7 g/kg/day near 11N 302E; moisture convergence 2.8 g/kg/day near 34N 100E, moisture divergence -2.3 g/kg/day near 11S 325E; thickest 850-500 hPa layer 4414.3 m near 34N 100E, thinnest 850-500 hPa layer 3700.3 m near 79S 10E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 0.0,
+     "value_abs_err": null,
+     "dist_km": null
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 1.9500000000000568,
+     "dist_km": 4208.610436134675
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 2.337500000000034,
+     "dist_km": 4445.956793366668
+    }
+   }
+  },
+  {
+   "issue": "2020-07-23 12 UTC",
+   "lead_h": 24,
+   "texts": {
+    "answer": "14S 325E warm advection 10.0 K/day, 56N 10E cold advection -10.0 K/day; 507N 10E warm advection 7.0 g/kg/day, 34S 100E cold advection -10.0 g/kg/day; 507N 10E warm advection 7.0 g/kg/day, 34S 100E cold advection -10.0 g/kg/day; 507N 10E warm advection 7.0 g/kg/day, 34S 100E cold advection -10.0 g/kg/day.",
+    "truth": "warm advection 11.3 K/day near 79S 235E, cold advection -12.2 K/day near 79S 77E; moist advection 2.1 g/kg/day near 56S 32E, dry advection -1.9 g/kg/day near 34S 55E; moisture convergence 3.8 g/kg/day near 56S 32E, moisture divergence -3.1 g/kg/day near 11S 325E; thickest 850-500 hPa layer 4405.8 m near 34N 55E, thinnest 850-500 hPa layer 3726.5 m near 79S 122E.",
+    "numeric": "warm advection 9.8 K/day near 79S 235E, cold advection -10.6 K/day near 79S 145E; moist advection 2.5 g/kg/day near 79S 235E, dry advection -1.4 g/kg/day near 34S 347E; moisture convergence 3.4 g/kg/day near 79S 235E, moisture divergence -2.0 g/kg/day near 34S 55E; thickest 850-500 hPa layer 4397.8 m near 34N 100E, thinnest 850-500 hPa layer 3708.2 m near 79S 145E.",
+    "persistence": "warm advection 8.1 K/day near 79S 235E, cold advection -12.0 K/day near 79S 145E; moist advection 1.9 g/kg/day near 79S 235E, dry advection -1.3 g/kg/day near 56S 190E; moisture convergence 2.8 g/kg/day near 79S 235E, moisture divergence -2.1 g/kg/day near 11S 325E; thickest 850-500 hPa layer 4405.2 m near 34N 55E, thinnest 850-500 hPa layer 3714.4 m near 79S 145E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 0.0,
+     "value_abs_err": null,
+     "dist_km": null
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 3.9750000000000227,
+     "dist_km": 3910.379502193751
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 2.362500000000034,
+     "dist_km": 2605.068212009053
+    }
+   }
+  },
+  {
+   "issue": "2020-08-08 12 UTC",
+   "lead_h": 24,
+   "texts": {
+    "answer": "14.7 K 5677S 100E, 14.7 K 5677S 32E, -10.0 g/kg/day 5677S 100E, 14.7 g/kg/day 5677S 32E, 7.6 g/kg/day 5677S 32E, 10.0 g/kg/day 5677S 32E.",
+    "truth": "warm advection 9.1 K/day near 79S 10E, cold advection -9.5 K/day near 79S 100E; moist advection 3.3 g/kg/day near 56S 235E, dry advection -1.9 g/kg/day near 56S 212E; moisture convergence 4.2 g/kg/day near 56S 235E, moisture divergence -2.8 g/kg/day near 11S 325E; thickest 850-500 hPa layer 4413.0 m near 34N 77E, thinnest 850-500 hPa layer 3681.5 m near 79S 122E.",
+    "numeric": "warm advection 9.5 K/day near 79S 347E, cold advection -11.7 K/day near 56S 257E; moist advection 2.7 g/kg/day near 56S 212E, dry advection -2.1 g/kg/day near 11N 55E; moisture convergence 4.0 g/kg/day near 56S 212E, moisture divergence -2.0 g/kg/day near 11S 325E; thickest 850-500 hPa layer 4406.7 m near 34N 77E, thinnest 850-500 hPa layer 3659.0 m near 79S 122E.",
+    "persistence": "warm advection 10.1 K/day near 79S 347E, cold advection -10.9 K/day near 79S 100E; moist advection 2.4 g/kg/day near 56S 212E, dry advection -2.2 g/kg/day near 11N 55E; moisture convergence 3.6 g/kg/day near 56S 212E, moisture divergence -2.5 g/kg/day near 11S 325E; thickest 850-500 hPa layer 4422.8 m near 34N 77E, thinnest 850-500 hPa layer 3693.0 m near 79S 122E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 0.0,
+     "value_abs_err": null,
+     "dist_km": null
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 4.150000000000023,
+     "dist_km": 2861.012043965381
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 3.2250000000000227,
+     "dist_km": 2245.15167710413
+    }
+   }
+  },
+  {
+   "issue": "2020-08-22 12 UTC",
+   "lead_h": 24,
+   "texts": {
+    "answer": "14.7 K 5677S 100E, 14.7 K 5677S 32E, -10.0 g 5677S 100E, 3.6 g 5677N 32E, 7.0 g 5677N 32E, 10.0 g 5677N 32E, 10.0 g 5677N 32E, 10.0 g 5677N 32E.",
+    "truth": "warm advection 10.9 K/day near 79S 257E, cold advection -14.0 K/day near 79S 235E; moist advection 2.3 g/kg/day near 79N 55E, dry advection -1.2 g/kg/day near 11N 212E; moisture convergence 2.0 g/kg/day near 56S 77E, moisture divergence -2.0 g/kg/day near 11S 212E; thickest 850-500 hPa layer 4411.0 m near 34N 77E, thinnest 850-500 hPa layer 3670.8 m near 79S 122E.",
+    "numeric": "warm advection 10.3 K/day near 79S 212E, cold advection -9.9 K/day near 56S 190E; moist advection 2.6 g/kg/day near 79S 235E, dry advection -1.5 g/kg/day near 56N 10E; moisture convergence 3.4 g/kg/day near 79S 235E, moisture divergence -1.8 g/kg/day near 34S 325E; thickest 850-500 hPa layer 4405.7 m near 34N 55E, thinnest 850-500 hPa layer 3664.7 m near 79S 122E.",
+    "persistence": "warm advection 8.4 K/day near 79S 235E, cold advection -10.7 K/day near 56S 190E; moist advection 2.5 g/kg/day near 79N 32E, dry advection -1.5 g/kg/day near 56N 10E; moisture convergence 3.2 g/kg/day near 79N 32E, moisture divergence -1.6 g/kg/day near 11S 235E; thickest 850-500 hPa layer 4420.9 m near 34N 55E, thinnest 850-500 hPa layer 3685.2 m near 79S 167E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 0.0,
+     "value_abs_err": null,
+     "dist_km": null
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 2.287500000000068,
+     "dist_km": 6823.156101678149
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 4.02499999999991,
+     "dist_km": 4628.897475859465
+    }
+   }
+  },
+  {
+   "issue": "2020-07-07 12 UTC",
+   "lead_h": 72,
+   "texts": {
+    "answer": "14.7 K 5677E 56N warm advection 10.0 K/day 5677E 56N cold advection -10.0 K/day 325E 56N moist advection 2.1 g/kg/day 325E 56N dry advection -1.4 g/kg/day.",
+    "truth": "warm advection 8.2 K/day near 79S 235E, cold advection -16.9 K/day near 79S 145E; moist advection 1.6 g/kg/day near 34S 302E, dry advection -2.2 g/kg/day near 56S 55E; moisture convergence 4.8 g/kg/day near 34N 100E, moisture divergence -2.6 g/kg/day near 11S 325E; thickest 850-500 hPa layer 4400.1 m near 34N 55E, thinnest 850-500 hPa layer 3729.8 m near 79S 122E.",
+    "numeric": "warm advection 5.3 K/day near 79S 257E, cold advection -9.3 K/day near 34S 32E; moist advection 1.6 g/kg/day near 56S 190E, dry advection -1.6 g/kg/day near 11N 302E; moisture convergence 2.8 g/kg/day near 34N 100E, moisture divergence -2.1 g/kg/day near 11S 325E; thickest 850-500 hPa layer 4410.1 m near 34N 100E, thinnest 850-500 hPa layer 3700.5 m near 79S 10E.",
+    "persistence": "warm advection 5.7 K/day near 79S 10E, cold advection -9.1 K/day near 79S 302E; moist advection 1.5 g/kg/day near 56S 190E, dry advection -1.7 g/kg/day near 11N 302E; moisture convergence 2.8 g/kg/day near 34N 100E, moisture divergence -2.3 g/kg/day near 11S 325E; thickest 850-500 hPa layer 4414.3 m near 34N 100E, thinnest 850-500 hPa layer 3700.3 m near 79S 10E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 0.0,
+     "value_abs_err": null,
+     "dist_km": null
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 6.612500000000022,
+     "dist_km": 4242.735842768016
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 7.112499999999977,
+     "dist_km": 3920.79414956723
+    }
+   }
+  },
+  {
+   "issue": "2020-07-23 12 UTC",
+   "lead_h": 72,
+   "texts": {
+    "answer": "14.7 S 325E warm advection 10.0 K/day, -10.2 N 145E cold advection -10.2 K/day; 5.6 g/kg/day dry advection 5.6 g/kg/day, 4.3 g/kg/day moist advection 4.3 g/kg/day; 7.6 g/kg/day moisture convergence 7.6 g/kg/day, -2.9 g/kg/day moisture divergence -2.9 g/kg/day; 3277.6 K 5025 E 55N thickest 3277.6 K 5025 E 55N 3277.6 K 5025 E 55N thinnest 3277.6 K 5025 E 3277.6 K thickest 327",
+    "truth": "warm advection 13.3 K/day near 79S 212E, cold advection -14.0 K/day near 79S 257E; moist advection 1.6 g/kg/day near 79S 212E, dry advection -2.9 g/kg/day near 79S 257E; moisture convergence 2.8 g/kg/day near 34N 280E, moisture divergence -3.0 g/kg/day near 11S 77E; thickest 850-500 hPa layer 4414.6 m near 34N 55E, thinnest 850-500 hPa layer 3693.4 m near 79S 55E.",
+    "numeric": "warm advection 9.8 K/day near 79S 235E, cold advection -10.4 K/day near 79S 122E; moist advection 2.5 g/kg/day near 79S 235E, dry advection -1.4 g/kg/day near 34S 347E; moisture convergence 3.4 g/kg/day near 79S 235E, moisture divergence -2.0 g/kg/day near 34S 55E; thickest 850-500 hPa layer 4396.7 m near 34N 100E, thinnest 850-500 hPa layer 3709.8 m near 79S 145E.",
+    "persistence": "warm advection 8.1 K/day near 79S 235E, cold advection -12.0 K/day near 79S 145E; moist advection 1.9 g/kg/day near 79S 235E, dry advection -1.3 g/kg/day near 56S 190E; moisture convergence 2.8 g/kg/day near 79S 235E, moisture divergence -2.1 g/kg/day near 11S 325E; thickest 850-500 hPa layer 4405.2 m near 34N 55E, thinnest 850-500 hPa layer 3714.4 m near 79S 145E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 0.0,
+     "value_abs_err": null,
+     "dist_km": null
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 5.67500000000008,
+     "dist_km": 3957.107805272296
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 5.050000000000068,
+     "dist_km": 4148.587583694982
+    }
+   }
+  },
+  {
+   "issue": "2020-08-08 12 UTC",
+   "lead_h": 72,
+   "texts": {
+    "answer": "14.7 K 5677E 56N warm advection 10.0 K/day 5677E 56N cold advection -10.0 K/day 325E 56N moisture advection 2.3 g/kg/day 325E 56N moisture convergence 2.6 g/kg/day 325E 56N moisture divergence -2.1 g/kg/day 325E 56N",
+    "truth": "warm advection 13.2 K/day near 79S 190E, cold advection -14.4 K/day near 79S 145E; moist advection 2.2 g/kg/day near 56N 302E, dry advection -1.8 g/kg/day near 56N 280E; moisture convergence 4.9 g/kg/day near 34N 100E, moisture divergence -2.5 g/kg/day near 34S 55E; thickest 850-500 hPa layer 4422.7 m near 34N 55E, thinnest 850-500 hPa layer 3702.6 m near 79S 145E.",
+    "numeric": "warm advection 9.6 K/day near 79S 347E, cold advection -11.6 K/day near 56S 257E; moist advection 2.7 g/kg/day near 56S 212E, dry advection -2.0 g/kg/day near 11N 55E; moisture convergence 4.0 g/kg/day near 56S 212E, moisture divergence -2.1 g/kg/day near 11S 325E; thickest 850-500 hPa layer 4405.6 m near 34N 77E, thinnest 850-500 hPa layer 3661.0 m near 79S 122E.",
+    "persistence": "warm advection 10.1 K/day near 79S 347E, cold advection -10.9 K/day near 79S 100E; moist advection 2.4 g/kg/day near 56S 212E, dry advection -2.2 g/kg/day near 11N 55E; moisture convergence 3.6 g/kg/day near 56S 212E, moisture divergence -2.5 g/kg/day near 11S 325E; thickest 850-500 hPa layer 4422.8 m near 34N 77E, thinnest 850-500 hPa layer 3693.0 m near 79S 122E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 0.0,
+     "value_abs_err": null,
+     "dist_km": null
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 8.38749999999992,
+     "dist_km": 7416.578382800266
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 2.275000000000034,
+     "dist_km": 6986.732892872996
+    }
+   }
+  },
+  {
+   "issue": "2020-08-22 12 UTC",
+   "lead_h": 72,
+   "texts": {
+    "answer": "14.7 K 5677E 55N warm advection 10.0 K/day 5677E 55N cold advection -10.0 K/day; 5.6 g/kg/day 5677E 55N thickest 850-500 hPa layer 4390.3 m 5677E 55N thinnest 850-500 hPa layer 3706.0 m 3255E 79N; 3.4 g/kg/day 3255E 79N moist advection 2.0 g/kg/day 3255E 79N dry advection -1.5 g/kg/day 3255E 79N moisture convergence 2.5 g/kg/day 3255E ",
+    "truth": "warm advection 11.6 K/day near 79S 190E, cold advection -5.3 K/day near 79S 122E; moist advection 1.5 g/kg/day near 56N 145E, dry advection -2.1 g/kg/day near 56N 280E; moisture convergence 2.6 g/kg/day near 56N 145E, moisture divergence -2.5 g/kg/day near 56N 280E; thickest 850-500 hPa layer 4410.8 m near 34N 77E, thinnest 850-500 hPa layer 3695.7 m near 79S 347E.",
+    "numeric": "warm advection 10.4 K/day near 79S 212E, cold advection -9.9 K/day near 56S 190E; moist advection 2.6 g/kg/day near 79S 235E, dry advection -1.5 g/kg/day near 56N 10E; moisture convergence 3.4 g/kg/day near 79S 235E, moisture divergence -1.7 g/kg/day near 34S 325E; thickest 850-500 hPa layer 4405.0 m near 34N 55E, thinnest 850-500 hPa layer 3666.6 m near 79S 122E.",
+    "persistence": "warm advection 8.4 K/day near 79S 235E, cold advection -10.7 K/day near 56S 190E; moist advection 2.5 g/kg/day near 79N 32E, dry advection -1.5 g/kg/day near 56N 10E; moisture convergence 3.2 g/kg/day near 79N 32E, moisture divergence -1.6 g/kg/day near 11S 235E; thickest 850-500 hPa layer 4420.9 m near 34N 55E, thinnest 850-500 hPa layer 3685.2 m near 79S 167E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 0.0,
+     "value_abs_err": null,
+     "dist_km": null
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 5.5000000000000115,
+     "dist_km": 7052.319771594781
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 4.037499999999931,
+     "dist_km": 3921.7560135493172
+    }
+   }
+  },
+  {
+   "issue": "2020-07-07 12 UTC",
+   "lead_h": 96,
+   "texts": {
+    "answer": "14.7 S 325E warm advection 10.0 K/day, -10.2 N 145E cold advection -10.0 K/day; 5.6 g/kg/day dry advection 5.6 g/kg/day, 4.3 g/kg/day moist advection 4.3 g/kg/day; 7.6 g/kg/day moisture convergence 7.6 g/kg/day, -2.9 g/kg/day moisture divergence -2.9 g/kg/day; 3376.6 m sls 3376.6 m, 3376.6 m msl 3376.6 m, 7.6 g/kg/day thickest 7.6 g/kg/day thinnest 7.6 g/kg/day",
+    "truth": "warm advection 7.0 K/day near 79S 235E, cold advection -20.8 K/day near 79S 145E; moist advection 1.4 g/kg/day near 79S 235E, dry advection -2.0 g/kg/day near 34S 32E; moisture convergence 3.9 g/kg/day near 34N 100E, moisture divergence -2.6 g/kg/day near 11S 325E; thickest 850-500 hPa layer 4398.0 m near 11N 55E, thinnest 850-500 hPa layer 3730.9 m near 79S 122E.",
+    "numeric": "warm advection 5.4 K/day near 79S 257E, cold advection -9.3 K/day near 34S 32E; moist advection 1.6 g/kg/day near 56S 190E, dry advection -1.6 g/kg/day near 11N 302E; moisture convergence 2.8 g/kg/day near 34N 100E, moisture divergence -2.1 g/kg/day near 34S 32E; thickest 850-500 hPa layer 4409.9 m near 34N 100E, thinnest 850-500 hPa layer 3700.7 m near 79S 10E.",
+    "persistence": "warm advection 5.7 K/day near 79S 10E, cold advection -9.1 K/day near 79S 302E; moist advection 1.5 g/kg/day near 56S 190E, dry advection -1.7 g/kg/day near 11N 302E; moisture convergence 2.8 g/kg/day near 34N 100E, moisture divergence -2.3 g/kg/day near 11S 325E; thickest 850-500 hPa layer 4414.3 m near 34N 100E, thinnest 850-500 hPa layer 3700.3 m near 79S 10E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 0.0,
+     "value_abs_err": null,
+     "dist_km": null
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 7.174999999999988,
+     "dist_km": 4425.963728580558
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 7.712500000000011,
+     "dist_km": 3202.3743805626095
+    }
+   }
+  },
+  {
+   "issue": "2020-07-23 12 UTC",
+   "lead_h": 96,
+   "texts": {
+    "answer": "14.7 S 325E warm advection 10.0 K/day, -10.2 N 100E cold advection -10.2 K/day; 5.6 g/kg/day dry advection 5.6 g/kg/day, 4.3 g/kg/day moist advection 4.3 g/kg/day; 7.7 g/kg/day moisture convergence 7.7 g/kg/day, -2.9 g/kg/day moisture divergence -2.9 g/kg/day; 3377.6 m sls 3377.6 m, 3377.6 m thickest 3377.6 m thinnest 3377.6 m; 7.6 g/kg/day mass convergence 7.6 g/kg/day, -2.9 g/kg/day mass divergence -2.9 g/kg/day.",
+    "truth": "warm advection 8.7 K/day near 56S 190E, cold advection -10.1 K/day near 56S 10E; moist advection 1.9 g/kg/day near 79N 212E, dry advection -2.6 g/kg/day near 79N 190E; moisture convergence 5.1 g/kg/day near 79N 212E, moisture divergence -3.1 g/kg/day near 79N 190E; thickest 850-500 hPa layer 4418.8 m near 34N 55E, thinnest 850-500 hPa layer 3709.6 m near 79S 55E.",
+    "numeric": "warm advection 9.8 K/day near 79S 235E, cold advection -10.4 K/day near 79S 122E; moist advection 2.5 g/kg/day near 79S 235E, dry advection -1.4 g/kg/day near 34S 347E; moisture convergence 3.4 g/kg/day near 79S 235E, moisture divergence -2.0 g/kg/day near 34S 55E; thickest 850-500 hPa layer 4396.4 m near 34N 100E, thinnest 850-500 hPa layer 3710.2 m near 79S 145E.",
+    "persistence": "warm advection 8.1 K/day near 79S 235E, cold advection -12.0 K/day near 79S 145E; moist advection 1.9 g/kg/day near 79S 235E, dry advection -1.3 g/kg/day near 56S 190E; moisture convergence 2.8 g/kg/day near 79S 235E, moisture divergence -2.1 g/kg/day near 11S 325E; thickest 850-500 hPa layer 4405.2 m near 34N 55E, thinnest 850-500 hPa layer 3714.4 m near 79S 145E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 0.0,
+     "value_abs_err": null,
+     "dist_km": null
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 3.6250000000000573,
+     "dist_km": 9747.15876362101
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 3.1875000000000684,
+     "dist_km": 8974.522074146422
+    }
+   }
+  },
+  {
+   "issue": "2020-08-08 12 UTC",
+   "lead_h": 96,
+   "texts": {
+    "answer": "14.7 S 325E warm advection 10.0 K/day, -10.2 N 100E cold advection -10.0 K/day; 5.6 g/kg/day dry advection 5.6 g/kg/day, 4.3 g/kg/day moist advection 4.3 g/kg/day; 7.6 g/kg/day moisture convergence 7.6 g/kg/day, -2.9 g/kg/day moisture divergence -2.9 g/kg/day; 3407.6 m sls 3407.6 m, 3412.0 m msl 3412.0 m.",
+    "truth": "warm advection 6.8 K/day near 56S 347E, cold advection -14.0 K/day near 79S 145E; moist advection 2.5 g/kg/day near 56N 325E, dry advection -1.7 g/kg/day near 79N 347E; moisture convergence 2.7 g/kg/day near 56S 347E, moisture divergence -2.9 g/kg/day near 11S 325E; thickest 850-500 hPa layer 4423.7 m near 34N 55E, thinnest 850-500 hPa layer 3713.4 m near 79S 122E.",
+    "numeric": "warm advection 9.6 K/day near 79S 347E, cold advection -11.6 K/day near 56S 257E; moist advection 2.7 g/kg/day near 56S 212E, dry advection -2.0 g/kg/day near 11N 55E; moisture convergence 4.0 g/kg/day near 56S 212E, moisture divergence -2.1 g/kg/day near 11S 325E; thickest 850-500 hPa layer 4405.4 m near 34N 77E, thinnest 850-500 hPa layer 3661.3 m near 79S 122E.",
+    "persistence": "warm advection 10.1 K/day near 79S 347E, cold advection -10.9 K/day near 79S 100E; moist advection 2.4 g/kg/day near 56S 212E, dry advection -2.2 g/kg/day near 11N 55E; moisture convergence 3.6 g/kg/day near 56S 212E, moisture divergence -2.5 g/kg/day near 11S 325E; thickest 850-500 hPa layer 4422.8 m near 34N 77E, thinnest 850-500 hPa layer 3693.0 m near 79S 122E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 0.0,
+     "value_abs_err": null,
+     "dist_km": null
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 9.775000000000011,
+     "dist_km": 5029.374350027095
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 3.699999999999966,
+     "dist_km": 4599.528860099824
+    }
+   }
+  },
+  {
+   "issue": "2020-08-22 12 UTC",
+   "lead_h": 96,
+   "texts": {
+    "answer": "14.7 S 325E warm advection 10.0 K/day, -10.2 N 145E cold advection -10.2 K/day; 5.6 g/kg/day dry advection 5.6 g/kg/day, 4.3 g/kg/day moist advection 4.3 g/kg/day; 7.9 g/kg/day moisture convergence 7.9 g/kg/day, -2.9 g/kg/day moisture divergence -2.9 g/kg/day; 3277.6 m sls 3277.6 m, 3277.6 m thickest 3277.6 m thinnest 3277.6 m; 7.6 g/kg/day mass convergence 7.6 g/kg/day, -2.9 g/kg/day mass divergence -2.9 g/kg/day.",
+    "truth": "warm advection 10.6 K/day near 79S 212E, cold advection -9.3 K/day near 34S 32E; moist advection 1.8 g/kg/day near 56N 167E, dry advection -2.0 g/kg/day near 11S 100E; moisture convergence 2.9 g/kg/day near 56N 167E, moisture divergence -2.5 g/kg/day near 11S 100E; thickest 850-500 hPa layer 4399.5 m near 34N 100E, thinnest 850-500 hPa layer 3694.9 m near 79S 145E.",
+    "numeric": "warm advection 10.5 K/day near 79S 212E, cold advection -9.9 K/day near 56S 190E; moist advection 2.6 g/kg/day near 79S 235E, dry advection -1.5 g/kg/day near 56N 10E; moisture convergence 3.4 g/kg/day near 79S 235E, moisture divergence -1.7 g/kg/day near 34S 325E; thickest 850-500 hPa layer 4404.8 m near 34N 55E, thinnest 850-500 hPa layer 3666.9 m near 79S 122E.",
+    "persistence": "warm advection 8.4 K/day near 79S 235E, cold advection -10.7 K/day near 56S 190E; moist advection 2.5 g/kg/day near 79N 32E, dry advection -1.5 g/kg/day near 56N 10E; moisture convergence 3.2 g/kg/day near 79N 32E, moisture divergence -1.6 g/kg/day near 11S 235E; thickest 850-500 hPa layer 4420.9 m near 34N 55E, thinnest 850-500 hPa layer 3685.2 m near 79S 167E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 0.0,
+     "value_abs_err": null,
+     "dist_km": null
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 4.575000000000022,
+     "dist_km": 8727.053558332149
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 4.637499999999989,
+     "dist_km": 6222.38040945524
+    }
+   }
+  },
+  {
+   "issue": "2020-07-07 12 UTC",
+   "lead_h": 120,
+   "texts": {
+    "answer": "14.7 K 5677E 55N warm advection 10.0 K/day 5677E 55N cold advection -10.0 K/day; 5.5 g/kg/day 5677E 55N thickest 850-500 hPa 55N 55N thinnest 850-500 hPa 3377E 79S 4372 N warm advection 2.4 g/kg/day 325E 79S thickest 850-500 hPa 3377E 79S 4372 N thinnest 850-500 hPa 3377E 79S 4372 N moisture advection 2.0 g/kg/day 3",
+    "truth": "warm advection 7.2 K/day near 56S 32E, cold advection -14.5 K/day near 79S 77E; moist advection 2.1 g/kg/day near 56S 32E, dry advection -1.6 g/kg/day near 56N 280E; moisture convergence 3.4 g/kg/day near 34N 100E, moisture divergence -2.3 g/kg/day near 11S 100E; thickest 850-500 hPa layer 4395.9 m near 34N 55E, thinnest 850-500 hPa layer 3719.2 m near 79S 122E.",
+    "numeric": "warm advection 5.4 K/day near 79S 257E, cold advection -9.3 K/day near 34S 32E; moist advection 1.6 g/kg/day near 56S 190E, dry advection -1.6 g/kg/day near 11N 302E; moisture convergence 2.8 g/kg/day near 34N 100E, moisture divergence -2.1 g/kg/day near 34S 32E; thickest 850-500 hPa layer 4410.0 m near 34N 100E, thinnest 850-500 hPa layer 3701.3 m near 79S 10E.",
+    "persistence": "warm advection 5.7 K/day near 79S 10E, cold advection -9.1 K/day near 79S 302E; moist advection 1.5 g/kg/day near 56S 190E, dry advection -1.7 g/kg/day near 11N 302E; moisture convergence 2.8 g/kg/day near 34N 100E, moisture divergence -2.3 g/kg/day near 11S 325E; thickest 850-500 hPa layer 4414.3 m near 34N 100E, thinnest 850-500 hPa layer 3700.3 m near 79S 10E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 0.0,
+     "value_abs_err": null,
+     "dist_km": null
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 5.0375,
+     "dist_km": 4540.6989457276495
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 5.687500000000023,
+     "dist_km": 4788.6119807965315
+    }
+   }
+  },
+  {
+   "issue": "2020-07-23 12 UTC",
+   "lead_h": 120,
+   "texts": {
+    "answer": "14S 325E warm advection 10.0 K/day, 56S 10E cold advection -10.0 K/day; 507N 10E warm advection 7.0 g/kg/day, 34S 100E cold advection -10.0 g/kg/day; 507N 10E warm advection 7.0 g/kg/day, 34S 100E cold advection -10.0 g/kg/day; 507N 10E warm advection 7.0 g/kg/day, 34S 100E cold advection -10.0 g/kg/day.",
+    "truth": "warm advection 11.4 K/day near 79S 235E, cold advection -11.3 K/day near 79S 257E; moist advection 2.4 g/kg/day near 56S 167E, dry advection -2.2 g/kg/day near 56S 190E; moisture convergence 2.9 g/kg/day near 11S 167E, moisture divergence -2.7 g/kg/day near 11S 325E; thickest 850-500 hPa layer 4421.6 m near 34N 55E, thinnest 850-500 hPa layer 3721.2 m near 79S 77E.",
+    "numeric": "warm advection 9.9 K/day near 79S 235E, cold advection -10.3 K/day near 79S 122E; moist advection 2.5 g/kg/day near 79S 235E, dry advection -1.5 g/kg/day near 34S 347E; moisture convergence 3.4 g/kg/day near 79S 235E, moisture divergence -2.0 g/kg/day near 34S 55E; thickest 850-500 hPa layer 4396.5 m near 34N 100E, thinnest 850-500 hPa layer 3711.5 m near 79S 145E.",
+    "persistence": "warm advection 8.1 K/day near 79S 235E, cold advection -12.0 K/day near 79S 145E; moist advection 1.9 g/kg/day near 79S 235E, dry advection -1.3 g/kg/day near 56S 190E; moisture convergence 2.8 g/kg/day near 79S 235E, moisture divergence -2.1 g/kg/day near 11S 325E; thickest 850-500 hPa layer 4405.2 m near 34N 55E, thinnest 850-500 hPa layer 3714.4 m near 79S 145E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 0.0,
+     "value_abs_err": null,
+     "dist_km": null
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 4.912500000000023,
+     "dist_km": 4833.778169967269
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 3.6625000000000343,
+     "dist_km": 1902.9470812508519
+    }
+   }
+  },
+  {
+   "issue": "2020-08-08 12 UTC",
+   "lead_h": 120,
+   "texts": {
+    "answer": "14.7 K 5677E 55N warm advection 10.0 K/day 5677E 55N cold advection -10.0 K/day; 5.6 g/kg/day 5677E 55N thickest 850-500 hPa layer 4390.1 m 5677E 55N thinnest 850-500 hPa layer 3706.0 m 3255E 79N. 500-500 hPa thickness 4390.1 m 5677E 55N 500-500 hPa thickness 3706.0 m 3255E 79N",
+    "truth": "warm advection 6.6 K/day near 79S 32E, cold advection -12.9 K/day near 79S 100E; moist advection 1.3 g/kg/day near 56N 347E, dry advection -1.3 g/kg/day near 11N 55E; moisture convergence 2.1 g/kg/day near 56N 122E, moisture divergence -2.6 g/kg/day near 11S 325E; thickest 850-500 hPa layer 4428.1 m near 34N 55E, thinnest 850-500 hPa layer 3701.2 m near 79S 100E.",
+    "numeric": "warm advection 9.6 K/day near 79S 347E, cold advection -11.6 K/day near 56S 257E; moist advection 2.7 g/kg/day near 56S 212E, dry advection -2.0 g/kg/day near 11N 55E; moisture convergence 4.1 g/kg/day near 56S 212E, moisture divergence -2.1 g/kg/day near 11S 325E; thickest 850-500 hPa layer 4405.6 m near 34N 77E, thinnest 850-500 hPa layer 3662.5 m near 79S 122E.",
+    "persistence": "warm advection 10.1 K/day near 79S 347E, cold advection -10.9 K/day near 79S 100E; moist advection 2.4 g/kg/day near 56S 212E, dry advection -2.2 g/kg/day near 11N 55E; moisture convergence 3.6 g/kg/day near 56S 212E, moisture divergence -2.5 g/kg/day near 11S 325E; thickest 850-500 hPa layer 4422.8 m near 34N 77E, thinnest 850-500 hPa layer 3693.0 m near 79S 122E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 0.0,
+     "value_abs_err": null,
+     "dist_km": null
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 8.762499999999978,
+     "dist_km": 5056.086525795419
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 2.825,
+     "dist_km": 4440.226158934169
+    }
+   }
+  },
+  {
+   "issue": "2020-08-22 12 UTC",
+   "lead_h": 120,
+   "texts": {
+    "answer": "14.7 K 56S 10E, -10.2 K 79S 145E, 167.6 g/kg/day 56S 10E, 100.5 g/kg/day 56S 145E, 5.0 g/kg/day 34N 10E, 10.0 g/kg/day 34N 325E. Moist advection: 2.4 g/kg/day 34N 10E, 1.9 g/kg/day 34N 325E; Thickest: 4376.3 m 34N 10E, 100.5 g/kg/day 34N 325E, Thinnest: 3706.0 m 79S 122E.",
+    "truth": "warm advection 10.0 K/day near 79S 167E, cold advection -8.7 K/day near 56S 190E; moist advection 3.2 g/kg/day near 56S 325E, dry advection -1.7 g/kg/day near 56S 190E; moisture convergence 3.5 g/kg/day near 56S 325E, moisture divergence -2.3 g/kg/day near 11S 212E; thickest 850-500 hPa layer 4390.4 m near 34N 100E, thinnest 850-500 hPa layer 3682.0 m near 79S 347E.",
+    "numeric": "warm advection 10.5 K/day near 79S 212E, cold advection -9.9 K/day near 56S 190E; moist advection 2.6 g/kg/day near 79S 235E, dry advection -1.5 g/kg/day near 56N 10E; moisture convergence 3.4 g/kg/day near 79S 235E, moisture divergence -1.7 g/kg/day near 34S 325E; thickest 850-500 hPa layer 4404.7 m near 34N 55E, thinnest 850-500 hPa layer 3668.0 m near 79S 122E.",
+    "persistence": "warm advection 8.4 K/day near 79S 235E, cold advection -10.7 K/day near 56S 190E; moist advection 2.5 g/kg/day near 79N 32E, dry advection -1.5 g/kg/day near 56N 10E; moisture convergence 3.2 g/kg/day near 79N 32E, moisture divergence -1.6 g/kg/day near 11S 235E; thickest 850-500 hPa layer 4420.9 m near 34N 55E, thinnest 850-500 hPa layer 3685.2 m near 79S 167E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 0.0,
+     "value_abs_err": null,
+     "dist_km": null
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 3.9375000000000226,
+     "dist_km": 5822.926051612381
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 4.899999999999977,
+     "dist_km": 7712.825490323094
+    }
+   }
+  },
+  {
+   "issue": "2020-09-07 12 UTC",
+   "lead_h": 24,
+   "texts": {
+    "answer": "14.7 K 5677S 325E 14.7 K 5677S 325E 14.7 K 5677S 325E 14.7 K 5677S 325E 14.7 K 5677S 325E 14.7 K 5677S 325E 14.7 K 5677S 325E 14.7 K 5677S 325E 14.7 K 5677S 325E 14.7 K 5677S 325E 14.7 K 5677S 325E 14.7 K 5677S 3",
+    "truth": "warm advection 6.8 K/day near 56S 122E, cold advection -12.8 K/day near 79S 145E; moist advection 1.4 g/kg/day near 56S 122E, dry advection -1.9 g/kg/day near 34S 235E; moisture convergence 2.8 g/kg/day near 56N 302E, moisture divergence -2.5 g/kg/day near 34S 235E; thickest 850-500 hPa layer 4377.4 m near 11N 77E, thinnest 850-500 hPa layer 3760.8 m near 79S 55E.",
+    "numeric": "warm advection 8.3 K/day near 56S 55E, cold advection -8.6 K/day near 34S 77E; moist advection 1.7 g/kg/day near 79N 10E, dry advection -2.2 g/kg/day near 34S 77E; moisture convergence 2.5 g/kg/day near 11N 122E, moisture divergence -2.3 g/kg/day near 56N 347E; thickest 850-500 hPa layer 4387.1 m near 34N 235E, thinnest 850-500 hPa layer 3725.2 m near 79S 55E.",
+    "persistence": "warm advection 8.1 K/day near 56S 10E, cold advection -8.2 K/day near 79S 55E; moist advection 1.8 g/kg/day near 79N 10E, dry advection -2.5 g/kg/day near 34S 77E; moisture convergence 2.8 g/kg/day near 11N 122E, moisture divergence -2.2 g/kg/day near 34S 77E; thickest 850-500 hPa layer 4379.4 m near 11N 100E, thinnest 850-500 hPa layer 3746.7 m near 79S 55E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 0.0,
+     "value_abs_err": null,
+     "dist_km": null
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 6.512500000000137,
+     "dist_km": 9994.02614046416
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 2.912500000000046,
+     "dist_km": 7961.847675456155
+    }
+   }
+  },
+  {
+   "issue": "2020-09-23 12 UTC",
+   "lead_h": 24,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56S 10E, cold advection -10.0 K/day near 79S 145E; moist advection 2.1 g/kg/day near 56S 10E, dry advection -1.9 g/kg/day near 34S 100E; moisture convergence 3.0 g/kg/day near 56S 10E, moisture divergence -2.3 g/kg/day near 34S 100E; thickest 850-500 hPa layer 4378.0 m near 11N 100E, thinnest 850-500 hPa layer 3726.0 m near 79S 122E.",
+    "truth": "warm advection 7.5 K/day near 79N 55E, cold advection -7.5 K/day near 79N 32E; moist advection 1.8 g/kg/day near 56N 325E, dry advection -1.7 g/kg/day near 56N 302E; moisture convergence 3.6 g/kg/day near 56N 325E, moisture divergence -2.4 g/kg/day near 11S 325E; thickest 850-500 hPa layer 4378.3 m near 11N 77E, thinnest 850-500 hPa layer 3698.5 m near 79S 167E.",
+    "numeric": "warm advection 5.7 K/day near 79N 145E, cold advection -12.4 K/day near 79S 145E; moist advection 3.3 g/kg/day near 56N 302E, dry advection -1.9 g/kg/day near 34N 302E; moisture convergence 5.1 g/kg/day near 56N 302E, moisture divergence -1.9 g/kg/day near 11S 325E; thickest 850-500 hPa layer 4382.4 m near 11N 55E, thinnest 850-500 hPa layer 3712.7 m near 79S 145E.",
+    "persistence": "warm advection 5.2 K/day near 79N 145E, cold advection -10.3 K/day near 79S 145E; moist advection 2.3 g/kg/day near 56N 302E, dry advection -1.4 g/kg/day near 34N 302E; moisture convergence 4.5 g/kg/day near 56N 302E, moisture divergence -1.9 g/kg/day near 34N 212E; thickest 850-500 hPa layer 4380.3 m near 11N 77E, thinnest 850-500 hPa layer 3701.6 m near 79S 167E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 4.250000000000023,
+     "dist_km": 11721.098710061213
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 3.587499999999909,
+     "dist_km": 3569.152756928848
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 1.5499999999999887,
+     "dist_km": 4811.289375762869
+    }
+   }
+  },
+  {
+   "issue": "2020-10-09 12 UTC",
+   "lead_h": 24,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56S 10E, cold advection -10.0 K/day near 79S 145E; moist advection 2.1 g/kg/day near 56S 10E, dry advection -2.1 g/kg/day near 34S 325E; moisture convergence 3.0 g/kg/day near 56S 10E, moisture divergence -2.5 g/kg/day near 34S 325E; thickest 850-500 hPa layer 4376.1 m near 11N 10E, thinnest 850-500 hPa layer 3736.0 m near 79S 122E.",
+    "truth": "warm advection 10.0 K/day near 79S 325E, cold advection -12.1 K/day near 79S 145E; moist advection 2.2 g/kg/day near 56S 10E, dry advection -2.1 g/kg/day near 56S 347E; moisture convergence 3.1 g/kg/day near 56S 10E, moisture divergence -2.5 g/kg/day near 11N 347E; thickest 850-500 hPa layer 4375.5 m near 11N 122E, thinnest 850-500 hPa layer 3748.4 m near 79S 55E.",
+    "numeric": "warm advection 6.5 K/day near 56S 302E, cold advection -12.6 K/day near 79S 145E; moist advection 1.9 g/kg/day near 56S 257E, dry advection -2.2 g/kg/day near 34N 302E; moisture convergence 3.0 g/kg/day near 11N 100E, moisture divergence -2.1 g/kg/day near 11N 347E; thickest 850-500 hPa layer 4377.9 m near 11N 32E, thinnest 850-500 hPa layer 3757.2 m near 79S 32E.",
+    "persistence": "warm advection 6.9 K/day near 56S 302E, cold advection -13.3 K/day near 79S 145E; moist advection 1.9 g/kg/day near 56S 347E, dry advection -2.3 g/kg/day near 34N 302E; moisture convergence 3.3 g/kg/day near 11N 100E, moisture divergence -2.2 g/kg/day near 11N 347E; thickest 850-500 hPa layer 4373.3 m near 11N 122E, thinnest 850-500 hPa layer 3774.4 m near 79S 32E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 1.9125000000000567,
+     "dist_km": 3121.2865942805374
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 2.0124999999999202,
+     "dist_km": 5128.6179238304085
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 4.187499999999977,
+     "dist_km": 3311.959532600201
+    }
+   }
+  },
+  {
+   "issue": "2020-10-25 12 UTC",
+   "lead_h": 24,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56S 32E, cold advection -10.0 K/day near 79S 145E; moist advection 2.1 g/kg/day near 56S 32E, dry advection -2.0 g/kg/day near 34S 100E; moisture convergence 3.1 g/kg/day near 56S 32E, moisture divergence -2.3 g/kg/day near 34S 100E; thickest 850-500 hPa layer 4377.0 m near 11N 10E, thinnest 850-500 hPa layer 3736.0 m near 79S 122E.",
+    "truth": "warm advection 9.9 K/day near 79S 325E, cold advection -11.0 K/day near 56S 190E; moist advection 1.8 g/kg/day near 56N 347E, dry advection -3.8 g/kg/day near 56N 325E; moisture convergence 2.7 g/kg/day near 11N 122E, moisture divergence -2.4 g/kg/day near 56N 325E; thickest 850-500 hPa layer 4375.8 m near 11S 10E, thinnest 850-500 hPa layer 3734.6 m near 79S 167E.",
+    "numeric": "warm advection 8.3 K/day near 79S 280E, cold advection -7.3 K/day near 79S 100E; moist advection 2.4 g/kg/day near 56N 325E, dry advection -1.9 g/kg/day near 34N 302E; moisture convergence 3.3 g/kg/day near 56N 325E, moisture divergence -2.3 g/kg/day near 11N 347E; thickest 850-500 hPa layer 4369.3 m near 11S 10E, thinnest 850-500 hPa layer 3740.9 m near 79S 145E.",
+    "persistence": "warm advection 7.5 K/day near 56N 77E, cold advection -7.0 K/day near 56N 302E; moist advection 2.4 g/kg/day near 56N 325E, dry advection -2.0 g/kg/day near 56S 190E; moisture convergence 3.7 g/kg/day near 56N 325E, moisture divergence -2.5 g/kg/day near 11N 347E; thickest 850-500 hPa layer 4375.4 m near 11S 10E, thinnest 850-500 hPa layer 3740.1 m near 79S 145E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 0.7874999999999885,
+     "dist_km": 8204.838906103929
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 2.6625000000000227,
+     "dist_km": 3417.5340222138575
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 1.9750000000000683,
+     "dist_km": 8650.332781650242
+    }
+   }
+  },
+  {
+   "issue": "2020-09-07 12 UTC",
+   "lead_h": 72,
+   "texts": {
+    "answer": "14.7 K 5677S 325E 14.7 K 5677S 325E 14.7 K 5677S 325E 14.7 K 5677S 325E 14.7 K 5677S 325E 14.7 K 5677S 325E 14.7 K 5677S 325E 14.7 K 5677S 325E 14.7 K 5677S 325E 14.7 K 5677S 325E 14.7 K 5677S 325E 14.7 K 5677S 3",
+    "truth": "warm advection 6.5 K/day near 56S 167E, cold advection -12.9 K/day near 56S 55E; moist advection 1.6 g/kg/day near 56S 167E, dry advection -2.8 g/kg/day near 56S 55E; moisture convergence 3.4 g/kg/day near 34S 190E, moisture divergence -2.7 g/kg/day near 56S 55E; thickest 850-500 hPa layer 4381.7 m near 11N 32E, thinnest 850-500 hPa layer 3754.7 m near 79S 32E.",
+    "numeric": "warm advection 8.3 K/day near 56S 55E, cold advection -8.6 K/day near 34S 77E; moist advection 1.7 g/kg/day near 79N 10E, dry advection -2.2 g/kg/day near 34S 77E; moisture convergence 2.5 g/kg/day near 11N 122E, moisture divergence -2.3 g/kg/day near 56N 347E; thickest 850-500 hPa layer 4387.5 m near 34N 235E, thinnest 850-500 hPa layer 3726.1 m near 79S 55E.",
+    "persistence": "warm advection 8.1 K/day near 56S 10E, cold advection -8.2 K/day near 79S 55E; moist advection 1.8 g/kg/day near 79N 10E, dry advection -2.5 g/kg/day near 34S 77E; moisture convergence 2.8 g/kg/day near 11N 122E, moisture divergence -2.2 g/kg/day near 34S 77E; thickest 850-500 hPa layer 4379.4 m near 11N 100E, thinnest 850-500 hPa layer 3746.7 m near 79S 55E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 0.0,
+     "value_abs_err": null,
+     "dist_km": null
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 5.312500000000011,
+     "dist_km": 8368.46395781973
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 2.2750000000000226,
+     "dist_km": 6228.921471194682
+    }
+   }
+  },
+  {
+   "issue": "2020-09-23 12 UTC",
+   "lead_h": 72,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56S 10E, cold advection -10.0 K/day near 79S 145E; moist advection 2.1 g/kg/day near 56S 10E, dry advection -1.9 g/kg/day near 34S 325E; moisture convergence 3.1 g/kg/day near 56S 10E, moisture divergence -2.3 g/kg/day near 34S 325E; thickest 850-500 hPa layer 4377.1 m near 11N 100E, thinnest 850-500 hPa layer 3709.0 m near 79S 122E.",
+    "truth": "warm advection 6.7 K/day near 56S 325E, cold advection -10.2 K/day near 79N 55E; moist advection 2.0 g/kg/day near 56N 212E, dry advection -2.5 g/kg/day near 79N 55E; moisture convergence 3.2 g/kg/day near 34S 302E, moisture divergence -3.1 g/kg/day near 79N 55E; thickest 850-500 hPa layer 4376.2 m near 11N 55E, thinnest 850-500 hPa layer 3687.3 m near 79S 167E.",
+    "numeric": "warm advection 5.7 K/day near 79N 145E, cold advection -12.2 K/day near 79S 145E; moist advection 3.3 g/kg/day near 56N 302E, dry advection -2.0 g/kg/day near 34N 302E; moisture convergence 5.1 g/kg/day near 56N 302E, moisture divergence -1.9 g/kg/day near 11S 325E; thickest 850-500 hPa layer 4382.4 m near 11N 55E, thinnest 850-500 hPa layer 3713.8 m near 79S 145E.",
+    "persistence": "warm advection 5.2 K/day near 79N 145E, cold advection -10.3 K/day near 79S 145E; moist advection 2.3 g/kg/day near 56N 302E, dry advection -1.4 g/kg/day near 34N 302E; moisture convergence 4.5 g/kg/day near 56N 302E, moisture divergence -1.9 g/kg/day near 34N 212E; thickest 850-500 hPa layer 4380.3 m near 11N 77E, thinnest 850-500 hPa layer 3701.6 m near 79S 167E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 3.462500000000045,
+     "dist_km": 9819.304186517862
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 5.074999999999977,
+     "dist_km": 8671.707917510348
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 2.9875000000000114,
+     "dist_km": 8433.159148746334
+    }
+   }
+  },
+  {
+   "issue": "2020-10-09 12 UTC",
+   "lead_h": 72,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56S 10E, cold advection -10.0 K/day near 79S 145E; moist advection 2.1 g/kg/day near 56S 10E, dry advection -2.0 g/kg/day near 34S 325E; moisture convergence 3.1 g/kg/day near 56S 10E, moisture divergence -2.5 g/kg/day near 34S 325E; thickest 850-500 hPa layer 4376.1 m near 11N 10E, thinnest 850-500 hPa layer 3736.0 m near 79S 122E.",
+    "truth": "warm advection 6.1 K/day near 56N 280E, cold advection -7.1 K/day near 56S 145E; moist advection 2.3 g/kg/day near 56N 280E, dry advection -1.7 g/kg/day near 56S 257E; moisture convergence 3.8 g/kg/day near 56N 280E, moisture divergence -2.1 g/kg/day near 34N 257E; thickest 850-500 hPa layer 4376.2 m near 11N 122E, thinnest 850-500 hPa layer 3739.0 m near 79S 145E.",
+    "numeric": "warm advection 6.4 K/day near 56S 302E, cold advection -12.4 K/day near 79S 145E; moist advection 1.9 g/kg/day near 56S 257E, dry advection -2.2 g/kg/day near 34N 302E; moisture convergence 3.0 g/kg/day near 11N 100E, moisture divergence -2.1 g/kg/day near 11N 347E; thickest 850-500 hPa layer 4378.3 m near 11N 32E, thinnest 850-500 hPa layer 3756.8 m near 79S 32E.",
+    "persistence": "warm advection 6.9 K/day near 56S 302E, cold advection -13.3 K/day near 79S 145E; moist advection 1.9 g/kg/day near 56S 347E, dry advection -2.3 g/kg/day near 34N 302E; moisture convergence 3.3 g/kg/day near 11N 100E, moisture divergence -2.2 g/kg/day near 11N 347E; thickest 850-500 hPa layer 4373.3 m near 11N 122E, thinnest 850-500 hPa layer 3774.4 m near 79S 32E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 1.4374999999999318,
+     "dist_km": 9453.356660118447
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 3.4000000000000687,
+     "dist_km": 9046.570507262823
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 5.862499999999966,
+     "dist_km": 7975.660739423061
+    }
+   }
+  },
+  {
+   "issue": "2020-10-25 12 UTC",
+   "lead_h": 72,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56S 10E, cold advection -10.0 K/day near 79S 145E; moist advection 2.1 g/kg/day near 56S 10E, dry advection -2.0 g/kg/day near 34S 325E; moisture convergence 3.1 g/kg/day near 56S 10E, moisture divergence -2.3 g/kg/day near 34S 325E; thickest 850-500 hPa layer 4377.0 m near 11N 10E, thinnest 850-500 hPa layer 3736.0 m near 79S 122E.",
+    "truth": "warm advection 8.0 K/day near 56S 347E, cold advection -12.1 K/day near 79S 145E; moist advection 2.0 g/kg/day near 56S 32E, dry advection -2.0 g/kg/day near 34N 302E; moisture convergence 3.0 g/kg/day near 34S 325E, moisture divergence -2.2 g/kg/day near 34S 55E; thickest 850-500 hPa layer 4369.1 m near 11N 145E, thinnest 850-500 hPa layer 3789.3 m near 79N 212E.",
+    "numeric": "warm advection 8.2 K/day near 79S 280E, cold advection -7.3 K/day near 79S 100E; moist advection 2.4 g/kg/day near 56N 325E, dry advection -1.9 g/kg/day near 34N 302E; moisture convergence 3.3 g/kg/day near 56N 325E, moisture divergence -2.3 g/kg/day near 11N 347E; thickest 850-500 hPa layer 4369.6 m near 11N 32E, thinnest 850-500 hPa layer 3741.8 m near 79S 145E.",
+    "persistence": "warm advection 7.5 K/day near 56N 77E, cold advection -7.0 K/day near 56N 302E; moist advection 2.4 g/kg/day near 56N 325E, dry advection -2.0 g/kg/day near 56S 190E; moisture convergence 3.7 g/kg/day near 56N 325E, moisture divergence -2.5 g/kg/day near 11N 347E; thickest 850-500 hPa layer 4375.4 m near 11S 10E, thinnest 850-500 hPa layer 3740.1 m near 79S 145E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 8.199999999999978,
+     "dist_km": 6956.722589824985
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 6.7375,
+     "dist_km": 8396.798545844515
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 7.812499999999943,
+     "dist_km": 14029.080610655586
+    }
+   }
+  },
+  {
+   "issue": "2020-09-07 12 UTC",
+   "lead_h": 96,
+   "texts": {
+    "answer": "14.7 S 325E 14.7 N 14.7 S 325E 14.7 N 14.7 S 325E 14.7 N 14.7 S 325E 14.7 N 14.7 S 325E 14.7 N 14.7 S 325E 14.7 N 14.7 S 325E 14.7 N 14.7 S 325E 14.7 N 14.7 S 325E 14.7 N 14.7 S 325E 14.7 N 14.7 S 325E 14.7 N 14.7 S 325E 14",
+    "truth": "warm advection 5.5 K/day near 79S 100E, cold advection -7.4 K/day near 79S 145E; moist advection 1.7 g/kg/day near 56S 235E, dry advection -1.5 g/kg/day near 56S 100E; moisture convergence 2.5 g/kg/day near 34N 100E, moisture divergence -2.1 g/kg/day near 34S 190E; thickest 850-500 hPa layer 4376.1 m near 11N 55E, thinnest 850-500 hPa layer 3734.0 m near 79S 32E.",
+    "numeric": "warm advection 8.3 K/day near 56S 55E, cold advection -8.6 K/day near 34S 77E; moist advection 1.7 g/kg/day near 79N 10E, dry advection -2.2 g/kg/day near 34S 77E; moisture convergence 2.5 g/kg/day near 11N 122E, moisture divergence -2.3 g/kg/day near 56N 347E; thickest 850-500 hPa layer 4387.6 m near 34N 235E, thinnest 850-500 hPa layer 3726.3 m near 79S 55E.",
+    "persistence": "warm advection 8.1 K/day near 56S 10E, cold advection -8.2 K/day near 79S 55E; moist advection 1.8 g/kg/day near 79N 10E, dry advection -2.5 g/kg/day near 34S 77E; moisture convergence 2.8 g/kg/day near 11N 122E, moisture divergence -2.2 g/kg/day near 34S 77E; thickest 850-500 hPa layer 4379.4 m near 11N 100E, thinnest 850-500 hPa layer 3746.7 m near 79S 55E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 0.0,
+     "value_abs_err": null,
+     "dist_km": null
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 3.012499999999977,
+     "dist_km": 8095.624328222686
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 2.612499999999886,
+     "dist_km": 5523.692372407675
+    }
+   }
+  },
+  {
+   "issue": "2020-09-23 12 UTC",
+   "lead_h": 96,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56S 10E, cold advection -10.0 K/day near 79S 145E; moist advection 2.1 g/kg/day near 56S 10E, dry advection -2.0 g/kg/day near 34S 325E; moisture convergence 3.1 g/kg/day near 56S 10E, moisture divergence -2.3 g/kg/day near 34S 325E; thickest 850-500 hPa layer 4377.4 m near 11N 100E, thinnest 850-500 hPa layer 3709.0 m near 79S 122E.",
+    "truth": "warm advection 8.8 K/day near 56S 190E, cold advection -12.6 K/day near 79S 145E; moist advection 2.0 g/kg/day near 56S 190E, dry advection -1.6 g/kg/day near 56N 212E; moisture convergence 3.2 g/kg/day near 56S 190E, moisture divergence -2.1 g/kg/day near 11S 347E; thickest 850-500 hPa layer 4376.6 m near 11N 32E, thinnest 850-500 hPa layer 3708.2 m near 79S 145E.",
+    "numeric": "warm advection 5.7 K/day near 79N 145E, cold advection -12.2 K/day near 79S 145E; moist advection 3.3 g/kg/day near 56N 302E, dry advection -2.0 g/kg/day near 34N 302E; moisture convergence 5.1 g/kg/day near 56N 302E, moisture divergence -1.9 g/kg/day near 11S 325E; thickest 850-500 hPa layer 4382.2 m near 11N 55E, thinnest 850-500 hPa layer 3714.0 m near 79S 145E.",
+    "persistence": "warm advection 5.2 K/day near 79N 145E, cold advection -10.3 K/day near 79S 145E; moist advection 2.3 g/kg/day near 56N 302E, dry advection -1.4 g/kg/day near 34N 302E; moisture convergence 4.5 g/kg/day near 56N 302E, moisture divergence -1.9 g/kg/day near 34N 212E; thickest 850-500 hPa layer 4380.3 m near 11N 77E, thinnest 850-500 hPa layer 3701.6 m near 79S 167E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 0.7749999999999316,
+     "dist_km": 6055.046486557614
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 2.3374999999999546,
+     "dist_km": 7384.010940781371
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 2.2749999999999657,
+     "dist_km": 9290.325218383787
+    }
+   }
+  },
+  {
+   "issue": "2020-10-09 12 UTC",
+   "lead_h": 96,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56S 10E, cold advection -10.0 K/day near 79S 145E; moist advection 2.1 g/kg/day near 56S 10E, dry advection -2.0 g/kg/day near 34S 325E; moisture convergence 3.1 g/kg/day near 56S 10E, moisture divergence -2.3 g/kg/day near 34S 325E; thickest 850-500 hPa layer 4377.4 m near 11N 10E, thinnest 850-500 hPa layer 3736.0 m near 79S 122E.",
+    "truth": "warm advection 7.7 K/day near 56S 325E, cold advection -9.1 K/day near 56S 167E; moist advection 2.1 g/kg/day near 56S 77E, dry advection -1.8 g/kg/day near 56S 167E; moisture convergence 4.0 g/kg/day near 11N 122E, moisture divergence -2.4 g/kg/day near 11S 325E; thickest 850-500 hPa layer 4376.1 m near 11N 77E, thinnest 850-500 hPa layer 3717.2 m near 79S 145E.",
+    "numeric": "warm advection 6.4 K/day near 56S 302E, cold advection -12.4 K/day near 79S 145E; moist advection 1.9 g/kg/day near 56S 257E, dry advection -2.2 g/kg/day near 34N 302E; moisture convergence 3.0 g/kg/day near 11N 100E, moisture divergence -2.1 g/kg/day near 11N 347E; thickest 850-500 hPa layer 4378.3 m near 11N 32E, thinnest 850-500 hPa layer 3756.7 m near 79S 32E.",
+    "persistence": "warm advection 6.9 K/day near 56S 302E, cold advection -13.3 K/day near 79S 145E; moist advection 1.9 g/kg/day near 56S 347E, dry advection -2.3 g/kg/day near 34N 302E; moisture convergence 3.3 g/kg/day near 11N 100E, moisture divergence -2.2 g/kg/day near 11N 347E; thickest 850-500 hPa layer 4373.3 m near 11N 122E, thinnest 850-500 hPa layer 3774.4 m near 79S 32E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 3.0624999999999316,
+     "dist_km": 5242.199814780202
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 6.024999999999977,
+     "dist_km": 5035.460397774597
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 8.325000000000056,
+     "dist_km": 4737.77741982431
+    }
+   }
+  },
+  {
+   "issue": "2020-10-25 12 UTC",
+   "lead_h": 96,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56S 32E, cold advection -10.0 K/day near 79S 145E; moist advection 2.1 g/kg/day near 56S 32E, dry advection -2.0 g/kg/day near 34S 325E; moisture convergence 3.1 g/kg/day near 56S 32E, moisture divergence -2.3 g/kg/day near 34S 325E; thickest 850-500 hPa layer 4377.0 m near 11N 10E, thinnest 850-500 hPa layer 3736.0 m near 79S 122E.",
+    "truth": "warm advection 8.1 K/day near 56S 55E, cold advection -9.3 K/day near 79S 145E; moist advection 1.7 g/kg/day near 56S 280E, dry advection -2.4 g/kg/day near 34S 302E; moisture convergence 2.6 g/kg/day near 11N 100E, moisture divergence -2.6 g/kg/day near 34S 302E; thickest 850-500 hPa layer 4368.4 m near 11N 122E, thinnest 850-500 hPa layer 3759.3 m near 79N 235E.",
+    "numeric": "warm advection 8.4 K/day near 79S 280E, cold advection -7.3 K/day near 79S 100E; moist advection 2.4 g/kg/day near 56N 325E, dry advection -1.9 g/kg/day near 34N 302E; moisture convergence 3.3 g/kg/day near 56N 325E, moisture divergence -2.3 g/kg/day near 11N 347E; thickest 850-500 hPa layer 4369.5 m near 11N 32E, thinnest 850-500 hPa layer 3742.0 m near 79S 145E.",
+    "persistence": "warm advection 7.5 K/day near 56N 77E, cold advection -7.0 K/day near 56N 302E; moist advection 2.4 g/kg/day near 56N 325E, dry advection -2.0 g/kg/day near 56S 190E; moisture convergence 3.7 g/kg/day near 56N 325E, moisture divergence -2.5 g/kg/day near 11N 347E; thickest 850-500 hPa layer 4375.4 m near 11S 10E, thinnest 850-500 hPa layer 3740.1 m near 79S 145E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 4.512500000000068,
+     "dist_km": 6535.816798053681
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 2.862500000000068,
+     "dist_km": 9094.595049615065
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 3.925000000000034,
+     "dist_km": 12556.435681941108
+    }
+   }
+  },
+  {
+   "issue": "2020-09-07 12 UTC",
+   "lead_h": 120,
+   "texts": {
+    "answer": "14.7 K 56S 10E 14.7 K 56S 32E 16.7 K 56S 32E 16.7 K 56S 32E 16.7 K 56S 32E 16.7 K 56S 32E 16.7 K 56S 32E 16.7 K 56S 32E 16.7 K 56S 32E 16.7 K 56S 32E 16.7 K 56S 32E 16.7 K 56S 32E 16.7 K 56S 32E 16.7 K 56S 32E 16.7",
+    "truth": "warm advection 7.5 K/day near 56S 32E, cold advection -11.0 K/day near 79S 145E; moist advection 2.1 g/kg/day near 56S 257E, dry advection -1.4 g/kg/day near 34S 55E; moisture convergence 2.7 g/kg/day near 34N 100E, moisture divergence -2.3 g/kg/day near 11S 257E; thickest 850-500 hPa layer 4375.6 m near 11N 55E, thinnest 850-500 hPa layer 3734.1 m near 79S 32E.",
+    "numeric": "warm advection 8.3 K/day near 56S 55E, cold advection -8.6 K/day near 34S 77E; moist advection 1.7 g/kg/day near 79N 10E, dry advection -2.2 g/kg/day near 34S 77E; moisture convergence 2.5 g/kg/day near 11N 122E, moisture divergence -2.3 g/kg/day near 56N 347E; thickest 850-500 hPa layer 4387.6 m near 34N 235E, thinnest 850-500 hPa layer 3727.4 m near 79S 55E.",
+    "persistence": "warm advection 8.1 K/day near 56S 10E, cold advection -8.2 K/day near 79S 55E; moist advection 1.8 g/kg/day near 79N 10E, dry advection -2.5 g/kg/day near 34S 77E; moisture convergence 2.8 g/kg/day near 11N 122E, moisture divergence -2.2 g/kg/day near 34S 77E; thickest 850-500 hPa layer 4379.4 m near 11N 100E, thinnest 850-500 hPa layer 3746.7 m near 79S 55E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 0.0,
+     "value_abs_err": null,
+     "dist_km": null
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 2.9124999999999774,
+     "dist_km": 6968.686996036007
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 2.6749999999998977,
+     "dist_km": 5682.188050159042
+    }
+   }
+  },
+  {
+   "issue": "2020-09-23 12 UTC",
+   "lead_h": 120,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56S 10E, cold advection -10.0 K/day near 79S 145E; moist advection 2.1 g/kg/day near 56S 10E, dry advection -1.9 g/kg/day near 34S 100E; moisture convergence 3.1 g/kg/day near 56S 10E, moisture divergence -2.3 g/kg/day near 34S 100E; thickest 850-500 hPa layer 4378.1 m near 11N 100E, thinnest 850-500 hPa layer 3709.0 m near 79S 122E.",
+    "truth": "warm advection 11.4 K/day near 79S 212E, cold advection -11.9 K/day near 56S 167E; moist advection 1.8 g/kg/day near 56N 167E, dry advection -2.1 g/kg/day near 34S 302E; moisture convergence 3.0 g/kg/day near 56N 167E, moisture divergence -2.8 g/kg/day near 34S 302E; thickest 850-500 hPa layer 4379.3 m near 11N 32E, thinnest 850-500 hPa layer 3745.6 m near 79S 55E.",
+    "numeric": "warm advection 5.7 K/day near 79N 145E, cold advection -12.1 K/day near 79S 145E; moist advection 3.3 g/kg/day near 56N 302E, dry advection -2.0 g/kg/day near 34N 302E; moisture convergence 5.1 g/kg/day near 56N 302E, moisture divergence -1.9 g/kg/day near 11S 325E; thickest 850-500 hPa layer 4382.0 m near 11N 55E, thinnest 850-500 hPa layer 3715.3 m near 79S 145E.",
+    "persistence": "warm advection 5.2 K/day near 79N 145E, cold advection -10.3 K/day near 79S 145E; moist advection 2.3 g/kg/day near 56N 302E, dry advection -1.4 g/kg/day near 34N 302E; moisture convergence 4.5 g/kg/day near 56N 302E, moisture divergence -1.9 g/kg/day near 34N 212E; thickest 850-500 hPa layer 4380.3 m near 11N 77E, thinnest 850-500 hPa layer 3701.6 m near 79S 167E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 5.274999999999967,
+     "dist_km": 9721.650351545868
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 5.437499999999943,
+     "dist_km": 6219.39179871566
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 7.05,
+     "dist_km": 7627.730590384236
+    }
+   }
+  },
+  {
+   "issue": "2020-10-09 12 UTC",
+   "lead_h": 120,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56S 10E, cold advection -10.0 K/day near 79S 145E; moist advection 2.1 g/kg/day near 56S 10E, dry advection -2.0 g/kg/day near 34S 325E; moisture convergence 3.1 g/kg/day near 56S 10E, moisture divergence -2.5 g/kg/day near 34S 325E; thickest 850-500 hPa layer 4377.0 m near 11N 10E, thinnest 850-500 hPa layer 3736.0 m near 79S 122E.",
+    "truth": "warm advection 8.2 K/day near 56S 347E, cold advection -7.1 K/day near 79S 122E; moist advection 2.2 g/kg/day near 56S 347E, dry advection -2.5 g/kg/day near 34N 190E; moisture convergence 3.3 g/kg/day near 56N 302E, moisture divergence -2.1 g/kg/day near 34N 122E; thickest 850-500 hPa layer 4376.7 m near 11N 77E, thinnest 850-500 hPa layer 3711.4 m near 79S 145E.",
+    "numeric": "warm advection 6.4 K/day near 56S 302E, cold advection -12.4 K/day near 79S 145E; moist advection 1.9 g/kg/day near 56S 257E, dry advection -2.2 g/kg/day near 34N 302E; moisture convergence 3.0 g/kg/day near 11N 100E, moisture divergence -2.1 g/kg/day near 11N 347E; thickest 850-500 hPa layer 4378.2 m near 11N 32E, thinnest 850-500 hPa layer 3757.3 m near 79S 32E.",
+    "persistence": "warm advection 6.9 K/day near 56S 302E, cold advection -13.3 K/day near 79S 145E; moist advection 1.9 g/kg/day near 56S 347E, dry advection -2.3 g/kg/day near 34N 302E; moisture convergence 3.3 g/kg/day near 11N 100E, moisture divergence -2.2 g/kg/day near 11N 347E; thickest 850-500 hPa layer 4373.3 m near 11N 122E, thinnest 850-500 hPa layer 3774.4 m near 79S 32E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 3.8500000000000116,
+     "dist_km": 7348.26261904076
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 6.925000000000011,
+     "dist_km": 6302.213668921888
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 9.312499999999954,
+     "dist_km": 5654.739770393427
+    }
+   }
+  },
+  {
+   "issue": "2020-10-25 12 UTC",
+   "lead_h": 120,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56S 325E, cold advection -10.0 K/day near 79S 145E; moist advection 2.1 g/kg/day near 56S 325E, dry advection -2.0 g/kg/day near 34S 100E; moisture convergence 3.1 g/kg/day near 56S 325E, moisture divergence -2.3 g/kg/day near 34S 100E; thickest 850-500 hPa layer 4376.0 m near 11N 10E, thinnest 850-500 hPa layer 3736.0 m near 79S 122E.",
+    "truth": "warm advection 7.3 K/day near 79N 77E, cold advection -8.3 K/day near 56S 55E; moist advection 2.2 g/kg/day near 56S 77E, dry advection -2.7 g/kg/day near 34S 325E; moisture convergence 2.8 g/kg/day near 56S 77E, moisture divergence -2.4 g/kg/day near 56S 55E; thickest 850-500 hPa layer 4372.2 m near 11N 122E, thinnest 850-500 hPa layer 3743.5 m near 79N 257E.",
+    "numeric": "warm advection 8.3 K/day near 79S 280E, cold advection -7.3 K/day near 79S 100E; moist advection 2.4 g/kg/day near 56N 325E, dry advection -1.9 g/kg/day near 34N 302E; moisture convergence 3.3 g/kg/day near 56N 325E, moisture divergence -2.3 g/kg/day near 11N 347E; thickest 850-500 hPa layer 4369.5 m near 11N 32E, thinnest 850-500 hPa layer 3743.1 m near 79S 145E.",
+    "persistence": "warm advection 7.5 K/day near 56N 77E, cold advection -7.0 K/day near 56N 302E; moist advection 2.4 g/kg/day near 56N 325E, dry advection -2.0 g/kg/day near 56S 190E; moisture convergence 3.7 g/kg/day near 56N 325E, moisture divergence -2.5 g/kg/day near 11N 347E; thickest 850-500 hPa layer 4375.4 m near 11S 10E, thinnest 850-500 hPa layer 3740.1 m near 79S 145E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 2.112500000000023,
+     "dist_km": 9908.288261372454
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 0.8374999999999888,
+     "dist_km": 12568.585097600104
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 1.2499999999999887,
+     "dist_km": 12576.135918574066
+    }
+   }
+  },
+  {
+   "issue": "2020-11-10 12 UTC",
+   "lead_h": 24,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56S 32E, cold advection -10.0 K/day near 79S 145E; moist advection 2.1 g/kg/day near 56S 32E, dry advection -2.1 g/kg/day near 34S 100E; moisture convergence 3.1 g/kg/day near 56S 32E, moisture divergence -2.3 g/kg/day near 34S 100E; thickest 850-500 hPa layer 4376.1 m near 11N 10E, thinnest 850-500 hPa layer 3739.0 m near 79S 122E.",
+    "truth": "warm advection 10.7 K/day near 79N 32E, cold advection -6.3 K/day near 79S 122E; moist advection 2.7 g/kg/day near 79N 32E, dry advection -1.1 g/kg/day near 34N 167E; moisture convergence 3.0 g/kg/day near 79N 32E, moisture divergence -1.5 g/kg/day near 11S 325E; thickest 850-500 hPa layer 4371.1 m near 11S 10E, thinnest 850-500 hPa layer 3777.8 m near 79S 190E.",
+    "numeric": "warm advection 9.7 K/day near 79N 10E, cold advection -7.8 K/day near 34S 122E; moist advection 2.4 g/kg/day near 79N 10E, dry advection -1.5 g/kg/day near 56N 280E; moisture convergence 3.0 g/kg/day near 34N 280E, moisture divergence -2.0 g/kg/day near 56N 280E; thickest 850-500 hPa layer 4372.4 m near 11S 122E, thinnest 850-500 hPa layer 3788.6 m near 79S 190E.",
+    "persistence": "warm advection 11.7 K/day near 79N 10E, cold advection -7.4 K/day near 34S 122E; moist advection 3.3 g/kg/day near 79N 10E, dry advection -1.8 g/kg/day near 34N 257E; moisture convergence 3.4 g/kg/day near 79N 10E, moisture divergence -2.1 g/kg/day near 56N 280E; thickest 850-500 hPa layer 4372.5 m near 11N 145E, thinnest 850-500 hPa layer 3771.6 m near 79S 190E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 6.337500000000023,
+     "dist_km": 9091.487226165662
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 1.9749999999998749,
+     "dist_km": 5188.153213890973
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 1.4999999999999887,
+     "dist_km": 4751.822331978041
+    }
+   }
+  },
+  {
+   "issue": "2020-11-24 12 UTC",
+   "lead_h": 24,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56N 10E, cold advection -10.0 K/day near 56N 32E; moist advection 2.1 g/kg/day near 56S 302E, dry advection -2.0 g/kg/day near 34N 122E; moisture convergence 3.1 g/kg/day near 56S 302E, moisture divergence -2.5 g/kg/day near 34N 122E; thickest 850-500 hPa layer 4376.0 m near 11S 167E, thinnest 850-500 hPa layer 3719.0 m near 79N 122E.",
+    "truth": "warm advection 8.1 K/day near 56S 77E, cold advection -8.3 K/day near 56N 302E; moist advection 2.4 g/kg/day near 56S 347E, dry advection -2.8 g/kg/day near 56S 325E; moisture convergence 3.4 g/kg/day near 34N 280E, moisture divergence -2.4 g/kg/day near 56S 325E; thickest 850-500 hPa layer 4376.5 m near 11S 32E, thinnest 850-500 hPa layer 3786.7 m near 79N 280E.",
+    "numeric": "warm advection 6.0 K/day near 56S 55E, cold advection -7.2 K/day near 34S 122E; moist advection 2.3 g/kg/day near 56N 302E, dry advection -2.2 g/kg/day near 34N 302E; moisture convergence 4.5 g/kg/day near 56N 302E, moisture divergence -2.6 g/kg/day near 34N 167E; thickest 850-500 hPa layer 4376.8 m near 11S 32E, thinnest 850-500 hPa layer 3772.4 m near 79N 302E.",
+    "persistence": "warm advection 7.6 K/day near 79N 145E, cold advection -7.4 K/day near 34S 122E; moist advection 3.2 g/kg/day near 56N 302E, dry advection -3.1 g/kg/day near 34N 302E; moisture convergence 4.9 g/kg/day near 56N 302E, moisture divergence -2.5 g/kg/day near 34N 167E; thickest 850-500 hPa layer 4380.9 m near 11S 32E, thinnest 850-500 hPa layer 3765.2 m near 79N 302E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 9.162499999999978,
+     "dist_km": 10358.142356469707
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 2.4749999999999885,
+     "dist_km": 7843.726344660066
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 3.7499999999999547,
+     "dist_km": 9629.092375472628
+    }
+   }
+  },
+  {
+   "issue": "2020-12-10 12 UTC",
+   "lead_h": 24,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56S 32E, cold advection -10.0 K/day near 56N 145E; moist advection 2.1 g/kg/day near 56S 32E, dry advection -2.1 g/kg/day near 34N 122E; moisture convergence 3.0 g/kg/day near 56S 32E, moisture divergence -2.5 g/kg/day near 34N 122E; thickest 850-500 hPa layer 4376.3 m near 11S 122E, thinnest 850-500 hPa layer 3709.0 m near 79N 122E.",
+    "truth": "warm advection 6.5 K/day near 56S 77E, cold advection -5.9 K/day near 34N 302E; moist advection 1.6 g/kg/day near 56N 325E, dry advection -2.4 g/kg/day near 34N 302E; moisture convergence 3.6 g/kg/day near 34N 167E, moisture divergence -3.0 g/kg/day near 34N 302E; thickest 850-500 hPa layer 4373.3 m near 11S 122E, thinnest 850-500 hPa layer 3684.2 m near 79N 122E.",
+    "numeric": "warm advection 7.5 K/day near 56S 55E, cold advection -7.0 K/day near 56S 100E; moist advection 2.3 g/kg/day near 56S 55E, dry advection -1.7 g/kg/day near 11S 100E; moisture convergence 3.1 g/kg/day near 56S 55E, moisture divergence -3.4 g/kg/day near 34N 167E; thickest 850-500 hPa layer 4372.5 m near 11S 122E, thinnest 850-500 hPa layer 3725.0 m near 79N 122E.",
+    "persistence": "warm advection 7.8 K/day near 56S 55E, cold advection -5.9 K/day near 34N 167E; moist advection 2.8 g/kg/day near 56S 55E, dry advection -1.9 g/kg/day near 11S 100E; moisture convergence 3.9 g/kg/day near 56S 55E, moisture divergence -3.5 g/kg/day near 34N 167E; thickest 850-500 hPa layer 4375.9 m near 11S 122E, thinnest 850-500 hPa layer 3709.8 m near 79N 122E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 4.662500000000023,
+     "dist_km": 8385.882819126293
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 5.750000000000045,
+     "dist_km": 9423.747356663658
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 3.9999999999999774,
+     "dist_km": 8682.531343937579
+    }
+   }
+  },
+  {
+   "issue": "2020-12-26 12 UTC",
+   "lead_h": 24,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56N 10E, cold advection -10.0 K/day near 34N 145E; moist advection 2.1 g/kg/day near 56S 302E, dry advection -2.1 g/kg/day near 34N 145E; moisture convergence 3.1 g/kg/day near 56S 302E, moisture divergence -2.5 g/kg/day near 34N 145E; thickest 850-500 hPa layer 4376.1 m near 11S 145E, thinnest 850-500 hPa layer 3709.0 m near 79N 122E.",
+    "truth": "warm advection 6.7 K/day near 56S 55E, cold advection -7.4 K/day near 79N 347E; moist advection 1.8 g/kg/day near 34S 55E, dry advection -1.6 g/kg/day near 11S 325E; moisture convergence 3.2 g/kg/day near 11S 280E, moisture divergence -2.7 g/kg/day near 11S 325E; thickest 850-500 hPa layer 4380.1 m near 11S 122E, thinnest 850-500 hPa layer 3732.5 m near 56N 100E.",
+    "numeric": "warm advection 7.6 K/day near 56N 190E, cold advection -10.8 K/day near 34S 122E; moist advection 1.8 g/kg/day near 56S 302E, dry advection -2.0 g/kg/day near 34N 167E; moisture convergence 3.5 g/kg/day near 56N 190E, moisture divergence -2.7 g/kg/day near 11S 325E; thickest 850-500 hPa layer 4375.1 m near 11S 122E, thinnest 850-500 hPa layer 3723.7 m near 56N 145E.",
+    "persistence": "warm advection 9.1 K/day near 79N 347E, cold advection -11.1 K/day near 34S 122E; moist advection 1.9 g/kg/day near 56S 302E, dry advection -2.0 g/kg/day near 11S 325E; moisture convergence 3.7 g/kg/day near 56N 190E, moisture divergence -2.7 g/kg/day near 11S 325E; thickest 850-500 hPa layer 4374.0 m near 11S 145E, thinnest 850-500 hPa layer 3711.7 m near 56N 145E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 4.3125,
+     "dist_km": 9263.94390083239
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 2.3500000000000227,
+     "dist_km": 8805.400324656623
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 4.250000000000068,
+     "dist_km": 6839.0233085224545
+    }
+   }
+  },
+  {
+   "issue": "2020-11-10 12 UTC",
+   "lead_h": 72,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56S 32E, cold advection -10.0 K/day near 79S 145E; moist advection 2.1 g/kg/day near 56S 32E, dry advection -2.0 g/kg/day near 34S 325E; moisture convergence 3.1 g/kg/day near 56S 32E, moisture divergence -2.5 g/kg/day near 34S 325E; thickest 850-500 hPa layer 4376.3 m near 11N 10E, thinnest 850-500 hPa layer 3736.0 m near 79S 122E.",
+    "truth": "warm advection 6.1 K/day near 56N 257E, cold advection -9.5 K/day near 56N 302E; moist advection 2.0 g/kg/day near 79N 347E, dry advection -1.9 g/kg/day near 56N 325E; moisture convergence 2.5 g/kg/day near 34S 325E, moisture divergence -2.2 g/kg/day near 56N 325E; thickest 850-500 hPa layer 4375.5 m near 11S 122E, thinnest 850-500 hPa layer 3747.1 m near 79N 302E.",
+    "numeric": "warm advection 9.8 K/day near 79N 10E, cold advection -7.8 K/day near 34S 122E; moist advection 2.4 g/kg/day near 79N 10E, dry advection -1.5 g/kg/day near 56N 280E; moisture convergence 3.0 g/kg/day near 34N 280E, moisture divergence -2.0 g/kg/day near 56N 280E; thickest 850-500 hPa layer 4372.5 m near 11S 122E, thinnest 850-500 hPa layer 3788.0 m near 79S 190E.",
+    "persistence": "warm advection 11.7 K/day near 79N 10E, cold advection -7.4 K/day near 34S 122E; moist advection 3.3 g/kg/day near 79N 10E, dry advection -1.8 g/kg/day near 34N 257E; moisture convergence 3.4 g/kg/day near 79N 10E, moisture divergence -2.1 g/kg/day near 56N 280E; thickest 850-500 hPa layer 4372.5 m near 11N 145E, thinnest 850-500 hPa layer 3771.6 m near 79S 190E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 2.1750000000000114,
+     "dist_km": 13509.263610728922
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 6.350000000000012,
+     "dist_km": 6935.95290819442
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 4.7,
+     "dist_km": 8233.051639224897
+    }
+   }
+  },
+  {
+   "issue": "2020-11-24 12 UTC",
+   "lead_h": 72,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56N 10E, cold advection -10.0 K/day near 56N 32E; moist advection 2.1 g/kg/day near 56S 302E, dry advection -2.0 g/kg/day near 34N 122E; moisture convergence 3.1 g/kg/day near 56S 302E, moisture divergence -2.5 g/kg/day near 34N 122E; thickest 850-500 hPa layer 4377.0 m near 11S 167E, thinnest 850-500 hPa layer 3719.0 m near 79N 122E.",
+    "truth": "warm advection 10.5 K/day near 79N 32E, cold advection -8.3 K/day near 79N 325E; moist advection 2.1 g/kg/day near 56N 302E, dry advection -1.8 g/kg/day near 11N 212E; moisture convergence 2.8 g/kg/day near 79N 32E, moisture divergence -3.6 g/kg/day near 11N 190E; thickest 850-500 hPa layer 4373.8 m near 11S 32E, thinnest 850-500 hPa layer 3725.9 m near 79N 280E.",
+    "numeric": "warm advection 6.0 K/day near 56S 55E, cold advection -7.2 K/day near 34S 122E; moist advection 2.3 g/kg/day near 56N 302E, dry advection -2.2 g/kg/day near 34N 302E; moisture convergence 4.6 g/kg/day near 56N 302E, moisture divergence -2.6 g/kg/day near 34N 167E; thickest 850-500 hPa layer 4376.8 m near 11S 32E, thinnest 850-500 hPa layer 3772.5 m near 79N 302E.",
+    "persistence": "warm advection 7.6 K/day near 79N 145E, cold advection -7.4 K/day near 34S 122E; moist advection 3.2 g/kg/day near 56N 302E, dry advection -3.1 g/kg/day near 34N 302E; moisture convergence 4.9 g/kg/day near 56N 302E, moisture divergence -2.5 g/kg/day near 34N 167E; thickest 850-500 hPa layer 4380.9 m near 11S 32E, thinnest 850-500 hPa layer 3765.2 m near 79N 302E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 1.7374999999999887,
+     "dist_km": 8521.619795961778
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 7.324999999999989,
+     "dist_km": 5899.035003780243
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 6.974999999999898,
+     "dist_km": 4267.5183196016005
+    }
+   }
+  },
+  {
+   "issue": "2020-12-10 12 UTC",
+   "lead_h": 72,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56S 32E, cold advection -10.0 K/day near 56S 32E; moist advection 2.1 g/kg/day near 56S 32E, dry advection -2.0 g/kg/day near 34N 145E; moisture convergence 3.1 g/kg/day near 56S 32E, moisture divergence -2.5 g/kg/day near 34N 145E; thickest 850-500 hPa layer 4376.1 m near 11S 167E, thinnest 850-500 hPa layer 3709.0 m near 79N 122E.",
+    "truth": "warm advection 7.6 K/day near 56S 167E, cold advection -8.7 K/day near 34N 122E; moist advection 1.8 g/kg/day near 56S 235E, dry advection -2.3 g/kg/day near 34S 122E; moisture convergence 2.3 g/kg/day near 34S 302E, moisture divergence -2.6 g/kg/day near 11N 235E; thickest 850-500 hPa layer 4371.4 m near 11S 122E, thinnest 850-500 hPa layer 3691.9 m near 56N 122E.",
+    "numeric": "warm advection 7.6 K/day near 56S 55E, cold advection -6.9 K/day near 56S 100E; moist advection 2.3 g/kg/day near 56S 55E, dry advection -1.7 g/kg/day near 11S 100E; moisture convergence 3.1 g/kg/day near 56S 55E, moisture divergence -3.3 g/kg/day near 34N 167E; thickest 850-500 hPa layer 4372.7 m near 11S 122E, thinnest 850-500 hPa layer 3725.6 m near 79N 122E.",
+    "persistence": "warm advection 7.8 K/day near 56S 55E, cold advection -5.9 K/day near 34N 167E; moist advection 2.8 g/kg/day near 56S 55E, dry advection -1.9 g/kg/day near 11S 100E; moisture convergence 3.9 g/kg/day near 56S 55E, moisture divergence -3.5 g/kg/day near 34N 167E; thickest 850-500 hPa layer 4375.9 m near 11S 122E, thinnest 850-500 hPa layer 3709.8 m near 79N 122E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 3.3750000000000795,
+     "dist_km": 7380.715756122303
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 4.925,
+     "dist_km": 5671.034186978275
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 3.662500000000011,
+     "dist_km": 4907.402701293586
+    }
+   }
+  },
+  {
+   "issue": "2020-12-26 12 UTC",
+   "lead_h": 72,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56N 10E, cold advection -10.0 K/day near 34N 145E; moist advection 2.1 g/kg/day near 56S 302E, dry advection -2.0 g/kg/day near 34N 145E; moisture convergence 3.1 g/kg/day near 56S 302E, moisture divergence -2.5 g/kg/day near 34N 145E; thickest 850-500 hPa layer 4376.1 m near 11S 167E, thinnest 850-500 hPa layer 3709.0 m near 79N 122E.",
+    "truth": "warm advection 8.2 K/day near 79N 32E, cold advection -13.1 K/day near 34N 122E; moist advection 1.9 g/kg/day near 56S 257E, dry advection -3.4 g/kg/day near 34N 167E; moisture convergence 3.4 g/kg/day near 11S 145E, moisture divergence -2.5 g/kg/day near 56S 77E; thickest 850-500 hPa layer 4374.9 m near 11S 122E, thinnest 850-500 hPa layer 3750.4 m near 56N 122E.",
+    "numeric": "warm advection 7.6 K/day near 56N 190E, cold advection -10.9 K/day near 34S 122E; moist advection 1.8 g/kg/day near 56S 302E, dry advection -2.0 g/kg/day near 34N 167E; moisture convergence 3.5 g/kg/day near 56N 190E, moisture divergence -2.8 g/kg/day near 11S 325E; thickest 850-500 hPa layer 4375.4 m near 11S 122E, thinnest 850-500 hPa layer 3723.3 m near 56N 145E.",
+    "persistence": "warm advection 9.1 K/day near 79N 347E, cold advection -11.1 K/day near 34S 122E; moist advection 1.9 g/kg/day near 56S 302E, dry advection -2.0 g/kg/day near 11S 325E; moisture convergence 3.7 g/kg/day near 56N 190E, moisture divergence -2.7 g/kg/day near 11S 325E; thickest 850-500 hPa layer 4374.0 m near 11S 145E, thinnest 850-500 hPa layer 3711.7 m near 56N 145E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 6.175000000000102,
+     "dist_km": 5147.634843365799
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 4.037499999999988,
+     "dist_km": 4438.15780755028
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 5.549999999999988,
+     "dist_km": 6328.980062125345
+    }
+   }
+  },
+  {
+   "issue": "2020-11-10 12 UTC",
+   "lead_h": 96,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56S 32E, cold advection -10.0 K/day near 79S 145E; moist advection 2.1 g/kg/day near 56S 32E, dry advection -2.0 g/kg/day near 34S 325E; moisture convergence 3.1 g/kg/day near 56S 32E, moisture divergence -2.3 g/kg/day near 34S 325E; thickest 850-500 hPa layer 4377.0 m near 11N 10E, thinnest 850-500 hPa layer 3736.0 m near 79S 122E.",
+    "truth": "warm advection 9.4 K/day near 56S 280E, cold advection -8.8 K/day near 79N 325E; moist advection 2.4 g/kg/day near 56S 280E, dry advection -2.5 g/kg/day near 34N 145E; moisture convergence 3.2 g/kg/day near 34S 77E, moisture divergence -2.8 g/kg/day near 34N 145E; thickest 850-500 hPa layer 4370.6 m near 11N 77E, thinnest 850-500 hPa layer 3743.9 m near 79N 302E.",
+    "numeric": "warm advection 9.8 K/day near 79N 10E, cold advection -7.8 K/day near 34S 122E; moist advection 2.4 g/kg/day near 79N 10E, dry advection -1.5 g/kg/day near 56N 280E; moisture convergence 3.0 g/kg/day near 34N 280E, moisture divergence -2.0 g/kg/day near 56N 280E; thickest 850-500 hPa layer 4372.3 m near 11S 122E, thinnest 850-500 hPa layer 3788.0 m near 79S 190E.",
+    "persistence": "warm advection 11.7 K/day near 79N 10E, cold advection -7.4 K/day near 34S 122E; moist advection 3.3 g/kg/day near 79N 10E, dry advection -1.8 g/kg/day near 34N 257E; moisture convergence 3.4 g/kg/day near 79N 10E, moisture divergence -2.1 g/kg/day near 56N 280E; thickest 850-500 hPa layer 4372.5 m near 11N 145E, thinnest 850-500 hPa layer 3771.6 m near 79S 190E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 2.187499999999966,
+     "dist_km": 12978.83752801618
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 6.149999999999966,
+     "dist_km": 13425.136639479955
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 4.474999999999931,
+     "dist_km": 13141.091453868194
+    }
+   }
+  },
+  {
+   "issue": "2020-11-24 12 UTC",
+   "lead_h": 96,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56S 32E, cold advection -10.0 K/day near 56S 32E; moist advection 2.1 g/kg/day near 56S 32E, dry advection -2.1 g/kg/day near 34N 145E; moisture convergence 3.0 g/kg/day near 56S 32E, moisture divergence -2.4 g/kg/day near 34N 145E; thickest 850-500 hPa layer 4377.0 m near 11S 167E, thinnest 850-500 hPa layer 3736.0 m near 79N 122E.",
+    "truth": "warm advection 7.2 K/day near 34N 167E, cold advection -9.0 K/day near 34N 145E; moist advection 1.8 g/kg/day near 56S 77E, dry advection -2.5 g/kg/day near 34N 145E; moisture convergence 3.0 g/kg/day near 34N 167E, moisture divergence -3.1 g/kg/day near 34N 145E; thickest 850-500 hPa layer 4371.9 m near 11S 122E, thinnest 850-500 hPa layer 3702.6 m near 79N 280E.",
+    "numeric": "warm advection 6.0 K/day near 56S 55E, cold advection -7.2 K/day near 34S 122E; moist advection 2.3 g/kg/day near 56N 302E, dry advection -2.3 g/kg/day near 34N 302E; moisture convergence 4.6 g/kg/day near 56N 302E, moisture divergence -2.6 g/kg/day near 34N 167E; thickest 850-500 hPa layer 4376.8 m near 11S 32E, thinnest 850-500 hPa layer 3772.0 m near 79N 302E.",
+    "persistence": "warm advection 7.6 K/day near 79N 145E, cold advection -7.4 K/day near 34S 122E; moist advection 3.2 g/kg/day near 56N 302E, dry advection -3.1 g/kg/day near 34N 302E; moisture convergence 4.9 g/kg/day near 56N 302E, moisture divergence -2.5 g/kg/day near 34N 167E; thickest 850-500 hPa layer 4380.9 m near 11S 32E, thinnest 850-500 hPa layer 3765.2 m near 79N 302E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 5.462500000000057,
+     "dist_km": 7022.12655445633
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 10.01250000000008,
+     "dist_km": 9136.895242790179
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 9.762499999999989,
+     "dist_km": 7974.0513363109785
+    }
+   }
+  },
+  {
+   "issue": "2020-12-10 12 UTC",
+   "lead_h": 96,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56N 10E, cold advection -10.0 K/day near 56N 325E; moist advection 2.1 g/kg/day near 56S 302E, dry advection -2.0 g/kg/day near 34N 122E; moisture convergence 3.1 g/kg/day near 56S 302E, moisture divergence -2.5 g/kg/day near 34N 122E; thickest 850-500 hPa layer 4376.0 m near 11S 145E, thinnest 850-500 hPa layer 3719.0 m near 79N 122E.",
+    "truth": "warm advection 5.5 K/day near 56S 167E, cold advection -7.2 K/day near 34N 145E; moist advection 1.8 g/kg/day near 56S 55E, dry advection -1.7 g/kg/day near 34N 212E; moisture convergence 3.1 g/kg/day near 11S 302E, moisture divergence -1.9 g/kg/day near 34N 145E; thickest 850-500 hPa layer 4372.2 m near 11N 167E, thinnest 850-500 hPa layer 3709.9 m near 79N 77E.",
+    "numeric": "warm advection 7.6 K/day near 56S 55E, cold advection -6.9 K/day near 56S 100E; moist advection 2.3 g/kg/day near 56S 55E, dry advection -1.8 g/kg/day near 11S 100E; moisture convergence 3.1 g/kg/day near 56S 55E, moisture divergence -3.3 g/kg/day near 34N 167E; thickest 850-500 hPa layer 4372.4 m near 11S 122E, thinnest 850-500 hPa layer 3725.4 m near 79N 122E.",
+    "persistence": "warm advection 7.8 K/day near 56S 55E, cold advection -5.9 K/day near 34N 167E; moist advection 2.8 g/kg/day near 56S 55E, dry advection -1.9 g/kg/day near 11S 100E; moisture convergence 3.9 g/kg/day near 56S 55E, moisture divergence -3.5 g/kg/day near 34N 167E; thickest 850-500 hPa layer 4375.9 m near 11S 122E, thinnest 850-500 hPa layer 3709.8 m near 79N 122E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 2.6750000000000114,
+     "dist_km": 6782.671877701072
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 2.512499999999977,
+     "dist_km": 6073.853902394874
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 1.3749999999999658,
+     "dist_km": 4967.458240852498
+    }
+   }
+  },
+  {
+   "issue": "2020-12-26 12 UTC",
+   "lead_h": 96,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56N 10E, cold advection -10.0 K/day near 34N 145E; moist advection 2.1 g/kg/day near 56S 302E, dry advection -2.0 g/kg/day near 34N 145E; moisture convergence 3.1 g/kg/day near 56S 302E, moisture divergence -2.5 g/kg/day near 34N 145E; thickest 850-500 hPa layer 4376.1 m near 11S 145E, thinnest 850-500 hPa layer 3709.0 m near 79N 122E.",
+    "truth": "warm advection 11.9 K/day near 34N 167E, cold advection -15.4 K/day near 34N 122E; moist advection 3.7 g/kg/day near 34N 167E, dry advection -4.4 g/kg/day near 34N 145E; moisture convergence 4.3 g/kg/day near 34N 167E, moisture divergence -4.0 g/kg/day near 34N 122E; thickest 850-500 hPa layer 4373.4 m near 11S 122E, thinnest 850-500 hPa layer 3734.4 m near 56N 122E.",
+    "numeric": "warm advection 7.6 K/day near 56N 190E, cold advection -10.9 K/day near 34S 122E; moist advection 1.9 g/kg/day near 56S 302E, dry advection -2.0 g/kg/day near 34N 167E; moisture convergence 3.5 g/kg/day near 56N 190E, moisture divergence -2.8 g/kg/day near 11S 325E; thickest 850-500 hPa layer 4375.1 m near 11S 122E, thinnest 850-500 hPa layer 3722.7 m near 56N 145E.",
+    "persistence": "warm advection 9.1 K/day near 79N 347E, cold advection -11.1 K/day near 34S 122E; moist advection 1.9 g/kg/day near 56S 302E, dry advection -2.0 g/kg/day near 11S 325E; moisture convergence 3.7 g/kg/day near 56N 190E, moisture divergence -2.7 g/kg/day near 11S 325E; thickest 850-500 hPa layer 4374.0 m near 11S 145E, thinnest 850-500 hPa layer 3711.7 m near 56N 145E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 5.262500000000102,
+     "dist_km": 6340.166069532172
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 3.550000000000125,
+     "dist_km": 6176.0691344239185
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 4.56250000000008,
+     "dist_km": 8973.777667227236
+    }
+   }
+  },
+  {
+   "issue": "2020-11-10 12 UTC",
+   "lead_h": 120,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56S 32E, cold advection -10.0 K/day near 79S 145E; moist advection 2.1 g/kg/day near 56S 32E, dry advection -2.0 g/kg/day near 34S 100E; moisture convergence 3.1 g/kg/day near 56S 32E, moisture divergence -2.3 g/kg/day near 34S 100E; thickest 850-500 hPa layer 4376.1 m near 11N 10E, thinnest 850-500 hPa layer 3736.0 m near 79S 122E.",
+    "truth": "warm advection 8.7 K/day near 79N 100E, cold advection -15.2 K/day near 79N 10E; moist advection 1.5 g/kg/day near 79N 100E, dry advection -2.3 g/kg/day near 79N 10E; moisture convergence 2.9 g/kg/day near 56N 167E, moisture divergence -2.6 g/kg/day near 79N 10E; thickest 850-500 hPa layer 4368.9 m near 11S 100E, thinnest 850-500 hPa layer 3781.6 m near 79N 280E.",
+    "numeric": "warm advection 9.8 K/day near 79N 10E, cold advection -7.8 K/day near 34S 122E; moist advection 2.4 g/kg/day near 79N 10E, dry advection -1.5 g/kg/day near 56N 280E; moisture convergence 3.0 g/kg/day near 34N 280E, moisture divergence -2.0 g/kg/day near 56N 280E; thickest 850-500 hPa layer 4372.6 m near 11S 122E, thinnest 850-500 hPa layer 3788.9 m near 79S 190E.",
+    "persistence": "warm advection 11.7 K/day near 79N 10E, cold advection -7.4 K/day near 34S 122E; moist advection 3.3 g/kg/day near 79N 10E, dry advection -1.8 g/kg/day near 34N 257E; moisture convergence 3.4 g/kg/day near 79N 10E, moisture divergence -2.1 g/kg/day near 56N 280E; thickest 850-500 hPa layer 4372.5 m near 11N 145E, thinnest 850-500 hPa layer 3771.6 m near 79S 190E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 7.587500000000079,
+     "dist_km": 15606.354863774735
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 2.7375000000001135,
+     "dist_km": 6799.728960857584
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 3.462500000000045,
+     "dist_km": 7137.214303282468
+    }
+   }
+  },
+  {
+   "issue": "2020-11-24 12 UTC",
+   "lead_h": 120,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56S 32E, cold advection -10.0 K/day near 56S 32E; moist advection 2.1 g/kg/day near 56S 32E, dry advection -2.1 g/kg/day near 34N 145E; moisture convergence 3.1 g/kg/day near 56S 32E, moisture divergence -2.3 g/kg/day near 34N 145E; thickest 850-500 hPa layer 4376.1 m near 11S 167E, thinnest 850-500 hPa layer 3709.0 m near 79N 122E.",
+    "truth": "warm advection 6.4 K/day near 79N 122E, cold advection -7.2 K/day near 34N 167E; moist advection 1.6 g/kg/day near 56S 77E, dry advection -2.4 g/kg/day near 34N 302E; moisture convergence 2.2 g/kg/day near 11S 122E, moisture divergence -3.0 g/kg/day near 11S 325E; thickest 850-500 hPa layer 4372.2 m near 11N 145E, thinnest 850-500 hPa layer 3712.4 m near 79N 280E.",
+    "numeric": "warm advection 6.0 K/day near 56S 55E, cold advection -7.2 K/day near 34S 122E; moist advection 2.3 g/kg/day near 56N 302E, dry advection -2.2 g/kg/day near 34N 302E; moisture convergence 4.6 g/kg/day near 56N 302E, moisture divergence -2.6 g/kg/day near 34N 167E; thickest 850-500 hPa layer 4376.8 m near 11S 32E, thinnest 850-500 hPa layer 3772.5 m near 79N 302E.",
+    "persistence": "warm advection 7.6 K/day near 79N 145E, cold advection -7.4 K/day near 34S 122E; moist advection 3.2 g/kg/day near 56N 302E, dry advection -3.1 g/kg/day near 34N 302E; moisture convergence 4.9 g/kg/day near 56N 302E, moisture divergence -2.5 g/kg/day near 34N 167E; thickest 850-500 hPa layer 4380.9 m near 11S 32E, thinnest 850-500 hPa layer 3765.2 m near 79N 302E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 2.0125000000000792,
+     "dist_km": 9877.804582049917
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 8.600000000000033,
+     "dist_km": 10825.788778293569
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 8.549999999999944,
+     "dist_km": 8932.918094344997
+    }
+   }
+  },
+  {
+   "issue": "2020-12-10 12 UTC",
+   "lead_h": 120,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56S 10E, cold advection -10.0 K/day near 34N 145E; moist advection 2.1 g/kg/day near 56S 10E, dry advection -2.0 g/kg/day near 34N 145E; moisture convergence 3.1 g/kg/day near 56S 10E, moisture divergence -2.5 g/kg/day near 34N 145E; thickest 850-500 hPa layer 4377.0 m near 11S 10E, thinnest 850-500 hPa layer 3718.0 m near 79N 122E.",
+    "truth": "warm advection 8.3 K/day near 56S 77E, cold advection -11.8 K/day near 56S 167E; moist advection 2.8 g/kg/day near 56S 77E, dry advection -3.0 g/kg/day near 56S 167E; moisture convergence 3.5 g/kg/day near 56S 77E, moisture divergence -3.0 g/kg/day near 56S 167E; thickest 850-500 hPa layer 4372.1 m near 11S 122E, thinnest 850-500 hPa layer 3716.8 m near 79N 257E.",
+    "numeric": "warm advection 7.6 K/day near 56S 55E, cold advection -6.9 K/day near 56S 100E; moist advection 2.3 g/kg/day near 56S 55E, dry advection -1.8 g/kg/day near 11S 100E; moisture convergence 3.1 g/kg/day near 56S 55E, moisture divergence -3.3 g/kg/day near 34N 167E; thickest 850-500 hPa layer 4372.8 m near 11S 122E, thinnest 850-500 hPa layer 3725.9 m near 79N 122E.",
+    "persistence": "warm advection 7.8 K/day near 56S 55E, cold advection -5.9 K/day near 34N 167E; moist advection 2.8 g/kg/day near 56S 55E, dry advection -1.9 g/kg/day near 11S 100E; moisture convergence 3.9 g/kg/day near 56S 55E, moisture divergence -3.5 g/kg/day near 34N 167E; thickest 850-500 hPa layer 4375.9 m near 11S 122E, thinnest 850-500 hPa layer 3709.8 m near 79N 122E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 1.5249999999999317,
+     "dist_km": 7129.161396353526
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 2.224999999999966,
+     "dist_km": 3490.568360108637
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 2.3999999999999093,
+     "dist_km": 4241.766696669634
+    }
+   }
+  },
+  {
+   "issue": "2020-12-26 12 UTC",
+   "lead_h": 120,
+   "texts": {
+    "answer": " warm advection 10.0 K/day near 56N 32E, cold advection -10.0 K/day near 34N 145E; moist advection 2.1 g/kg/day near 56S 302E, dry advection -2.0 g/kg/day near 34N 145E; moisture convergence 3.1 g/kg/day near 56S 302E, moisture divergence -2.5 g/kg/day near 34N 145E; thickest 850-500 hPa layer 4377.0 m near 11S 145E, thinnest 850-500 hPa layer 3708.0 m near 79N 122E.",
+    "truth": "warm advection 12.6 K/day near 56S 347E, cold advection -9.5 K/day near 34N 145E; moist advection 3.7 g/kg/day near 56S 347E, dry advection -2.5 g/kg/day near 34N 145E; moisture convergence 4.8 g/kg/day near 56S 347E, moisture divergence -3.5 g/kg/day near 11N 235E; thickest 850-500 hPa layer 4373.8 m near 11S 145E, thinnest 850-500 hPa layer 3720.4 m near 79N 145E.",
+    "numeric": "warm advection 7.6 K/day near 56N 190E, cold advection -11.0 K/day near 34S 122E; moist advection 1.9 g/kg/day near 56S 302E, dry advection -2.0 g/kg/day near 34N 167E; moisture convergence 3.5 g/kg/day near 56N 190E, moisture divergence -2.8 g/kg/day near 11S 325E; thickest 850-500 hPa layer 4375.4 m near 11S 122E, thinnest 850-500 hPa layer 3723.0 m near 56N 145E.",
+    "persistence": "warm advection 9.1 K/day near 79N 347E, cold advection -11.1 K/day near 34S 122E; moist advection 1.9 g/kg/day near 56S 302E, dry advection -2.0 g/kg/day near 11S 325E; moisture convergence 3.7 g/kg/day near 56N 190E, moisture divergence -2.7 g/kg/day near 11S 325E; thickest 850-500 hPa layer 4374.0 m near 11S 145E, thinnest 850-500 hPa layer 3711.7 m near 56N 145E."
+   },
+   "scores": {
+    "answer": {
+     "stated": 1.0,
+     "value_abs_err": 2.9374999999999885,
+     "dist_km": 3550.574818683176
+    },
+    "numeric": {
+     "stated": 1.0,
+     "value_abs_err": 1.8749999999999205,
+     "dist_km": 8149.336752311393
+    },
+    "persistence": {
+     "stated": 1.0,
+     "value_abs_err": 2.275000000000011,
+     "dist_km": 9317.253138150963
+    }
+   }
+  }
+ ]
+}
