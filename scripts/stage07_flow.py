@@ -70,11 +70,12 @@ def batch(arm, arr, idx, s):
     return torch.from_numpy(r), cond
 
 
-def make_model(fc, arm, arr):
+def make_model(fc, arm, arr, lat=None):
     L, V, H, W = arr["y"].shape[1:]
     return FlowExpert(L, V, H, W, patch=tuple(fc["patch"]), dim=fc["dim"], depth=fc["depth"], heads=fc["heads"],
                       mem_dim=arr["memory"].shape[-1], use_mem=bool(arm.get("use_mem")),
-                      use_mu=bool(arm.get("use_mu")), use_x0=bool(arm.get("use_x0")))
+                      use_mu=bool(arm.get("use_mu")), use_x0=bool(arm.get("use_x0")),
+                      noise=arm.get("noise", "white"), lat_deg=lat)
 
 
 def cmd_train(cfg, a):
@@ -85,7 +86,11 @@ def cmd_train(cfg, a):
     va, _ = load_cache(cfg, "val")
     lat, w = lat_weights(cfg)
     s = residual_scale(arm, tr, w)
-    model = make_model(fc, arm, tr)
+    model = make_model(fc, arm, tr, lat)
+    if model.noise is not None:  # the source noise takes the targets' covariance (before the EMA copy)
+        idx = np.linspace(0, len(tr["y"]) - 1, min(512, len(tr["y"]))).astype(int)
+        model.noise.fit(torch.from_numpy((np.asarray(tr["y"][idx], np.float32) - base_of(arm, tr, idx))
+                                         / s[None, :, :, None, None]))
     ema = copy.deepcopy(model).requires_grad_(False)
     opt = torch.optim.AdamW(model.parameters(), lr=fc["lr"], weight_decay=fc.get("weight_decay", 0.0))
     steps, warm = int(a.steps or fc["steps"]), int(fc.get("warmup", 100))
@@ -157,7 +162,7 @@ def cmd_sample(cfg, a):
     te, info = load_cache(cfg, "test")
     ck = torch.load(os.path.join(cfg["out"], a.arm, "flow.pt"), map_location="cpu", weights_only=False)
     arm, s = ck["arm"], ck["scale"]
-    model = make_model(fc, arm, te)
+    model = make_model(fc, arm, te, lat_weights(cfg)[0])
     model.load_state_dict(ck["state"])
     model.eval()
     M, n = int(fc.get("members", 8)), len(te["y"])

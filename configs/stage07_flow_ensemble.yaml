@@ -38,3 +38,7 @@ arms:                                         # base: the field the residual is 
   fm_vla_x0: {base: mu, use_mu: true, use_x0: true, use_mem: true}    # + issue-time state (pi0 also feeds the state)
   fm_mu_x0: {base: mu, use_mu: true, use_x0: true, use_mem: false}    # no memory: does the VLM add beyond its mean?
   fm_x0: {base: x0, use_mu: false, use_x0: true, use_mem: false}      # no VLM at all (pg-flow-like control)
+  # The pilot's members were coherent inside a 4 x 4 token but independent between tokens and leads. These arms draw
+  # the source noise from a Gaussian with the targets' spectrum and lead correlation (climate_vlm/flow.py).
+  fm_mu_x0_sn: {base: mu, use_mu: true, use_x0: true, use_mem: false, noise: structured}
+  fm_vla_x0_sn: {base: mu, use_mu: true, use_x0: true, use_mem: true, noise: structured}
