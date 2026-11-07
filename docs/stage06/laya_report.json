@@ -1,0 +1,215 @@
+{
+ "rows": {
+  "B": 178,
+  "C": 119,
+  "D": 356
+ },
+ "cal": {
+  "questions": {
+   "drop_24": {
+    "temperature": 1.1729,
+    "qhat": 0.809459,
+    "ece_before": 0.034,
+    "ece_after": 0.0023,
+    "examples": 119
+   },
+   "z500_24": {
+    "temperature": 20.0,
+    "qhat": 0.721407,
+    "ece_before": 0.5549,
+    "ece_after": 0.0285,
+    "examples": 119
+   },
+   "coldest_24": {
+    "temperature": 20.0,
+    "qhat": 0.754194,
+    "ece_before": 0.1849,
+    "ece_after": 0.111,
+    "examples": 119
+   },
+   "drop_72": {
+    "temperature": 1.3325,
+    "qhat": 0.800345,
+    "ece_before": 0.0618,
+    "ece_after": 0.0748,
+    "examples": 119
+   },
+   "z500_72": {
+    "temperature": 14.11,
+    "qhat": 0.750797,
+    "ece_before": 0.244,
+    "ece_after": 0.0741,
+    "examples": 119
+   },
+   "coldest_72": {
+    "temperature": 20.0,
+    "qhat": 0.75449,
+    "ece_before": 0.1577,
+    "ece_after": 0.0857,
+    "examples": 119
+   }
+  },
+  "target_precision": 0.95,
+  "alpha": 0.1,
+  "n_rows": 119,
+  "band": {
+   "drop_24": null,
+   "z500_24": null,
+   "coldest_24": null,
+   "drop_72": null,
+   "z500_72": null,
+   "coldest_72": null
+  },
+  "band_unreachable": [
+   "coldest_24",
+   "coldest_72",
+   "drop_24",
+   "drop_72",
+   "z500_24",
+   "z500_72"
+  ]
+ },
+ "fit": {
+  "heads": {
+   "drop_24": {
+    "fitted": true,
+    "examples": 178,
+    "cv_accuracy": 0.8539325842696629,
+    "engine_accuracy": 0.8089887640449438,
+    "chance": 0.5,
+    "at_or_below_chance": false,
+    "used_by_auto": true
+   },
+   "z500_24": {
+    "fitted": true,
+    "examples": 178,
+    "cv_accuracy": 0.4101123595505618,
+    "engine_accuracy": 0.3089887640449438,
+    "chance": 0.333,
+    "at_or_below_chance": false,
+    "used_by_auto": true
+   },
+   "coldest_24": {
+    "fitted": true,
+    "examples": 178,
+    "cv_accuracy": 0.4101123595505618,
+    "engine_accuracy": 0.20786516853932585,
+    "chance": 0.25,
+    "at_or_below_chance": false,
+    "used_by_auto": true
+   },
+   "drop_72": {
+    "fitted": true,
+    "examples": 178,
+    "cv_accuracy": 0.7921348314606742,
+    "engine_accuracy": 0.797752808988764,
+    "chance": 0.5,
+    "at_or_below_chance": false,
+    "used_by_auto": false,
+    "reason": "cross-validated accuracy 0.792 does not beat the engine's 0.798 on these examples, so mode='auto' will leave this question to the engine"
+   },
+   "z500_72": {
+    "fitted": true,
+    "examples": 178,
+    "cv_accuracy": 0.42134831460674155,
+    "engine_accuracy": 0.33707865168539325,
+    "chance": 0.333,
+    "at_or_below_chance": false,
+    "used_by_auto": true
+   },
+   "coldest_72": {
+    "fitted": true,
+    "examples": 178,
+    "cv_accuracy": 0.3707865168539326,
+    "engine_accuracy": 0.20786516853932585,
+    "chance": 0.25,
+    "at_or_below_chance": false,
+    "used_by_auto": true
+   }
+  },
+  "n_rows": 178,
+  "n_fit": 178,
+  "n_calibrate": 119,
+  "serving": [
+   "coldest_24",
+   "coldest_72",
+   "drop_24",
+   "z500_24",
+   "z500_72"
+  ],
+  "kept": [
+   "coldest_24",
+   "coldest_72",
+   "drop_24",
+   "drop_72",
+   "z500_24",
+   "z500_72"
+  ],
+  "calibration": {
+   "questions": {
+    "drop_24": {
+     "temperature": 1.8889,
+     "qhat": 0.654824,
+     "ece_before": 0.0804,
+     "ece_after": 0.0467,
+     "examples": 119
+    },
+    "z500_24": {
+     "temperature": 20.0,
+     "qhat": 0.709395,
+     "ece_before": 0.4185,
+     "ece_after": 0.0305,
+     "examples": 119
+    },
+    "coldest_24": {
+     "temperature": 3.3807,
+     "qhat": 0.861184,
+     "ece_before": 0.2838,
+     "ece_after": 0.0641,
+     "examples": 119
+    },
+    "drop_72": {
+     "temperature": 1.3325,
+     "qhat": 0.800345,
+     "ece_before": 0.0618,
+     "ece_after": 0.0748,
+     "examples": 119
+    },
+    "z500_72": {
+     "temperature": 19.5506,
+     "qhat": 0.713646,
+     "ece_before": 0.4127,
+     "ece_after": 0.0799,
+     "examples": 119
+    },
+    "coldest_72": {
+     "temperature": 5.0747,
+     "qhat": 0.832656,
+     "ece_before": 0.3629,
+     "ece_after": 0.0202,
+     "examples": 119
+    }
+   },
+   "target_precision": 0.95,
+   "alpha": 0.1,
+   "n_rows": 119,
+   "band": {
+    "drop_24": null,
+    "z500_24": null,
+    "coldest_24": null,
+    "drop_72": null,
+    "z500_72": null,
+    "coldest_72": null
+   },
+   "band_unreachable": [
+    "coldest_24",
+    "coldest_72",
+    "drop_24",
+    "drop_72",
+    "z500_24",
+    "z500_72"
+   ]
+  }
+ },
+ "fit_seconds": 1886
+}

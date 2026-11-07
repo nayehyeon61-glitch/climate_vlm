@@ -1,0 +1,14 @@
+# Stage 03 (docs/stage03_lead_questions.md): lead questions in text. Sequence
+#   [metadata, issue time | weather tokens | "Question: ... physical state and fields of the forecast at +hhh h?"
+#    | forecast queries | "Answer at +hhh h: <diagnostics of the verifying analysis>"]
+# One random lead of leads_h per sequence in training; F and G decode only the asked lead from the queries that
+# read the question; the answer (template from the truth's verified diagnostics, labels only) is learned with L_text
+# and sits after the queries, so it cannot reach the numeric forecast.
+#   python scripts/train.py --config configs/stage03_ask.yaml --stage 3 --init runs/stage01/stage2.pt \
+#       --out runs/stage03/ask
+extends: configs/stage03_control.yaml
+model:
+  question: {enabled: true, lead_embedding: true, answer_now: false}
+train:
+  # batch 4 as the control, in micro-batches of 1: with the answer text a batch of 4 ran out of the 15 GB of RAM
+  stage3: {micro_batch: 1, loss: {diag: 0.1, cons: 0.0, phys: 0.0, text: 0.1}}

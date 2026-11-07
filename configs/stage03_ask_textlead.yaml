@@ -1,0 +1,7 @@
+# Stage 03 variant: as stage03_ask.yaml, but F and G get no lead embedding, so the asked lead reaches the numeric
+# heads only through the question text read by the LLM.
+#   python scripts/train.py --config configs/stage03_ask_textlead.yaml --stage 3 --init runs/stage01/stage2.pt \
+#       --out runs/stage03/ask_textlead
+extends: configs/stage03_ask.yaml
+model:
+  question: {lead_embedding: false}

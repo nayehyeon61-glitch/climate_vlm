@@ -1,0 +1,12 @@
+# Stage 03 control arm (docs/stage03_lead_questions.md): the stage-01 model continued with LoRA on the same leads,
+# steps and losses as the lead-question arms, without a question or an answer text (all leads decoded at once).
+#   python scripts/train.py --config configs/stage03_control.yaml --stage 3 --init runs/stage01/stage2.pt \
+#       --out runs/stage03/control
+extends: configs/stage01_cpu_small.yaml
+data:
+  leads_h: [24, 72, 96, 120]                 # the leads the owner asked about
+model:
+  question: {enabled: false}
+train:
+  val_every: 200
+  stage3: {steps: 400, batch: 4, lr: 1.0e-4, loss: {diag: 0.1, cons: 0.0, phys: 0.0, text: 0.0}}

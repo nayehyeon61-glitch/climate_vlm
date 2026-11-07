@@ -1,0 +1,67 @@
+# Stage 02: can Laya, trained on the climate task, pick the forecast-correction expert better than a fixed path or a
+# numeric MLP router given the same information? (docs/stage02_laya_router.md)
+# Plan: Laya_Climate_VLM_Research_Plan_KO. Preprocessing and training: Laya_Climate_Data_Preprocessing_and_Training_KO.
+#   scripts/run_stage02.sh runs the steps in order:
+#   stage02_forecasts.py  frozen stage-01 forecasts and the issue-time maps of the downscaled input (D_mu)
+#   stage02_experts.py    baseline / advection / moisture experts (trained on split A)
+#   stage02_dataset.py    physics summaries, labels, router_{train,calib,test}.jsonl, tables, split_manifest.json
+#   stage02_laya.py       dry-run, fine-tune with the encoder frozen, decisions of the base and tuned checkpoints
+#   stage02_router.py     routers A / B / C, calibration on split C, scores on split D
+base:
+  config: configs/stage01_cpu_small.yaml     # the frozen predictor of stage 01
+  ckpt: runs/stage01/stage2.pt   # training phase 2 of stage 01, its best validation loss (phase 3: 0.527 > 0.512)
+out: runs/stage02
+docs: docs/stage02
+schema: {data: stage02-data-v1, features: phys-v1, question: expert-v1}
+
+leads: [24]                                   # first experiment: one lead (guide sec. 11)
+
+# Guide sec. 7: A predictor and experts, B router training, C probability calibration, D final test. Each window
+# (history -24 h .. last lead) lies inside its own period, with margin_h hours kept free at both ends.
+periods:
+  experts: {split: A, years: [2012, 2013, 2014, 2015], hours: [0, 12], stride: 2, margin_h: 24}
+  router: {split: B, years: [2016], hours: [0, 6, 12, 18], stride: 1, margin_h: 24}
+  calib: {split: C, years: [2019], hours: [0, 12], stride: 2, margin_h: 24}
+  test: {split: D, years: [2020], hours: [0, 12], stride: 2, margin_h: 24}
+
+domain:                                       # small region around Korea (guide sec. 11): cell centres in [lo, hi)
+  name: East Asia
+  key: EA
+  lat: [28.125, 50.625]                       # 4 x 6 cells at 5.625 deg (routing, labels, scores),
+  lon: [109.6875, 143.4375]                   # 8 x 12 cells at 2.8125 deg (router features)
+  sub: [2, 2]                                 # NW, NE, SW, SE
+
+features:
+  strong_quantile: 0.9                        # "strong" = |T adv| or q convergence above this split-B quantile
+  near_tie: 0.05                              # labels whose best two experts differ by less than 5 %
+
+experts:
+  hidden: 48
+  layers: 4
+  steps: 1500
+  batch: 32
+  lr: 1.0e-3
+  # inputs besides the base forecast (issue-time maps of D_mu); the weights emphasise each expert's regime
+  advection: {inputs: [z500, t850, u850, v850, t2m, tadv850, dz500_24h, dt850_24h], weight: [tadv850]}
+  moisture: {inputs: [q850, tcwv, t2m, u850, v850, qadv850, qconv850, dt850_24h], weight: [qconv850, qadv850]}
+
+router:
+  mlp: {hidden: 64, epochs: 60, lr: 1.0e-3, weight_decay: 1.0e-2}
+  head: {hidden: 64, epochs: 60, lr: 1.0e-3, weight_decay: 1.0e-2}
+  laya:
+    base: convaiinnovations/laya-multilingual  # mmBERT-base encoder: the plan's CPU candidate
+    batch: 32
+    instructions: "Select a forecast expert for this region and lead time."
+    criteria:                                  # option names of the guide (sec. 8), in the experts' order
+      baseline: "Base forecast without correction"
+      advection: "Forecast with a correction for temperature advection by the wind"
+      moisture: "Forecast with a correction for moisture transport and convergence"
+    train:                                     # laya.train.TrainConfig
+      freeze_encoder: true
+      loss: soft-ce                            # cross-entropy on the hard labels, the MLP's objective too
+      epochs: 8
+      micro_batch: 16
+      grad_accum: 4
+      head_lr: 1.0e-4
+      calib_frac: 0.0                          # calibration is split C, fitted by stage02_router.py
+      seed: 0

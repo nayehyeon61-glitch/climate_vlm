@@ -1,0 +1,9 @@
+# Stage 04 arm (b): the band maps go into a neural operator (neuraloperator SFNO, trained) instead of the frozen
+# Qwen vision tower; recombination per band at F as in arm (a).
+#   python scripts/train.py --config configs/stage04_sfno.yaml --stage 2 --init runs/stage01/stage1.pt \
+#       --out runs/stage04/sfno
+extends: configs/stage04_bands.yaml
+model:
+  vision:
+    encoder: sfno
+    sfno: {hidden: 64, layers: 4, out: 256, patch: 8, modes: [32, 64]}   # 8 x 16 = 128 patch tokens -> P

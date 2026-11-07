@@ -1,0 +1,2 @@
+# Stage 05: stage 04 arm "sfno_advect" with the long training budget (run when it is stage 04's best arm on 2016).
+extends: [configs/stage04_sfno_advect.yaml, configs/stage05_long_train.yaml]
