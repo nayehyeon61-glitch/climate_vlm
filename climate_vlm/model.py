@@ -210,10 +210,11 @@ class ClimateVLM(nn.Module):
         if self.base == "persistence":  # downscaled issue-time state (zero for output-only channels)
             now = maps["mean"][:, self.history_h.index(0) if 0 in self.history_h else -1]
             base = torch.cat([now, torch.zeros_like(now[:, :1])], 1)[:, self.out_from_state]
-        raw, scale = self.F(torch.cat([mem, z_tok], 1), base if self.out_mode == "direct" else None, leads=ask_h,
+        memory = torch.cat([mem, z_tok], 1)  # what F reads; also the prefix of stage 07's flow-matching expert
+        raw, scale = self.F(memory, base if self.out_mode == "direct" else None, leads=ask_h,
                             use_lead=self.ask_lead_emb)
         mean = raw if self.out_mode == "direct" else self._fields(raw, base)
-        out = {"mean": mean, "scale": scale, "z_hat": z_hat, "maps": maps, **info}
+        out = {"mean": mean, "scale": scale, "z_hat": z_hat, "maps": maps, "memory": memory, **info}
         if te.shape[1]:
             out["text_logits"] = self.lm_head(hidden[:, s - 1:s - 1 + te.shape[1]]).float()
             out["text_mask"] = tm
