@@ -57,7 +57,7 @@ CPU 확인용: `python scripts/make_synthetic.py --out data/synthetic` 뒤 `conf
 | 02 | [docs/stage02_laya_router.md](docs/stage02_laya_router.md) | Laya를 기후 전문가 선택 과제에 학습시켜 라우터로 시험 |
 | 03 | [docs/stage03_lead_questions.md](docs/stage03_lead_questions.md) | 프롬프트에서 리드(24/72/96/120 h)를 묻고 물리 상태를 답하게 학습: 수치 예측 변화 없음, 답은 형식만 학습 |
 | 04 | [docs/stage04_neural_operator.md](docs/stage04_neural_operator.md) | 구면조화 대역 분해와 SFNO(neuraloperator), 대역 결합과 ClimODE식 이류 출력: 분해는 효과 없음, 이류 출력이 z500 3 d RMSE 919에서 748로 |
-| 05 | [docs/stage05_long_training.md](docs/stage05_long_training.md) | 대조군과 stage 04 이류 갈래를 5 epoch 학습: 대조군은 검증 손실만 0.512에서 0.4995로 내려가고 2020 점수는 여전히 persistence (이류 갈래 진행 중) |
+| 05 | [docs/stage05_long_training.md](docs/stage05_long_training.md) | 대조군과 stage 04 이류 갈래를 5 epoch 학습: 이류 갈래 z500 RMSE 475 / 728 / 800(1 / 3 / 6 d)으로 6 d에서 ClimODE(874)를 앞서지만 1~3 d는 크게 뒤짐, 대조군은 여전히 persistence, 둘 다 2.5~3.5 epoch에서 평탄 |
 | 06 | [docs/stage06_laya_questions.md](docs/stage06_laya_questions.md) | 예측 뒤에서 Laya가 typed 질문(T850 하강, Z500 변화, 가장 식는 사분면)에 답하기: head + 보정 정확도 0.55로 같은 숫자의 로지스틱 0.67보다 낮음, zero-shot은 한 답으로 붕괴 |
 | 07 | [docs/stage07_flow_ensemble.md](docs/stage07_flow_ensemble.md) | 디코더 뒤 flow matching 앙상블 생성기(VLA의 action expert 자리): 시험 실행에서 CRPS는 가우시안 폭보다 낮지만 VLM 메모리의 몫은 없음, 구조 잡음으로 멤버가 리드·공간에 걸쳐 이어짐 (본 실행 보류) |
 
