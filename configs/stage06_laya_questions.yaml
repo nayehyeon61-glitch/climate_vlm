@@ -1,0 +1,26 @@
+# Stage 06 (docs/stage06_laya_questions.md): Laya answers typed questions about the forecast (choice / score /
+# yes-no) with calibrated probabilities, after the numeric model. The forecast is stage 04's advection arm, the
+# best numeric model so far; splits and domain follow stage 02 (the owner's Laya preprocessing guide).
+#   python scripts/stage02_forecasts.py --config configs/stage06_laya_questions.yaml   # forecasts per period
+#   python scripts/stage06_questions.py --config configs/stage06_laya_questions.yaml   # questions, Laya, baselines
+base:
+  config: configs/stage04_sfno_advect.yaml
+  ckpt: runs/stage04/sfno_advect/stage2.pt
+out: runs/stage06
+docs: docs/stage06
+leads: [24, 72]
+
+periods:                                      # B fits the heads, C calibrates, D is the test year
+  router: {split: B, years: [2016], hours: [0, 12], stride: 2, margin_h: 72}
+  calib: {split: C, years: [2019], hours: [0, 12], stride: 2, margin_h: 72}
+  test: {split: D, years: [2020], hours: [0, 12], stride: 2, margin_h: 72}
+
+domain:
+  name: East Asia
+  key: EA
+  lat: [28.125, 50.625]
+  lon: [109.6875, 143.4375]
+  sub: [2, 2]
+
+drop_quantile: 0.2                            # "falls by at least tau": tau leaves 20 % of 2016 cases
+sample: {router: 4, calib: 6, test: 2}        # every k-th issue time for Laya (CPU reads), the baselines alike

@@ -1,0 +1,442 @@
+{
+ "schema": {
+  "data": "stage02-data-v1",
+  "features": "phys-v1",
+  "question": "expert-v1"
+ },
+ "created": "2026-11-06 10:57:51",
+ "cpu_count": 4,
+ "base": {
+  "config": "configs/stage01_cpu_small.yaml",
+  "ckpt": "runs/stage01/stage2.pt",
+  "ckpt_sha256_12": "4cb255546faf"
+ },
+ "experts_sha256_12": "d8b9d066e875",
+ "domain": {
+  "name": "East Asia",
+  "key": "EA",
+  "lat": [
+   28.125,
+   50.625
+  ],
+  "lon": [
+   109.6875,
+   143.4375
+  ],
+  "sub": [
+   2,
+   2
+  ],
+  "label": "East Asia 28N-51N 110E-143E",
+  "rows_2p8125": [
+   42,
+   43,
+   44,
+   45,
+   46,
+   47,
+   48,
+   49
+  ],
+  "cols_2p8125": [
+   39,
+   40,
+   41,
+   42,
+   43,
+   44,
+   45,
+   46,
+   47,
+   48,
+   49,
+   50
+  ],
+  "rows_5p625": [
+   21,
+   22,
+   23,
+   24
+  ],
+  "cols_5p625": [
+   20,
+   21,
+   22,
+   23,
+   24,
+   25
+  ],
+  "sub_regions": [
+   "NW",
+   "NE",
+   "SW",
+   "SE"
+  ]
+ },
+ "periods": {
+  "B": {
+   "period": "router",
+   "split": "B",
+   "years": [
+    2016
+   ],
+   "hours": [
+    0,
+    6,
+    12,
+    18
+   ],
+   "stride": 1,
+   "margin_h": 24,
+   "samples": 1448,
+   "issue_times": 1448,
+   "first_issue": "2016-01-03T00",
+   "last_issue": "2016-12-29T18",
+   "window_start": "2016-01-02T00",
+   "window_end": "2016-12-30T18",
+   "valid850_share_mean": 0.9979516077138086,
+   "samples_with_null": 0
+  },
+  "C": {
+   "period": "calib",
+   "split": "C",
+   "years": [
+    2019
+   ],
+   "hours": [
+    0,
+    12
+   ],
+   "stride": 2,
+   "margin_h": 24,
+   "samples": 722,
+   "issue_times": 722,
+   "first_issue": "2019-01-03T00",
+   "last_issue": "2019-12-29T12",
+   "window_start": "2019-01-02T00",
+   "window_end": "2019-12-30T12",
+   "valid850_share_mean": 0.9984137008219547,
+   "samples_with_null": 0
+  },
+  "D": {
+   "period": "test",
+   "split": "D",
+   "years": [
+    2020
+   ],
+   "hours": [
+    0,
+    12
+   ],
+   "stride": 2,
+   "margin_h": 24,
+   "samples": 724,
+   "issue_times": 724,
+   "first_issue": "2020-01-03T00",
+   "last_issue": "2020-12-29T12",
+   "window_start": "2020-01-02T00",
+   "window_end": "2020-12-30T12",
+   "valid850_share_mean": 0.9984116944604295,
+   "samples_with_null": 0
+  },
+  "A": {
+   "period": "experts",
+   "split": "A",
+   "years": [
+    2012,
+    2013,
+    2014,
+    2015
+   ],
+   "hours": [
+    0,
+    12
+   ],
+   "stride": 2,
+   "margin_h": 24,
+   "issue_times": 2914,
+   "window_start": "2012-01-02T00",
+   "window_end": "2015-12-30T12",
+   "use": "experts (and the stage-01 predictor) only"
+  }
+ },
+ "gaps_h": {
+  "A->B": 60,
+  "B->C": 17574,
+  "C->D": 60
+ },
+ "features": {
+  "names": [
+   "T850_adv_mean",
+   "T850_adv_p10",
+   "T850_adv_p90",
+   "T850_adv_strong",
+   "T850_adv_NW",
+   "T850_adv_NE",
+   "T850_adv_SW",
+   "T850_adv_SE",
+   "q850_conv_mean",
+   "q850_conv_p10",
+   "q850_conv_p90",
+   "q850_conv_strong",
+   "q850_conv_NW",
+   "q850_conv_NE",
+   "q850_conv_SW",
+   "q850_conv_SE",
+   "z500_anom_mean",
+   "z500_anom_NW",
+   "z500_anom_NE",
+   "z500_anom_SW",
+   "z500_anom_SE",
+   "z500_grad_mean",
+   "z500_grad_p90",
+   "z500_change_24h_mean",
+   "z500_change_24h_NW",
+   "z500_change_24h_NE",
+   "z500_change_24h_SW",
+   "z500_change_24h_SE",
+   "T850_change_24h_mean",
+   "T850_change_24h_NW",
+   "T850_change_24h_NE",
+   "T850_change_24h_SW",
+   "T850_change_24h_SE"
+  ],
+  "source": "D_mu (stage-01 downscaler) of the 5.625 deg input at the issue time",
+  "z500_climatology": "data/wb2_2p8125/clim.npy: monthly means of the training years ['2012-2015'] (split A)",
+  "strong_thresholds": {
+   "tadv850": 8.579273529010162,
+   "qconv850": 3.5657326013378627
+  },
+  "strong_quantile": 0.9,
+  "strong_threshold_source": "split B, area-weighted over valid domain cells",
+  "valid_mask": "850 hPa used where Phi_850 > surface geopotential",
+  "units": {
+   "T850_adv": "K/day",
+   "q850_conv": "g/kg/day",
+   "z500_anom": "m",
+   "z500_grad": "m/100km",
+   "z500_change_24h": "m",
+   "T850_change_24h": "K"
+  },
+  "decimals": {
+   "T850_adv": 1,
+   "q850_conv": 2,
+   "z500_anom": 0,
+   "z500_grad": 1,
+   "z500_change_24h": 0,
+   "T850_change_24h": 1
+  }
+ },
+ "labels": {
+  "metric": "mean over z500, t850, t2m, u10, v10 of area-weighted domain MSE / split-A variance",
+  "sigma_split_A": {
+   "z500": 1579.517067681845,
+   "t850": 10.623827023355101,
+   "t2m": 11.015713621029112,
+   "u10": 2.8951533004082934,
+   "v10": 3.082281244793366
+  },
+  "near_tie_rel_margin": 0.05,
+  "type": "hard",
+  "B": {
+   "n": 1448,
+   "share": {
+    "baseline": 0.02,
+    "advection": 0.584,
+    "moisture": 0.396
+   },
+   "near_tie_share": 0.20096685082872928,
+   "by_season": {
+    "DJF": {
+     "baseline": 0.04,
+     "advection": 0.601,
+     "moisture": 0.359
+    },
+    "JJA": {
+     "baseline": 0.005,
+     "advection": 0.66,
+     "moisture": 0.334
+    },
+    "MAM": {
+     "baseline": 0.027,
+     "advection": 0.549,
+     "moisture": 0.424
+    },
+    "SON": {
+     "baseline": 0.008,
+     "advection": 0.527,
+     "moisture": 0.464
+    }
+   },
+   "mean_E": {
+    "baseline": 0.433,
+    "advection": 0.19,
+    "moisture": 0.1977
+   }
+  },
+  "C": {
+   "n": 722,
+   "share": {
+    "baseline": 0.015,
+    "advection": 0.548,
+    "moisture": 0.436
+   },
+   "near_tie_share": 0.18559556786703602,
+   "by_season": {
+    "DJF": {
+     "baseline": 0.029,
+     "advection": 0.465,
+     "moisture": 0.506
+    },
+    "JJA": {
+     "baseline": 0.016,
+     "advection": 0.576,
+     "moisture": 0.408
+    },
+    "MAM": {
+     "baseline": 0.016,
+     "advection": 0.549,
+     "moisture": 0.435
+    },
+    "SON": {
+     "baseline": 0.0,
+     "advection": 0.599,
+     "moisture": 0.401
+    }
+   },
+   "mean_E": {
+    "baseline": 0.4032,
+    "advection": 0.1787,
+    "moisture": 0.18
+   }
+  },
+  "D": {
+   "n": 724,
+   "share": {
+    "baseline": 0.022,
+    "advection": 0.613,
+    "moisture": 0.365
+   },
+   "near_tie_share": 0.18093922651933703,
+   "by_season": {
+    "DJF": {
+     "baseline": 0.017,
+     "advection": 0.626,
+     "moisture": 0.356
+    },
+    "JJA": {
+     "baseline": 0.0,
+     "advection": 0.696,
+     "moisture": 0.304
+    },
+    "MAM": {
+     "baseline": 0.054,
+     "advection": 0.582,
+     "moisture": 0.364
+    },
+    "SON": {
+     "baseline": 0.016,
+     "advection": 0.549,
+     "moisture": 0.434
+    }
+   },
+   "mean_E": {
+    "baseline": 0.4081,
+    "advection": 0.173,
+    "moisture": 0.1823
+   }
+  }
+ },
+ "question": {
+  "expert": {
+   "type": "choice",
+   "instructions": "Select a forecast expert for this region and lead time.",
+   "criteria": {
+    "baseline": "Base forecast without correction",
+    "advection": "Forecast with a correction for temperature advection by the wind",
+    "moisture": "Forecast with a correction for moisture transport and convergence"
+   }
+  }
+ },
+ "files": {
+  "jsonl": {
+   "B": "runs/stage02/router_train.jsonl",
+   "C": "runs/stage02/router_calib.jsonl",
+   "D": "runs/stage02/router_test.jsonl"
+  },
+  "physics_features": "runs/stage02/physics_features.csv",
+  "expert_scores": "runs/stage02/expert_scores.csv"
+ },
+ "leakage_checks": {
+  "label_names_in_state": 0,
+  "window_overlap": false,
+  "state_sources": "issue-time D_mu maps, split-A climatology, split-B thresholds, calendar; no truth, no expert errors, no label names"
+ },
+ "tokenizer": {
+  "checkpoint": "/home/user/hf/hub/models--convaiinnovations--laya-multilingual/snapshots/1720e3e3357cfe1e281542e223f8273b0890ca34",
+  "max_len": 1024,
+  "head_max_len": 256,
+  "option_tokens": {
+   "baseline": 6,
+   "advection": 14,
+   "moisture": 11
+  },
+  "options_distinct": true,
+  "question_tokens": 11,
+  "splits": {
+   "B": {
+    "rows": 1448,
+    "items": 1448,
+    "skipped": {},
+    "state_tokens": {
+     "min": 275,
+     "mean": 282.0379834254144,
+     "max": 292
+    },
+    "state_truncated": 0,
+    "full_input_tokens": {
+     "min": 327,
+     "max": 344,
+     "limit": 1024
+    }
+   },
+   "C": {
+    "rows": 722,
+    "items": 722,
+    "skipped": {},
+    "state_tokens": {
+     "min": 275,
+     "mean": 281.88504155124656,
+     "max": 291
+    },
+    "state_truncated": 0,
+    "full_input_tokens": {
+     "min": 327,
+     "max": 343,
+     "limit": 1024
+    }
+   },
+   "D": {
+    "rows": 724,
+    "items": 724,
+    "skipped": {},
+    "state_tokens": {
+     "min": 274,
+     "mean": 281.9779005524862,
+     "max": 291
+    },
+    "state_truncated": 0,
+    "full_input_tokens": {
+     "min": 326,
+     "max": 343,
+     "limit": 1024
+    }
+   }
+  },
+  "examples": [
+   "region=East Asia 28N-51N 110E-143E; month=Jan; issue=00UTC; lead=24h; sub-regions NW,NE,SW,SE; T850_adv K/day: mean=-2.3 p10=-6.5 p90=2.1 strong=0.03 sub=-3.6,-5.7,-1.7,1.0; q850_conv g/kg/day: mean=0.05 p10=-1.53 p90=2.13 strong=0.06 sub=-0.04,-0.63,-0.11,0.89; z500_anom m: mean=51 sub=-21,19,67,124; z500_grad m/100km: mean=26.3 p90=36.6; z500_change_24h m: mean=-25 sub=-49,-39,-13,-3; T850_change_24h K: mean=-1.0 sub=-3.8,-3.5,0.1,2.4",
+   "region=East Asia 28N-51N 110E-143E; month=Jan; issue=06UTC; lead=24h; sub-regions NW,NE,SW,SE; T850_adv K/day: mean=-2.0 p10=-6.3 p90=1.8 strong=0.01 sub=-4.9,-3.4,-1.7,1.3; q850_conv g/kg/day: mean=-0.14 p10=-1.49 p90=0.64 strong=0.02 sub=-0.14,-0.22,-0.53,0.31; z500_anom m: mean=39 sub=-40,7,60,111; z500_grad m/100km: mean=26.6 p90=36.7; z500_change_24h m: mean=-21 sub=-57,-25,-10,1; T850_change_24h K: mean=-1.0 sub=-3.7,-2.3,-0.7,2.1",
+   "region=East Asia 28N-51N 110E-143E; month=Jan; issue=12UTC; lead=24h; sub-regions NW,NE,SW,SE; T850_adv K/day: mean=-3.6 p10=-9.6 p90=1.7 strong=0.14 sub=-6.3,-4.7,-2.6,-1.2; q850_conv g/kg/day: mean=-0.34 p10=-1.81 p90=1.16 strong=0.02 sub=-0.10,-0.32,0.29,-1.20; z500_anom m: mean=45 sub=-31,-3,75,121; z500_grad m/100km: mean=27.5 p90=38.5; z500_change_24h m: mean=-21 sub=-54,-33,-3,-2; T850_change_24h K: mean=-1.4 sub=-3.6,-2.2,-1.1,1.1"
+  ]
+ }
+}

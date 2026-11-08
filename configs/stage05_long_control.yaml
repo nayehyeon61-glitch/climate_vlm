@@ -1,0 +1,4 @@
+# Stage 05 control: the stage-01 model (vision tower, direct output) with the long training budget.
+#   python scripts/train.py --config configs/stage05_long_control.yaml --stage 2 --init runs/stage01/stage1.pt \
+#       --out runs/stage05/control --resume
+extends: [configs/stage01_cpu_small.yaml, configs/stage05_long_train.yaml]

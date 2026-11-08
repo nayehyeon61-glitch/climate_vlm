@@ -1,0 +1,10 @@
+# Stage 04 arm (c): arm (b) with a ClimODE-style output. For z500, t850 and t2m, F gives a velocity and a source
+# per lead segment and the fields are carried from the downscaled issue-time state by a semi-Lagrangian continuity
+# step (climate_vlm/spectral.py Advection); u10 / v10 (not in the input state) keep the band recombination.
+#   python scripts/train.py --config configs/stage04_sfno_advect.yaml --stage 2 --init runs/stage01/stage1.pt \
+#       --out runs/stage04/sfno_advect
+extends: configs/stage04_sfno.yaml
+model:
+  spectral:
+    output: advect
+    advect: {channels: [z500, t850, t2m], dt_h: 6, max_cells_per_h: 1.0, compression: true}

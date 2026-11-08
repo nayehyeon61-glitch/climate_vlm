@@ -1,0 +1,11 @@
+# Stage 05 training budget (docs/stage05_long_training.md): stage-2 training (P, F, G; the stage-01 downscaler
+# runs/stage01/stage1.pt is kept) for 5 epochs instead of 0.6, on the 4-core cloud CPU (owner's choice 2026-11-06).
+# Mixed into a model config with  extends: [configs/<model>.yaml, configs/stage05_long_train.yaml].
+# 5,816 training windows (2012-2015, 6-hourly) / batch 4 = 1,454 steps per epoch, about 2 h each on this CPU.
+# Run with --resume: the state at every validation is kept, so a stopped run continues where it was.
+train:
+  workers: 2
+  val_every: 727              # twice per epoch
+  val_batches: 45             # the whole 2016 validation set (179 windows)
+  log_every: 100
+  stage2: {steps: 7270, batch: 4, lr: 3.0e-4, warmup: 0.02, loss: {diag: 0.1}}

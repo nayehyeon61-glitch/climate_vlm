@@ -1,0 +1,45 @@
+# Stage 07 (docs/stage07_flow_ensemble.md): a flow-matching ensemble generator after the decoder, like the action
+# expert of a VLA: it attends to the VLM's decoder memory and turns noise into a forecast chunk (6 leads x ClimODE's
+# 5 variables on the WB2 64x32 grid). The VLM stays frozen; its memory and mean are cached per window first.
+#   bash scripts/run_stage07.sh                       # cache, train every arm, members on 2020, scores
+# This file is the pilot on stage 04's advection arm; stage07_flow_ensemble_s05.yaml swaps in stage 05's checkpoint.
+base:
+  config: configs/stage04_sfno_advect.yaml
+  ckpt: runs/stage04/sfno_advect/stage2.pt
+out: runs/stage07/pilot
+docs: docs/stage07/pilot
+reference: ../physical_guide_flowmatching/docs/results_2026_11/scores/raw/blend_ngcm_2020_climode_paired.json
+
+cache:                                        # windows of the frozen VLM (base config's years)
+  train: {stride: 2}                          # 2012-2015, 00 and 12 UTC
+  val: {}                                     # 2016, ClimODE-convention ICs
+  test: {}                                    # 2020, ClimODE-convention ICs (the 179 of the reference)
+
+flow:
+  patch: [4, 4]                               # 8 x 16 tokens per lead on 32 x 64, 768 tokens per chunk
+  dim: 128
+  depth: 4
+  heads: 4
+  steps: 2000                                 # pilot (1 CPU thread, ~2 s per step); the stage 05 run uses 3000
+  batch: 16
+  lr: 3.0e-4
+  warmup: 100
+  weight_decay: 0.0
+  ema: 0.999
+  log_every: 100
+  val_every: 500
+  val_windows: 64
+  members: 8                                  # pg-flow's member count
+  sample_steps: 10                            # Euler steps (pi0 uses 10)
+  seed: 0
+
+arms:                                         # base: the field the residual is taken from
+  fm_vla: {base: mu, use_mu: true, use_x0: false, use_mem: true}      # decoder -> FM, FM attends to the VLM memory
+  fm_vla_x0: {base: mu, use_mu: true, use_x0: true, use_mem: true}    # + issue-time state (pi0 also feeds the state)
+  fm_mu_x0: {base: mu, use_mu: true, use_x0: true, use_mem: false}    # no memory: does the VLM add beyond its mean?
+  fm_x0: {base: x0, use_mu: false, use_x0: true, use_mem: false}      # no VLM at all (pg-flow-like control)
+  # The pilot's members were coherent inside a 4 x 4 token but independent between tokens and leads. These arms draw
+  # the source noise from a Gaussian with the targets' spectrum and lead correlation (climate_vlm/flow.py).
+  fm_mu_x0_sn: {base: mu, use_mu: true, use_x0: true, use_mem: false, noise: structured}
+  fm_vla_x0_sn: {base: mu, use_mu: true, use_x0: true, use_mem: true, noise: structured}
+  fm_x0_sn: {base: x0, use_mu: false, use_x0: true, use_mem: false, noise: structured}  # control without the VLM

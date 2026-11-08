@@ -1,0 +1,2 @@
+# Stage 05: stage 04 arm "bands" with the long training budget (run when it is stage 04's best arm on 2016).
+extends: [configs/stage04_bands.yaml, configs/stage05_long_train.yaml]

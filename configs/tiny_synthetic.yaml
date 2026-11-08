@@ -1,0 +1,62 @@
+# CPU smoke test: synthetic pg-flow files (scripts/make_synthetic.py --nlat 32), tiny random-weight Qwen3.5.
+# Exercises every code path; the numbers it produces mean nothing.
+data:
+  kai_dir: data/synthetic/kai6h
+  era5_data: data/synthetic/era5_data
+  cache: data/synthetic_cache
+  state_channels: [z500, z700, z850, t500, t700, t850, q500, q700, q850, u500, u700, u850, v500, v700, v850, t2m, msl, tcwv]
+  extra_channels: [u10, v10]
+  factor: 2
+  history_h: [-72, -48, -24, 0]
+  leads_h: [24, 48, 72, 120]
+  train_years: [2015]
+  val_years: [2016]
+  test_years: [2017]
+  ic_hours: [0, 12]
+  ic_stride: 1
+
+model:
+  qwen:
+    tiny:
+      text: {vocab_size: 512, hidden_size: 64, intermediate_size: 128, num_hidden_layers: 4, num_attention_heads: 4,
+             num_key_value_heads: 2, head_dim: 16, linear_key_head_dim: 16, linear_value_head_dim: 16,
+             linear_num_key_heads: 2, linear_num_value_heads: 4, max_position_embeddings: 4096}
+      vision: {depth: 2, hidden_size: 32, intermediate_size: 64, num_heads: 2, out_hidden_size: 64,
+               num_position_embeddings: 256}
+      image_token_id: 500
+      video_token_id: 501
+      vision_start_token_id: 502
+      vision_end_token_id: 503
+  downscaler:
+    lon_pad: 8
+    unet: {model_channels: 16, channel_mult: [1, 2], attn_resolutions: [], N_grid_channels: 4}
+    residual: true
+    res_unet: {model_channels: 16, channel_mult: [1, 2], attn_resolutions: [], N_grid_channels: 4}
+    sampler_steps: 4
+    spread_members: 0
+  vision:
+    groups: [[z500, t850, q850], [u850, v850, msl]]
+    ranges: {lr: 3.0, mean: 3.0, tendency: 3.0, spread: 1.0}
+    image_scale: 1
+    n_tokens: 16
+    dim: 32
+    heads: 4
+    layers: 1
+    numeric_patch: 8
+  n_query_tokens: 4
+  lora: {r: 4, alpha: 8, dropout: 0.0}
+  decoder: {dim: 32, heads: 4, patch: 8, f_layers: 1, g_layers: 1, self_attn: true, gaussian: true,
+            residual_base: persistence, cnn_hidden: 16}
+
+loss: {diag: 0.1, phys: 0.01, cons: 0.1, text: 0.0}
+
+train:
+  seed: 0
+  workers: 0
+  val_every: 5
+  val_batches: 2
+  log_every: 5
+  stage1: {steps: 10, batch: 2, lr: 1.0e-3}
+  stage1res: {steps: 4, batch: 2, lr: 1.0e-3}
+  stage2: {steps: 6, batch: 2, lr: 1.0e-3}
+  stage3: {steps: 6, batch: 2, lr: 5.0e-4}

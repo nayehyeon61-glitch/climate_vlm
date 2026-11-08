@@ -1,0 +1,15 @@
+# Stage 07 main run (docs/stage07_flow_ensemble.md): the flow expert after stage 05's advection arm (5 epochs),
+# every training window of 2012-2015. After the pilot it trains the structured-noise arms (members coherent across
+# tokens and leads), their no-VLM control, and fm_mu_x0 to compare with the white source noise.
+#   CONFIG=configs/stage07_flow_ensemble_s05.yaml OMP_NUM_THREADS=4 bash scripts/run_stage07.sh
+extends: configs/stage07_flow_ensemble.yaml
+base:
+  config: configs/stage05_long_sfno_advect.yaml
+  ckpt: runs/stage05/sfno_advect/stage2.pt
+out: runs/stage07/s05
+docs: docs/stage07/s05
+cache:
+  train: {stride: 1}
+flow:
+  steps: 3000
+run_arms: [fm_mu_x0_sn, fm_vla_x0_sn, fm_x0_sn, fm_mu_x0]

@@ -1,0 +1,10 @@
+torch>=2.5
+transformers>=5.0          # Qwen3.5 (qwen3_5)
+peft>=0.17
+nvidia-physicsnemo>=2.0    # CorrDiff downscaler; or pip install -e <physicsnemo clone>
+numpy
+netCDF4
+pyyaml
+pytest
+neuraloperator>=2.0        # stage 04 SFNO encoder (optional: only for vision.encoder: sfno)
+torch-harmonics>=0.8       # needed by neuraloperator's SFNO
